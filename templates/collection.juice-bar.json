@@ -1,0 +1,16 @@
+{
+    "sections": {
+      "navbar": {
+        "type": "tropioasis-navbar",
+        "settings": {}
+      },
+      "juice_bar_builder": {
+        "type": "tropioasis-juice-bar-builder",
+        "settings": {}
+      }
+    },
+    "order": [
+      "navbar",
+      "juice_bar_builder"
+    ]
+  }

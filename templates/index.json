@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "navbar": {
+      "type": "tropioasis-navbar",
+      "settings": {}
+    },
+
+    "hero": {
+      "type": "tropioasis-hero",
+      "settings": {}
+    },
+
+    "best_sellers": {
+      "type": "tropioasis-best-sellers",
+      "settings": {}
+    },
+
+    "custom_blend": {
+      "type": "tropioasis-custom-blend-spotlight",
+      "settings": {}
+    },
+
+    "about": {
+      "type": "tropioasis-about-section",
+      "settings": {}
+    }
+  },
+
+  "order": [
+    "navbar",
+    "hero",
+    "best_sellers",
+    "custom_blend",
+    "about"
+  ]
+}

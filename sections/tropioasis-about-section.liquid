@@ -1,0 +1,388 @@
+<section class="tropi-about-banner">
+  <div class="about-leaf leaf-left"></div>
+  <div class="about-splash splash-top"></div>
+
+  <div class="about-banner-shell">
+
+    <div class="about-banner-copy">
+      <div class="about-pill">
+        🌴 Why TropiOasis
+      </div>
+
+      <h2>
+        <span class="teal">Wellness</span>
+        <span class="yellow">con sabor</span>
+        <span class="pink">tropical</span>
+      </h2>
+
+      <p>
+        TropiOasis nace para hacer que cuidarte se sienta fresco, colorido y real.
+        Creamos jugos cold press, wellness shots y mezclas personalizadas con
+        ingredientes naturales pensados para energía, balance y bienestar diario.
+      </p>
+
+      <div class="about-mini-note">
+        <div class="note-icon">🌿</div>
+        <div>
+          <strong>Ingredientes reales. Propósito real.</strong>
+          <span>Bienestar que se siente.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-banner-visual">
+      <div class="image-blob">
+        <img
+          src="{{ 'about-tropical-bottles.png' | asset_url }}"
+          alt="TropiOasis tropical juices"
+        >
+      </div>
+
+      <div class="about-stat-row">
+        <div class="about-stat teal-card">
+          <div class="stat-icon">🍉</div>
+          <strong>20+</strong>
+          <span>Ingredientes frescos</span>
+          <p>Frutas, vegetales y superfoods seleccionados.</p>
+        </div>
+
+        <div class="about-stat pink-card">
+          <div class="stat-icon">🧃</div>
+          <strong>Cold</strong>
+          <span>Pressed wellness</span>
+          <p>Prensado en frío para conservar sabor y nutrientes.</p>
+        </div>
+
+        <div class="about-stat orange-card">
+          <div class="stat-icon">📍</div>
+          <strong>PR</strong>
+          <span>Hecho para Puerto Rico</span>
+          <p>Inspirado en frescura tropical y bienestar local.</p>
+        </div>
+
+        <div class="about-stat green-card">
+          <div class="stat-icon">🌿</div>
+          <strong>100%</strong>
+          <span>Tropical energy</span>
+          <p>Energía natural para tu día a día.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="about-wave">
+    <span>Fresh · Tropical · Functional</span>
+  </div>
+</section>
+
+<style>
+.tropi-about-banner{
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  position:relative;
+  overflow:hidden;
+  padding:105px 6vw 135px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,220,80,.28) 0 220px, transparent 235px),
+    radial-gradient(circle at 100% 12%, rgba(255,184,0,.35) 0 260px, transparent 275px),
+    linear-gradient(135deg,#fffaf0 0%,#fff8ed 58%,#ecfff4 100%);
+  font-family:'Nunito',sans-serif;
+}
+
+.about-banner-shell{
+  max-width:1550px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:.88fr 1.12fr;
+  gap:52px;
+  align-items:center;
+  position:relative;
+  z-index:3;
+}
+
+.about-pill{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:12px 24px;
+  border-radius:999px;
+  background:#ec0057;
+  color:#fff;
+  font-size:13px;
+  font-weight:900;
+  text-transform:uppercase;
+  box-shadow:0 14px 30px rgba(236,0,87,.22);
+  margin-bottom:24px;
+}
+
+.about-banner-copy h2{
+  margin:0;
+  font-size:clamp(62px,7vw,118px);
+  line-height:.82;
+  letter-spacing:-4px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.about-banner-copy h2 span{
+  display:block;
+}
+
+.about-banner-copy .teal{
+  color:#00a7b7;
+  text-shadow:0 8px 0 rgba(0,167,183,.08);
+}
+
+.about-banner-copy .yellow{
+  color:#ffb800;
+}
+
+.about-banner-copy .pink{
+  color:#ec0057;
+  text-transform:lowercase;
+  font-style:italic;
+  letter-spacing:-3px;
+}
+
+.about-banner-copy p{
+  max-width:650px;
+  margin:30px 0 0;
+  color:#07112f;
+  font-size:20px;
+  line-height:1.48;
+  font-weight:850;
+}
+
+.about-mini-note{
+  margin-top:34px;
+  display:flex;
+  align-items:center;
+  gap:18px;
+  max-width:570px;
+}
+
+.note-icon{
+  width:58px;
+  height:58px;
+  min-width:58px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#fff;
+  border:2px solid #00a7b7;
+  color:#00a7b7;
+  font-size:24px;
+  box-shadow:0 16px 30px rgba(0,0,0,.08);
+}
+
+.about-mini-note strong{
+  display:block;
+  color:#008c9c;
+  font-size:19px;
+  font-weight:900;
+}
+
+.about-mini-note span{
+  display:block;
+  color:#07112f;
+  font-size:17px;
+  font-weight:850;
+}
+
+.about-banner-visual{
+  position:relative;
+  min-height:650px;
+}
+
+.image-blob{
+  width:100%;
+  height:500px;
+  border-radius:46% 54% 18% 82% / 44% 31% 69% 56%;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 40% 20%, rgba(255,255,255,.45), transparent 260px),
+    linear-gradient(135deg,rgba(255,184,0,.7),rgba(255,122,0,.45),rgba(0,167,183,.18));
+  box-shadow:0 30px 70px rgba(0,0,0,.13);
+  position:relative;
+}
+
+.image-blob::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(135deg,rgba(255,184,0,.18),transparent 45%),
+    radial-gradient(circle at 80% 10%, rgba(255,255,255,.42), transparent 180px);
+  z-index:1;
+}
+
+.image-blob img{
+  width:112%;
+  height:112%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  position:absolute;
+  left:-5%;
+  top:-4%;
+}
+
+.about-stat-row{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:15px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+  z-index:5;
+}
+
+.about-stat{
+  min-height:210px;
+  border-radius:28px;
+  background:rgba(255,255,255,.92);
+  padding:24px 20px;
+  box-shadow:0 24px 50px rgba(0,0,0,.12);
+  border:1px solid rgba(0,0,0,.06);
+  backdrop-filter:blur(14px);
+}
+
+.stat-icon{
+  width:54px;
+  height:54px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-size:23px;
+  margin-bottom:22px;
+}
+
+.teal-card .stat-icon{background:#00a7b7;}
+.pink-card .stat-icon{background:#ec0057;}
+.orange-card .stat-icon{background:#ff7a00;}
+.green-card .stat-icon{background:#59b52c;}
+
+.about-stat strong{
+  display:block;
+  font-size:38px;
+  line-height:1;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.teal-card strong{color:#00a7b7;}
+.pink-card strong{color:#ec0057;}
+.orange-card strong{color:#ff7a00;}
+.green-card strong{color:#59b52c;}
+
+.about-stat span{
+  display:block;
+  color:#07112f;
+  font-size:15px;
+  line-height:1.15;
+  font-weight:900;
+  text-transform:uppercase;
+  margin-bottom:18px;
+}
+
+.about-stat p{
+  margin:0;
+  color:#3f4856;
+  font-size:14px;
+  line-height:1.35;
+  font-weight:750;
+}
+
+.about-wave{
+  position:absolute;
+  left:-5vw;
+  right:-5vw;
+  bottom:-95px;
+  height:190px;
+  background:linear-gradient(90deg,#00a7b7,#25bfb1,#9ad44b);
+  border-radius:50% 50% 0 0;
+  z-index:2;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding-top:55px;
+}
+
+.about-wave span{
+  color:#fff;
+  text-transform:uppercase;
+  letter-spacing:7px;
+  font-size:13px;
+  font-weight:900;
+}
+
+@media(max-width:1200px){
+  .about-banner-shell{
+    grid-template-columns:1fr;
+  }
+
+  .about-banner-copy{
+    text-align:center;
+  }
+
+  .about-banner-copy p,
+  .about-mini-note{
+    margin-left:auto;
+    margin-right:auto;
+  }
+
+  .about-banner-visual{
+    min-height:720px;
+  }
+}
+
+@media(max-width:850px){
+  .tropi-about-banner{
+    padding:80px 20px 110px;
+  }
+
+  .about-banner-copy h2{
+    font-size:56px;
+    letter-spacing:-2px;
+  }
+
+  .about-banner-copy p{
+    font-size:18px;
+  }
+
+  .about-banner-visual{
+    min-height:auto;
+  }
+
+  .image-blob{
+    height:380px;
+  }
+
+  .about-stat-row{
+    position:relative;
+    bottom:auto;
+    margin-top:24px;
+    grid-template-columns:1fr;
+  }
+
+  .about-stat{
+    min-height:auto;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "TropiOasis About",
+  "settings": [],
+  "presets": [
+    {
+      "name": "TropiOasis About"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "navbar": {
+      "type": "tropioasis-navbar",
+      "settings": {}
+    },
+    "main": {
+      "type": "tropioasis-product-page",
+      "settings": {}
+    }
+  },
+  "order": [
+    "navbar",
+    "main"
+  ]
+}

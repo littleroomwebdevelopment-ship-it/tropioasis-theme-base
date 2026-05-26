@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "navbar": {
+      "type": "tropioasis-navbar",
+      "settings": {}
+    },
+    "collection_grid": {
+      "type": "tropioasis-collection-grid",
+      "settings": {}
+    },
+    "juice_bar_builder": {
+      "type": "tropioasis-juice-bar-builder",
+      "settings": {}
+    }
+  },
+  "order": [
+    "navbar",
+    "collection_grid",
+    "juice_bar_builder"
+  ]
+}

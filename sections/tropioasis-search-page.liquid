@@ -1,0 +1,398 @@
+<section class="tropi-search-page">
+  <div class="search-hero">
+    <span>Search TropiOasis</span>
+
+    <h1>Busca tu boost</h1>
+
+    <p>
+      Encuentra tus jugos, wellness shots, kits y productos favoritos.
+    </p>
+
+    <form action="{{ routes.search_url }}" method="get" class="search-form">
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="Buscar Green Juice, shots, detox..."
+      >
+
+      <button type="submit">
+        Search
+      </button>
+    </form>
+  </div>
+
+  {% if search.performed %}
+
+    <div class="search-results-header">
+      {% if search.results_count > 0 %}
+        <h2>
+          {{ search.results_count }} resultado{% if search.results_count != 1 %}s{% endif %} para “{{ search.terms }}”
+        </h2>
+      {% else %}
+        <h2>
+          No encontramos resultados para “{{ search.terms }}”
+        </h2>
+
+        <p>
+          Intenta buscar otro jugo, shot o ingrediente.
+        </p>
+      {% endif %}
+    </div>
+
+    {% if search.results_count > 0 %}
+      <div class="search-grid">
+
+        {% for item in search.results %}
+
+          {% if item.object_type == 'product' %}
+
+            <article class="search-card">
+
+              <a href="{{ item.url }}" class="search-image-wrap">
+                {% if item.featured_image %}
+                  <img
+                    src="{{ item.featured_image | image_url: width: 800 }}"
+                    alt="{{ item.title }}"
+                    loading="lazy"
+                  >
+                {% endif %}
+
+                <span class="search-badge">
+                  {% if item.title contains '25oz' %}
+                    25oz
+                  {% elsif item.title contains '32oz' %}
+                    32oz
+                  {% elsif item.title contains '4 x 8oz' or item.title contains '4x8oz' %}
+                    4x8oz
+                  {% elsif item.title contains '7 x 2oz' or item.title contains '7x2oz' %}
+                    7x2oz
+                  {% elsif item.title contains '200ml' %}
+                    200ml
+                  {% elsif item.title contains 'Shot' %}
+                    2oz
+                  {% else %}
+                    8oz
+                  {% endif %}
+                </span>
+              </a>
+
+              <div class="search-card-info">
+
+                <h3>
+                  <a href="{{ item.url }}">
+                    {{ item.title }}
+                  </a>
+                </h3>
+
+                <p>
+                  {{ item.description | strip_html | truncate: 95 }}
+                </p>
+
+                <div class="search-card-bottom">
+                  <strong>
+                    {{ item.price | money }}
+                  </strong>
+
+                  {% if item.available %}
+                    <form method="post" action="/cart/add">
+                      <input
+                        type="hidden"
+                        name="id"
+                        value="{{ item.selected_or_first_available_variant.id }}"
+                      >
+
+                      <button type="submit">
+                        Add to Cart
+                      </button>
+                    </form>
+                  {% else %}
+                    <button disabled class="sold-out">
+                      Sold Out
+                    </button>
+                  {% endif %}
+                </div>
+
+              </div>
+
+            </article>
+
+          {% endif %}
+
+        {% endfor %}
+
+      </div>
+    {% endif %}
+
+  {% endif %}
+</section>
+
+<style>
+  .tropi-search-page {
+    width: 100vw;
+    min-height: 100vh;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 80px 6vw 110px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255, 211, 26, .28) 0 230px, transparent 240px),
+      radial-gradient(circle at 100% 15%, rgba(0, 167, 183, .14) 0 260px, transparent 275px),
+      linear-gradient(135deg, #fffaf0 0%, #fff7e8 58%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .search-hero {
+    max-width: 900px;
+    margin: 0 auto 60px;
+    text-align: center;
+  }
+
+  .search-hero span {
+    display: inline-block;
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: 2px solid #ec0057;
+    background: rgba(255,255,255,.78);
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .search-hero h1 {
+    margin: 0;
+    color: #00a7b7;
+    font-size: clamp(54px, 6vw, 96px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: -3px;
+    text-shadow: 0 8px 0 rgba(0,167,183,.08);
+  }
+
+  .search-hero p {
+    max-width: 680px;
+    margin: 20px auto 28px;
+    color: #07112f;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .search-form {
+    max-width: 760px;
+    height: 64px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 160px;
+    gap: 12px;
+  }
+
+  .search-form input {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 999px;
+    padding: 0 24px;
+    background: #fff;
+    color: #07112f;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    outline: none;
+    box-shadow: 0 14px 34px rgba(0,0,0,.07);
+  }
+
+  .search-form button,
+  .search-card-bottom button {
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(236,0,87,.20);
+  }
+
+  .search-results-header {
+    max-width: 900px;
+    margin: 0 auto 34px;
+    text-align: center;
+  }
+
+  .search-results-header h2 {
+    margin: 0;
+    color: #07112f;
+    font-size: 30px;
+    line-height: 1.1;
+    font-weight: 900;
+  }
+
+  .search-results-header p {
+    color: #4c5360;
+    font-size: 17px;
+    font-weight: 800;
+  }
+
+  .search-grid {
+    max-width: 1450px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 34px;
+  }
+
+  .search-card {
+    background: rgba(255,255,255,.94);
+    border-radius: 34px;
+    overflow: hidden;
+    box-shadow: 0 22px 50px rgba(0,0,0,.11);
+    border: 1px solid rgba(0,0,0,.05);
+    transition: .28s ease;
+  }
+
+  .search-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 70px rgba(0,0,0,.15);
+  }
+
+  .search-image-wrap {
+    position: relative;
+    display: block;
+    background: #fffaf0;
+    overflow: hidden;
+  }
+
+  .search-image-wrap img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition: .35s ease;
+  }
+
+  .search-card:hover .search-image-wrap img {
+    transform: scale(1.03);
+  }
+
+  .search-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    min-width: 54px;
+    height: 54px;
+    padding: 0 9px;
+    border-radius: 999px;
+    background: #ec0057;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 12px;
+    font-weight: 900;
+    border: 3px solid #fff;
+    box-shadow: 0 12px 24px rgba(236,0,87,.24);
+  }
+
+  .search-card-info {
+    padding: 24px;
+  }
+
+  .search-card-info h3 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+  .search-card-info h3 a {
+    color: #07112f;
+    text-decoration: none;
+  }
+
+  .search-card-info p {
+    margin: 0 0 22px;
+    color: #4c5360;
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 800;
+    min-height: 64px;
+  }
+
+  .search-card-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .search-card-bottom strong {
+    color: #ff6f00;
+    font-size: 23px;
+    font-weight: 900;
+  }
+
+  .search-card-bottom button {
+    min-height: 46px;
+    padding: 0 22px;
+    font-size: 13px;
+  }
+
+  .search-card-bottom .sold-out {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 1100px) {
+    .search-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+    .tropi-search-page {
+      padding: 60px 20px 80px;
+    }
+
+    .search-form {
+      height: auto;
+      grid-template-columns: 1fr;
+    }
+
+    .search-form input,
+    .search-form button {
+      height: 58px;
+    }
+
+    .search-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .search-hero h1 {
+      font-size: 52px;
+    }
+
+    .search-card-bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-card-bottom button {
+      width: 100%;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TropiOasis Search Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "TropiOasis Search Page"
+    }
+  ]
+}
+{% endschema %}

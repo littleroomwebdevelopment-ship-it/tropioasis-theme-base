@@ -1,0 +1,267 @@
+{% if collection.handle == 'juice-bar' %}
+
+{% assign custom_25 = all_products['custom-juice-25oz'] %}
+{% assign custom_32 = all_products['custom-juice-32oz'] %}
+{% assign custom_pack = all_products['custom-juice-pack-4-x-8oz'] %}
+{% assign custom_shots = all_products['custom-wellness-shots-7-x-2oz'] %}
+
+<section class="tropi-builder">
+  <div class="builder-hero">
+    <span>Create Your Own Tropical Blend</span>
+    <h1>Juice Bar</h1>
+    <p>Escoge tu tamaño, crea tu mezcla y personaliza tu experiencia TropiOasis.</p>
+  </div>
+
+  <div class="builder-grid">
+
+    <a href="{{ custom_25.url }}" class="builder-card green">
+      <div class="builder-image">
+        <img src="{{ custom_25.featured_image | image_url: width: 1400 }}" alt="{{ custom_25.title }}">
+      </div>
+      <div class="builder-content">
+        <span>25oz</span>
+        <h2>Custom Juice 25oz</h2>
+        <p>Selecciona de 2 a 6 ingredientes frescos.</p>
+        <strong>$22</strong>
+        <button>Crear Ahora</button>
+      </div>
+    </a>
+
+    <a href="{{ custom_32.url }}" class="builder-card orange">
+      <div class="builder-image">
+        <img src="{{ custom_32.featured_image | image_url: width: 1400 }}" alt="{{ custom_32.title }}">
+      </div>
+      <div class="builder-content">
+        <span>32oz</span>
+        <h2>Custom Juice 32oz</h2>
+        <p>Más grande, más tropical, más energía.</p>
+        <strong>$28</strong>
+        <button>Crear Ahora</button>
+      </div>
+    </a>
+
+    <a href="{{ custom_pack.url }}" class="builder-card blue">
+      <div class="builder-image">
+        <img src="{{ custom_pack.featured_image | image_url: width: 1400 }}" alt="{{ custom_pack.title }}">
+      </div>
+      <div class="builder-content">
+        <span>4 x 8oz</span>
+        <h2>Custom Juice Pack</h2>
+        <p>Perfecto para probar varios sabores.</p>
+        <strong>$24</strong>
+        <button>Crear Ahora</button>
+      </div>
+    </a>
+
+    <a href="{{ custom_shots.url }}" class="builder-card pink">
+      <div class="builder-image">
+        <img src="{{ custom_shots.featured_image | image_url: width: 1400 }}" alt="{{ custom_shots.title }}">
+      </div>
+      <div class="builder-content">
+        <span>7 x 2oz</span>
+        <h2>Custom Wellness Shots</h2>
+        <p>Hasta 3 ingredientes para tu boost semanal.</p>
+        <strong>$20</strong>
+        <button>Crear Ahora</button>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<style>
+  .tropi-builder {
+    width: 100vw;
+    min-height: 100vh;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 80px 5vw 110px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255, 211, 26, .30) 0 260px, transparent 270px),
+      radial-gradient(circle at 100% 20%, rgba(0, 167, 183, .16) 0 260px, transparent 280px),
+      linear-gradient(135deg, #fffaf0 0%, #fff7e8 55%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .builder-hero {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 55px;
+  }
+
+  .builder-hero span {
+    display: inline-block;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 2px solid #ec0057;
+    background: #fff;
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .builder-hero h1 {
+    margin: 0;
+    color: #00a7b7;
+    font-size: clamp(60px, 7vw, 110px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: -3px;
+    text-shadow: 0 8px 0 rgba(0,167,183,.08);
+  }
+
+  .builder-hero p {
+    max-width: 680px;
+    margin: 20px auto 0;
+    color: #07112f;
+    font-size: 21px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .builder-grid {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .builder-card {
+    background: #fff;
+    border-radius: 34px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #07112f;
+    box-shadow: 0 24px 58px rgba(0,0,0,.12);
+    border: 1px solid rgba(0,0,0,.05);
+    transition: .28s ease;
+  }
+
+  .builder-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 34px 78px rgba(0,0,0,.16);
+  }
+
+  .builder-image {
+    background: #fffaf0;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .builder-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .builder-content {
+    padding: 26px;
+  }
+
+  .builder-content span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 74px;
+    height: 38px;
+    padding: 0 15px;
+    border-radius: 999px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .green .builder-content span { background: #59b52c; }
+  .orange .builder-content span { background: #ff7a00; }
+  .blue .builder-content span { background: #00a7b7; }
+  .pink .builder-content span { background: #ec0057; }
+
+  .builder-content h2 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .builder-content p {
+    margin: 0 0 22px;
+    color: #4d5565;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 800;
+    min-height: 42px;
+  }
+
+  .builder-content strong {
+    display: block;
+    color: #ff6f00;
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+
+  .builder-content button {
+    width: 100%;
+    height: 52px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(236,0,87,.20);
+  }
+
+  @media (max-width: 1300px) {
+    .builder-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .builder-image {
+      height: 460px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .tropi-builder {
+      padding: 60px 20px 80px;
+    }
+
+    .builder-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .builder-image {
+      height: 360px;
+    }
+
+    .builder-hero h1 {
+      font-size: 58px;
+    }
+  }
+</style>
+
+{% endif %}
+
+{% schema %}
+{
+  "name": "TropiOasis Juice Bar",
+  "settings": [],
+  "presets": [
+    {
+      "name": "TropiOasis Juice Bar"
+    }
+  ]
+}
+{% endschema %}

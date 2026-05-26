@@ -1,0 +1,720 @@
+{% assign is_juice_bar = false %}
+
+{% if product.type == 'Juice Bar' or product.collections contains collections['juice-bar'] or product.title contains 'Custom' %}
+  {% assign is_juice_bar = true %}
+{% endif %}
+
+{% assign min_ingredients = 0 %}
+{% assign max_ingredients = 6 %}
+
+{% if product.title contains 'Shot' or product.title contains 'Shots' %}
+  {% assign min_ingredients = 1 %}
+  {% assign max_ingredients = 3 %}
+{% elsif is_juice_bar %}
+  {% assign min_ingredients = 2 %}
+  {% assign max_ingredients = 6 %}
+{% endif %}
+
+<section class="tropi-product-page">
+  <div class="product-shell">
+
+    <div class="product-gallery">
+      {% if product.featured_image %}
+        <div class="main-image-card">
+          <span class="product-size-badge">
+            {% if product.title contains '25oz' %}
+              25oz
+            {% elsif product.title contains '32oz' %}
+              32oz
+            {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
+              4x8oz
+            {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
+              7x2oz
+            {% elsif product.title contains '200ml' %}
+              200ml
+            {% elsif product.type == 'Wellness Shots' or product.collections contains collections['wellness-shots'] %}
+              2oz
+            {% else %}
+              8oz
+            {% endif %}
+          </span>
+
+          <img
+            src="{{ product.featured_image | image_url: width: 1400 }}"
+            alt="{{ product.title }}"
+            class="main-product-image"
+          >
+        </div>
+      {% endif %}
+
+      {% if product.images.size > 1 %}
+        <div class="thumb-grid">
+          {% for image in product.images %}
+            <button class="thumb-btn" type="button">
+              <img
+                src="{{ image | image_url: width: 300 }}"
+                alt="{{ product.title }}"
+              >
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-details">
+
+      <div class="product-kicker">
+        {% if is_juice_bar %}
+          Custom Blend • Fresh • TropiOasis
+        {% else %}
+          Cold Press • Fresh • TropiOasis
+        {% endif %}
+      </div>
+
+      <h1>{{ product.title }}</h1>
+
+      <div class="product-price">
+        {{ product.price | money }}
+
+        {% if product.compare_at_price > product.price %}
+          <span>{{ product.compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+
+      <div class="product-description">
+        {{ product.description }}
+      </div>
+
+      {% if is_juice_bar %}
+        <div class="custom-builder-box">
+          <div class="custom-builder-header">
+            <span>Step 1</span>
+            <h2>Escoge tus ingredientes</h2>
+
+            {% if product.title contains 'Shot' or product.title contains 'Shots' %}
+              <p>Selecciona hasta 3 ingredientes para tus wellness shots.</p>
+            {% else %}
+              <p>Selecciona mínimo 2 y máximo 6 ingredientes para tu jugo.</p>
+            {% endif %}
+          </div>
+
+          <div
+            class="ingredient-grid"
+            data-min="{{ min_ingredients }}"
+            data-max="{{ max_ingredients }}"
+          >
+            <button type="button" class="ingredient-chip" data-ingredient="Pepino">🥒 Pepino</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Manzana Verde">🍏 Manzana Verde</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Limón">🍋 Limón</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Lima">🟢 Lima</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Remolacha">❤️ Remolacha</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Zanahoria">🥕 Zanahoria</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Kale">🥬 Kale</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Espinaca">🌿 Espinaca</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Jengibre">🫚 Jengibre</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Cúrcuma">🟠 Cúrcuma</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Parcha">🟡 Parcha</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Piña">🍍 Piña</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Mango">🥭 Mango</button>
+            <button type="button" class="ingredient-chip" data-ingredient="China">🍊 China</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Agua de Coco">🥥 Agua de Coco</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Melón">🍈 Melón</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Fresa">🍓 Fresa</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Papaya">🧡 Papaya</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Ciruela">🟣 Ciruela</button>
+            <button type="button" class="ingredient-chip" data-ingredient="Celery">🌱 Celery</button>
+          </div>
+
+          <div class="builder-status">
+            <strong>
+              Seleccionados:
+              <span id="ingredient-count">0</span>
+              /
+              {{ max_ingredients }}
+            </strong>
+
+            <p id="ingredient-message">
+              {% if product.title contains 'Shot' or product.title contains 'Shots' %}
+                Escoge de 1 a 3 ingredientes.
+              {% else %}
+                Escoge de 2 a 6 ingredientes.
+              {% endif %}
+            </p>
+          </div>
+        </div>
+      {% else %}
+        <div class="benefit-pills">
+          <span>🌿 Natural</span>
+          <span>💧 Cold Press</span>
+          <span>⚡ Energy</span>
+          <span>💚 Wellness</span>
+        </div>
+      {% endif %}
+
+      {% form 'product', product, class: 'product-form', id: 'tropi-product-form' %}
+        <input
+          type="hidden"
+          name="id"
+          value="{{ product.selected_or_first_available_variant.id }}"
+        >
+
+        {% if is_juice_bar %}
+          <input
+            type="hidden"
+            name="properties[Ingredientes]"
+            id="selected-ingredients-input"
+            value=""
+          >
+
+          <input
+            type="hidden"
+            name="properties[Tipo de orden]"
+            value="{{ product.title }}"
+          >
+        {% endif %}
+
+        <div class="quantity-box">
+          <label for="Quantity">Quantity</label>
+
+          <div class="quantity-controls">
+            <button type="button" class="qty-btn minus">−</button>
+
+            <input
+              id="Quantity"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+            >
+
+            <button type="button" class="qty-btn plus">+</button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="add-to-cart-main"
+          {% unless product.available %}disabled{% endunless %}
+        >
+          {% if product.available %}
+            {% if is_juice_bar %}
+              Add Custom Blend to Cart
+            {% else %}
+              Add to Cart
+            {% endif %}
+          {% else %}
+            Sold Out
+          {% endif %}
+        </button>
+      {% endform %}
+
+      <div class="product-info-bar">
+        <div>
+          <strong>Entrega rápida</strong>
+          <small>A todo Puerto Rico</small>
+        </div>
+
+        <div>
+          <strong>Pago seguro</strong>
+          <small>Checkout protegido</small>
+        </div>
+
+        <div>
+          <strong>Hecho fresco</strong>
+          <small>Preparado con amor</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .tropi-product-page {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    min-height: calc(100vh - 105px);
+    padding: 80px 6vw 100px;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255, 211, 26, .28) 0 230px, transparent 240px),
+      linear-gradient(135deg, #fffaf0 0%, #fffaf0 62%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .product-shell {
+    max-width: 1450px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap: 58px;
+    align-items: center;
+  }
+
+  .main-image-card {
+    position: relative;
+    background: rgba(255,255,255,.92);
+    border-radius: 38px;
+    overflow: hidden;
+    box-shadow: 0 28px 70px rgba(0,0,0,.12);
+    border: 1px solid rgba(0,0,0,.05);
+  }
+
+  .main-product-image {
+    width: 100%;
+    display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .product-size-badge {
+    position: absolute;
+    top: 22px;
+    left: 22px;
+    min-width: 62px;
+    height: 62px;
+    padding: 0 9px;
+    border-radius: 999px;
+    background: #ec0057;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 900;
+    border: 3px solid #fff;
+    z-index: 2;
+    box-shadow: 0 14px 28px rgba(236,0,87,.24);
+  }
+
+  .thumb-grid {
+    margin-top: 18px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .thumb-btn {
+    width: 92px;
+    height: 92px;
+    padding: 0;
+    border: 2px solid rgba(0,167,183,.22);
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    cursor: pointer;
+  }
+
+  .thumb-btn img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .product-details {
+    background: rgba(255,255,255,.78);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 38px;
+    padding: 42px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.08);
+  }
+
+  .product-kicker {
+    width: max-content;
+    max-width: 100%;
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 2px solid #ec0057;
+    color: #07112f;
+    background: rgba(255,255,255,.72);
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+
+  .product-details h1 {
+    margin: 0 0 18px;
+    color: #00a7b7;
+    font-size: clamp(42px, 4.6vw, 76px);
+    line-height: .95;
+    letter-spacing: -2px;
+    font-weight: 900;
+    text-shadow: 0 8px 0 rgba(0,167,183,.08);
+  }
+
+  .product-price {
+    color: #ff6f00;
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 24px;
+  }
+
+  .product-price span {
+    color: #9aa0aa;
+    font-size: 22px;
+    text-decoration: line-through;
+    margin-left: 12px;
+  }
+
+  .product-description {
+    color: #07112f;
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 800;
+    margin-bottom: 26px;
+  }
+
+  .benefit-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+
+  .benefit-pills span {
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .custom-builder-box {
+    margin: 26px 0 30px;
+    padding: 26px;
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 100% 0%, rgba(255,208,0,.22), transparent 160px),
+      linear-gradient(135deg, rgba(255,255,255,.95), rgba(239,255,243,.92));
+    border: 1px solid rgba(0,0,0,.06);
+    box-shadow: 0 18px 38px rgba(0,0,0,.07);
+  }
+
+  .custom-builder-header span {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 999px;
+    background: #ec0057;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .custom-builder-header h2 {
+    margin: 0 0 8px;
+    color: #07112f;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .custom-builder-header p {
+    margin: 0 0 22px;
+    color: #4c5360;
+    font-size: 15px;
+    font-weight: 800;
+  }
+
+  .ingredient-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .ingredient-chip {
+    border: 2px solid rgba(0,0,0,.06);
+    background: #fff;
+    color: #07112f;
+    border-radius: 999px;
+    padding: 11px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: .2s ease;
+    box-shadow: 0 9px 18px rgba(0,0,0,.05);
+  }
+
+  .ingredient-chip:hover {
+    transform: translateY(-2px);
+  }
+
+  .ingredient-chip.active {
+    border-color: #ec0057;
+    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    color: #fff;
+    box-shadow: 0 12px 24px rgba(236,0,87,.22);
+  }
+
+  .builder-status {
+    margin-top: 18px;
+    padding: 16px;
+    border-radius: 18px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.06);
+  }
+
+  .builder-status strong {
+    display: block;
+    color: #07112f;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .builder-status p {
+    margin: 0;
+    color: #ec0057;
+    font-size: 13px;
+    font-weight: 900;
+  }
+
+  .product-form {
+    display: grid;
+    gap: 22px;
+  }
+
+  .quantity-box label {
+    display: block;
+    margin-bottom: 10px;
+    color: #07112f;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .quantity-controls {
+    width: 170px;
+    height: 52px;
+    display: grid;
+    grid-template-columns: 44px 1fr 44px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.08);
+  }
+
+  .qty-btn {
+    border: 0;
+    background: #fff;
+    color: #ec0057;
+    font-size: 24px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .quantity-controls input {
+    width: 100%;
+    border: 0;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    color: #07112f;
+    outline: none;
+  }
+
+  .add-to-cart-main {
+    height: 60px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 18px 34px rgba(236,0,87,.22);
+    transition: .22s ease;
+  }
+
+  .add-to-cart-main:hover {
+    transform: translateY(-3px);
+  }
+
+  .add-to-cart-main:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  .product-info-bar {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background: #fff;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 14px 34px rgba(0,0,0,.07);
+  }
+
+  .product-info-bar div {
+    padding: 18px;
+    border-right: 1px solid rgba(0,0,0,.06);
+  }
+
+  .product-info-bar div:last-child {
+    border-right: 0;
+  }
+
+  .product-info-bar strong {
+    display: block;
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .product-info-bar small {
+    color: #4c5360;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 1000px) {
+    .product-shell {
+      grid-template-columns: 1fr;
+    }
+
+    .product-details {
+      padding: 30px;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .tropi-product-page {
+      padding: 42px 20px 70px;
+    }
+
+    .product-info-bar {
+      grid-template-columns: 1fr;
+    }
+
+    .product-info-bar div {
+      border-right: 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+
+    .product-info-bar div:last-child {
+      border-bottom: 0;
+    }
+
+    .product-details h1 {
+      font-size: 42px;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const mainImage = document.querySelector('.main-product-image');
+    const thumbs = document.querySelectorAll('.thumb-btn img');
+
+    thumbs.forEach(function (thumb) {
+      thumb.addEventListener('click', function () {
+        if (mainImage) {
+          mainImage.src = thumb.src.replace('width=300', 'width=1200');
+        }
+      });
+    });
+
+    const minus = document.querySelector('.qty-btn.minus');
+    const plus = document.querySelector('.qty-btn.plus');
+    const input = document.querySelector('.quantity-controls input');
+
+    minus?.addEventListener('click', function () {
+      const value = parseInt(input.value || '1', 10);
+      input.value = Math.max(1, value - 1);
+    });
+
+    plus?.addEventListener('click', function () {
+      const value = parseInt(input.value || '1', 10);
+      input.value = value + 1;
+    });
+
+    const form = document.querySelector('#tropi-product-form');
+    const ingredientGrid = document.querySelector('.ingredient-grid');
+    const chips = document.querySelectorAll('.ingredient-chip');
+    const hiddenInput = document.querySelector('#selected-ingredients-input');
+    const countText = document.querySelector('#ingredient-count');
+    const message = document.querySelector('#ingredient-message');
+
+    if (ingredientGrid && chips.length && hiddenInput) {
+      const min = parseInt(ingredientGrid.dataset.min || '0', 10);
+      const max = parseInt(ingredientGrid.dataset.max || '6', 10);
+      let selected = [];
+
+      function updateBuilder() {
+        hiddenInput.value = selected.join(', ');
+        countText.textContent = selected.length;
+
+        if (selected.length < min) {
+          message.textContent = `Faltan ${min - selected.length} ingrediente(s) para completar tu mezcla.`;
+          message.style.color = '#ec0057';
+        } else {
+          message.textContent = 'Tu mezcla está lista para añadir al carrito.';
+          message.style.color = '#59b52c';
+        }
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          const ingredient = chip.dataset.ingredient;
+
+          if (selected.includes(ingredient)) {
+            selected = selected.filter(function (item) {
+              return item !== ingredient;
+            });
+
+            chip.classList.remove('active');
+          } else {
+            if (selected.length >= max) {
+              message.textContent = `Máximo ${max} ingredientes para esta opción.`;
+              message.style.color = '#ec0057';
+              return;
+            }
+
+            selected.push(ingredient);
+            chip.classList.add('active');
+          }
+
+          updateBuilder();
+        });
+      });
+
+      form?.addEventListener('submit', function (event) {
+        if (selected.length < min) {
+          event.preventDefault();
+
+          message.textContent = `Selecciona mínimo ${min} ingrediente(s) antes de añadir al carrito.`;
+          message.style.color = '#ec0057';
+
+          ingredientGrid.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      });
+
+      updateBuilder();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "TropiOasis Product Page",
+  "settings": [],
+  "presets": [
+    {
+      "name": "TropiOasis Product Page"
+    }
+  ]
+}
+{% endschema %}

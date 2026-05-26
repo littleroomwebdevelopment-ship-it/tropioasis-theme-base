@@ -1,0 +1,385 @@
+<section class="tropi-best-sellers">
+  <div class="best-bg-orb best-orb-one"></div>
+  <div class="best-bg-orb best-orb-two"></div>
+
+  <div class="best-header">
+    <span>Favoritos de TropiOasis</span>
+    <h2>Best Sellers</h2>
+    <p>
+      Los favoritos de nuestra comunidad para energía, detox,
+      inmunidad y bienestar diario.
+    </p>
+  </div>
+
+  <div class="best-grid">
+
+    {% assign featured_handles = "green-juice-detox,passion-juice-bright-shield,immune-support-shot-200ml" | split: "," %}
+
+    {% for handle in featured_handles %}
+      {% assign product = all_products[handle] %}
+
+      <article class="best-card">
+
+        <a href="{{ product.url }}" class="best-image-wrap">
+
+          {% if product.featured_image %}
+            <img
+              src="{{ product.featured_image | image_url: width: 900 }}"
+              alt="{{ product.title }}"
+              class="best-image"
+              loading="lazy"
+            >
+          {% endif %}
+
+          <span class="best-badge">
+            Best Seller
+          </span>
+
+          <span class="best-size">
+            {% if product.title contains '200ml' %}
+              200ml
+            {% elsif product.type == 'Wellness Shots' or product.title contains 'Shot' %}
+              2oz
+            {% else %}
+              8oz
+            {% endif %}
+          </span>
+
+        </a>
+
+        <div class="best-content">
+
+          <div>
+
+            <h3>
+              <a href="{{ product.url }}">
+                {{ product.title }}
+              </a>
+            </h3>
+
+            <p>
+              {{ product.description | strip_html | truncate: 92 }}
+            </p>
+
+          </div>
+
+          <div class="best-bottom">
+
+            <strong>
+              {{ product.price | money }}
+            </strong>
+
+            {% if product.available %}
+
+              <form method="post" action="/cart/add">
+
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+
+                <button type="submit">
+                  Add to Cart
+                </button>
+
+              </form>
+
+            {% else %}
+
+              <button disabled class="sold-out">
+                Sold Out
+              </button>
+
+            {% endif %}
+
+          </div>
+
+        </div>
+
+      </article>
+
+    {% endfor %}
+
+  </div>
+</section>
+
+<style>
+  .tropi-best-sellers {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 110px 7vw;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 5% 12%, rgba(255, 208, 0, .25) 0 220px, transparent 230px),
+      radial-gradient(circle at 96% 18%, rgba(0, 167, 183, .13) 0 260px, transparent 270px),
+      linear-gradient(135deg, #fffaf0 0%, #fff7e8 55%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .best-bg-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(2px);
+    opacity: .5;
+    pointer-events: none;
+  }
+
+  .best-orb-one {
+    width: 230px;
+    height: 230px;
+    background: #ffd000;
+    left: -70px;
+    top: 160px;
+  }
+
+  .best-orb-two {
+    width: 190px;
+    height: 190px;
+    background: #ec0057;
+    right: -60px;
+    bottom: 120px;
+  }
+
+  .best-header {
+    max-width: 900px;
+    margin: 0 auto 52px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .best-header span {
+    display: inline-block;
+    padding: 10px 24px;
+    border: 2px solid #ec0057;
+    border-radius: 999px;
+    background: rgba(255,255,255,.72);
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .best-header h2 {
+    margin: 0;
+    color: #00a7b7;
+    font-size: clamp(54px, 6vw, 96px);
+    line-height: .9;
+    font-weight: 900;
+    letter-spacing: -3px;
+    text-shadow: 0 9px 0 rgba(0,167,183,.09);
+  }
+
+  .best-header p {
+    max-width: 700px;
+    margin: 20px auto 0;
+    color: #07112f;
+    font-size: 20px;
+    line-height: 1.35;
+    font-weight: 900;
+  }
+
+  .best-grid {
+    max-width: 1450px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 34px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .best-card {
+    position: relative;
+    background: rgba(255,255,255,.94);
+    border-radius: 36px;
+    overflow: hidden;
+    box-shadow: 0 24px 54px rgba(0,0,0,.11);
+    border: 1px solid rgba(0,0,0,.05);
+    transition: .28s ease;
+  }
+
+  .best-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 34px 76px rgba(0,0,0,.16);
+  }
+
+  .best-image-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: linear-gradient(
+      135deg,
+      rgba(236,0,87,.08),
+      rgba(255,122,0,.08),
+      rgba(0,167,183,.08)
+    );
+  }
+
+  .best-image {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    transition: .35s ease;
+  }
+
+  .best-card:hover .best-image {
+    transform: scale(1.06);
+  }
+
+  .best-badge {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #ec0057;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: 2px solid #fff;
+    box-shadow: 0 12px 24px rgba(236,0,87,.26);
+  }
+
+  .best-size {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #fff;
+    color: #ec0057;
+    display: grid;
+    place-items: center;
+    font-size: 13px;
+    font-weight: 900;
+    border: 3px solid #ec0057;
+    box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  }
+
+  .best-content {
+    min-height: 230px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .best-content h3 {
+    margin: 0 0 10px;
+    font-size: 25px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+  .best-content h3 a {
+    color: #07112f;
+    text-decoration: none;
+  }
+
+  .best-content p {
+    margin: 0;
+    color: #4c5360;
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  .best-bottom {
+    margin-top: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .best-bottom strong {
+    color: #ff6f00;
+    font-size: 24px;
+    font-weight: 900;
+  }
+
+  .best-bottom button {
+    border: 0;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      #ec0057,
+      #ff7a00,
+      #00a7b7
+    );
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(236,0,87,.20);
+    transition: .22s ease;
+  }
+
+  .best-bottom button:hover {
+    transform: translateY(-2px);
+  }
+
+  .best-bottom .sold-out {
+    opacity: .45;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 1100px) {
+    .best-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 700px) {
+
+    .tropi-best-sellers {
+      padding: 76px 20px;
+    }
+
+    .best-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .best-header h2 {
+      font-size: 52px;
+    }
+
+    .best-header p {
+      font-size: 17px;
+    }
+
+    .best-bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .best-bottom button {
+      width: 100%;
+    }
+
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TropiOasis Best Sellers",
+  "settings": [],
+  "presets": [
+    {
+      "name": "TropiOasis Best Sellers"
+    }
+  ]
+}
+{% endschema %}

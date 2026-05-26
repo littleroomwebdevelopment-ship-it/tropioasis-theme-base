@@ -1,0 +1,867 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .site-header {
+    width: 100vw;
+    height: 105px;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: linear-gradient(90deg, #ec0057 0%, #ff6f00 24%, #ffd000 48%, #59b52c 72%, #00a7b7 100%);
+    box-shadow: 0 10px 28px rgba(0,0,0,.14);
+    position: relative;
+    z-index: 999;
+  }
+
+  .navbar {
+    width: 100%;
+    height: 105px;
+    padding: 0 42px;
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo-wrap {
+    width: 118px;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  .logo {
+    width: 105px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,.20));
+    transition: .25s ease;
+  }
+
+  .logo:hover {
+    transform: scale(1.03);
+  }
+
+  .burger {
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 50%;
+    background: rgba(255,255,255,.16);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: .22s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .burger:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.24);
+  }
+
+  .burger-lines {
+    width: 24px;
+    height: 18px;
+    position: relative;
+  }
+
+  .burger-lines span {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 3px;
+    background: #fff;
+    border-radius: 999px;
+    transition: .25s ease;
+  }
+
+  .burger-lines span:nth-child(1) {
+    top: 0;
+  }
+
+  .burger-lines span:nth-child(2) {
+    top: 7.5px;
+  }
+
+  .burger-lines span:nth-child(3) {
+    bottom: 0;
+  }
+
+  .burger.active .burger-lines span:nth-child(1) {
+    top: 7.5px;
+    transform: rotate(45deg);
+  }
+
+  .burger.active .burger-lines span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  .burger.active .burger-lines span:nth-child(3) {
+    bottom: 7.5px;
+    transform: rotate(-45deg);
+  }
+
+  .nav-links {
+    justify-self: center;
+    margin: 0;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.22);
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.05);
+    max-width: 100%;
+  }
+
+  .nav-links a {
+    position: relative;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 11.5px;
+    letter-spacing: .35px;
+    white-space: nowrap;
+    text-shadow: 0 2px 8px rgba(0,0,0,.16);
+    padding: 12px 11px;
+    border-radius: 999px;
+    transition: all .25s ease;
+    overflow: hidden;
+  }
+
+  .nav-links a:hover {
+    background: rgba(255,255,255,.12);
+    transform: translateY(-2px);
+  }
+
+  .nav-links a.active {
+    background: rgba(255,255,255,.18);
+    box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 10px 30px rgba(255,255,255,.10);
+  }
+
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 15px;
+    right: 15px;
+    bottom: 7px;
+    height: 3px;
+    border-radius: 999px;
+    background: white;
+  }
+
+  .nav-links a.active::before {
+    content: "•";
+    position: absolute;
+    top: 3px;
+    right: 10px;
+    font-size: 12px;
+    color: #fff;
+  }
+
+  .nav-actions {
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .nav-icon {
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 50%;
+    background: rgba(255,255,255,.16);
+    display: grid;
+    place-items: center;
+    position: relative;
+    text-decoration: none;
+    transition: .22s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .nav-icon svg {
+    width: 25px;
+    height: 25px;
+    stroke: #fff;
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-icon:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.24);
+  }
+
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #ec0057;
+    color: #fff;
+    border: 2px solid #fff;
+    display: grid;
+    place-items: center;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.32);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: .25s ease;
+    z-index: 998;
+  }
+
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .side-drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: min(390px, 88vw);
+    height: 100vh;
+    background: rgba(255,255,255,.88);
+    backdrop-filter: blur(20px);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: .32s cubic-bezier(.22,1,.36,1);
+    padding: 28px;
+    box-shadow: 18px 0 46px rgba(0,0,0,.18);
+    overflow-y: auto;
+  }
+
+  .side-drawer.open {
+    transform: translateX(0);
+  }
+
+  .drawer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+  }
+
+  .drawer-logo {
+    width: 120px;
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
+  }
+
+  .drawer-close {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(0,0,0,.08);
+    border-radius: 50%;
+    background: #f5f5f5;
+    color: #222;
+    font-size: 28px;
+    cursor: pointer;
+    transition: .22s ease;
+  }
+
+  .drawer-close:hover {
+    transform: rotate(90deg);
+  }
+
+  .drawer-search {
+    width: 100%;
+    height: 48px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 16px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.06);
+  }
+
+  .drawer-search svg {
+    width: 22px;
+    height: 22px;
+    stroke: #00a7b7;
+    stroke-width: 2.4;
+    fill: none;
+  }
+
+  .drawer-search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #222;
+  }
+
+  .drawer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 18px;
+  }
+
+  .drawer-links li {
+    list-style: none;
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+
+  .side-drawer.open .drawer-links li {
+    animation: drawerLinkIn .42s ease forwards;
+  }
+
+  .side-drawer.open .drawer-links li:nth-child(1) { animation-delay: .04s; }
+  .side-drawer.open .drawer-links li:nth-child(2) { animation-delay: .08s; }
+  .side-drawer.open .drawer-links li:nth-child(3) { animation-delay: .12s; }
+  .side-drawer.open .drawer-links li:nth-child(4) { animation-delay: .16s; }
+  .side-drawer.open .drawer-links li:nth-child(5) { animation-delay: .20s; }
+  .side-drawer.open .drawer-links li:nth-child(6) { animation-delay: .24s; }
+  .side-drawer.open .drawer-links li:nth-child(7) { animation-delay: .28s; }
+  .side-drawer.open .drawer-links li:nth-child(8) { animation-delay: .32s; }
+  .side-drawer.open .drawer-links li:nth-child(9) { animation-delay: .36s; }
+
+  @keyframes drawerLinkIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .drawer-links a {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: .4px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: .22s ease;
+  }
+
+  .drawer-links a:hover {
+    transform: translateX(8px);
+  }
+
+  .drawer-links svg {
+    width: 26px;
+    height: 26px;
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .drawer-links li:nth-child(1) a,
+  .drawer-links li:nth-child(1) svg,
+  .drawer-links li:nth-child(6) a,
+  .drawer-links li:nth-child(6) svg {
+    color: #ec0057;
+    stroke: #ec0057;
+  }
+
+  .drawer-links li:nth-child(2) a,
+  .drawer-links li:nth-child(2) svg,
+  .drawer-links li:nth-child(7) a,
+  .drawer-links li:nth-child(7) svg {
+    color: #ff7a00;
+    stroke: #ff7a00;
+  }
+
+  .drawer-links li:nth-child(3) a,
+  .drawer-links li:nth-child(3) svg,
+  .drawer-links li:nth-child(8) a,
+  .drawer-links li:nth-child(8) svg {
+    color: #59b52c;
+    stroke: #59b52c;
+  }
+
+  .drawer-links li:nth-child(4) a,
+  .drawer-links li:nth-child(4) svg,
+  .drawer-links li:nth-child(5) a,
+  .drawer-links li:nth-child(5) svg,
+  .drawer-links li:nth-child(9) a,
+  .drawer-links li:nth-child(9) svg {
+    color: #00a7b7;
+    stroke: #00a7b7;
+  }
+
+  .drawer-feature {
+    margin-top: 32px;
+    padding: 18px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, rgba(236,0,87,.10), rgba(255,122,0,.10), rgba(0,167,183,.12));
+    border: 1px solid rgba(0,0,0,.06);
+  }
+
+  .drawer-feature span {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: #ec0057;
+    margin-bottom: 8px;
+  }
+
+  .drawer-feature h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #121212;
+  }
+
+  .drawer-feature p {
+    margin: 0;
+    color: #444;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .drawer-cta {
+    margin-top: 18px;
+    height: 50px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: .5px;
+    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    box-shadow: 0 14px 28px rgba(236,0,87,.20);
+    transition: .22s ease;
+  }
+
+  .drawer-cta:hover {
+    transform: translateY(-2px);
+  }
+
+  .drawer-socials {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+  }
+
+  .drawer-socials a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    font-weight: 900;
+    color: #fff;
+    background: #111;
+    transition: .22s ease;
+  }
+
+  .drawer-socials a:nth-child(1) { background: #ec0057; }
+  .drawer-socials a:nth-child(2) { background: #00a7b7; }
+  .drawer-socials a:nth-child(3) { background: #59b52c; }
+
+  .drawer-socials a:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1280px) {
+    .nav-links a {
+      font-size: 10.5px;
+      padding: 11px 8px;
+    }
+
+    .navbar {
+      padding: 0 28px;
+      gap: 14px;
+    }
+  }
+
+  @media (max-width: 1050px) {
+    .nav-links {
+      display: none;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .site-header {
+      height: 96px;
+    }
+
+    .navbar {
+      height: 96px;
+      padding: 0 18px;
+      grid-template-columns: auto auto 1fr auto;
+      gap: 14px;
+    }
+
+    .logo-wrap {
+      width: 90px;
+      height: 96px;
+    }
+
+    .logo {
+      width: 80px;
+    }
+
+    .burger,
+    .nav-icon {
+      width: 42px;
+      height: 42px;
+    }
+
+    .nav-icon svg {
+      width: 23px;
+      height: 23px;
+    }
+  }
+</style>
+
+<header class="site-header">
+  <nav class="navbar">
+
+    <a href="{{ routes.root_url }}" class="logo-wrap">
+      <img
+        src="{{ 'logo.png' | asset_url }}"
+        alt="Tropi Oasis"
+        class="logo"
+      >
+    </a>
+
+    <button class="burger" type="button" aria-label="Abrir menú">
+      <span class="burger-lines">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+
+    <div class="nav-links">
+
+      <a href="/" class="{% if request.page_type == 'index' %}active{% endif %}">
+        Inicio
+      </a>
+
+      <a href="/collections/functional-juices" class="{% if collection.handle == 'functional-juices' %}active{% endif %}">
+        Functional Juices
+      </a>
+
+      <a href="/collections/wellness-shots" class="{% if collection.handle == 'wellness-shots' %}active{% endif %}">
+        Wellness Shots
+      </a>
+
+      <a href="/collections/juice-bar" class="{% if collection.handle == 'juice-bar' %}active{% endif %}">
+        Juice Bar
+      </a>
+
+      <a href="/collections/all" class="{% if collection.handle == 'all' %}active{% endif %}">
+        All Items
+      </a>
+
+      <a href="/pages/sobre-nosotros">
+        Sobre Nosotros
+      </a>
+
+      <a href="/blogs/news">
+        Blog
+      </a>
+
+      <a href="/pages/faq">
+        FAQ
+      </a>
+
+      <a href="/pages/contact">
+        Contacto
+      </a>
+
+    </div>
+
+    <div class="nav-actions">
+
+      <a href="{{ routes.account_url }}" class="nav-icon" aria-label="Cuenta">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21C4 17 7.3 14 12 14C16.7 14 20 17 20 21"></path>
+        </svg>
+      </a>
+
+      <a href="{{ routes.cart_url }}" class="nav-icon" aria-label="Carrito">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 8H18L17 21H7L6 8Z"></path>
+          <path d="M9 8C9 4.7 10.3 3 12 3C13.7 3 15 4.7 15 8"></path>
+        </svg>
+
+        <span class="cart-count">
+          {{ cart.item_count }}
+        </span>
+      </a>
+
+    </div>
+
+  </nav>
+</header>
+
+<div class="drawer-overlay"></div>
+
+<aside class="side-drawer">
+
+  <div class="drawer-top">
+
+    <img
+      src="{{ 'logo.png' | asset_url }}"
+      alt="Tropi Oasis"
+      class="drawer-logo"
+    >
+
+    <button class="drawer-close" type="button" aria-label="Cerrar menú">
+      ×
+    </button>
+
+  </div>
+
+  <form action="{{ routes.search_url }}" method="get" class="drawer-search">
+    <svg viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="M20 20L16.5 16.5"></path>
+    </svg>
+
+    <input type="search" name="q" placeholder="Search juices...">
+  </form>
+
+  <ul class="drawer-links">
+
+    <li>
+      <a href="/">
+        <svg viewBox="0 0 24 24">
+          <path d="M3 10.5L12 3L21 10.5"></path>
+          <path d="M5 9.5V21H19V9.5"></path>
+        </svg>
+        Inicio
+      </a>
+    </li>
+
+    <li>
+      <a href="/collections/functional-juices">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 21H16"></path>
+          <path d="M9 21L8 8H16L15 21"></path>
+          <path d="M10 8L11 3H15"></path>
+        </svg>
+        Functional Juices
+      </a>
+    </li>
+
+    <li>
+      <a href="/collections/wellness-shots">
+        <svg viewBox="0 0 24 24">
+          <path d="M13 2L4 14H12L11 22L20 10H12L13 2Z"></path>
+        </svg>
+        Wellness Shots
+      </a>
+    </li>
+
+    <li>
+      <a href="/collections/juice-bar">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22V12"></path>
+          <path d="M12 12C8 12 5 9 5 5C9 5 12 8 12 12Z"></path>
+          <path d="M12 12C16 12 19 9 19 5C15 5 12 8 12 12Z"></path>
+        </svg>
+        Juice Bar
+      </a>
+    </li>
+
+    <li>
+      <a href="/collections/all">
+        <svg viewBox="0 0 24 24">
+          <path d="M6 8H18L17 21H7L6 8Z"></path>
+          <path d="M9 8C9 4.7 10.3 3 12 3C13.7 3 15 4.7 15 8"></path>
+        </svg>
+        All Items
+      </a>
+    </li>
+
+    <li>
+      <a href="/pages/sobre-nosotros">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="4"></circle>
+          <path d="M4 21C4 17 7.3 14 12 14C16.7 14 20 17 20 21"></path>
+        </svg>
+        Sobre Nosotros
+      </a>
+    </li>
+
+    <li>
+      <a href="/blogs/news">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 5H20V19H4Z"></path>
+          <path d="M8 9H16"></path>
+          <path d="M8 13H16"></path>
+        </svg>
+        Blog
+      </a>
+    </li>
+
+    <li>
+      <a href="/pages/faq">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.5 9A2.5 2.5 0 0 1 14 10.5C14 12 12 12.5 12 14"></path>
+          <circle cx="12" cy="17" r="1"></circle>
+        </svg>
+        FAQ
+      </a>
+    </li>
+
+    <li>
+      <a href="/pages/contact">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4H20V20H4Z"></path>
+          <path d="M4 6L12 13L20 6"></path>
+        </svg>
+        Contacto
+      </a>
+    </li>
+
+  </ul>
+
+  <div class="drawer-feature">
+
+    <span>Wellness Kit</span>
+
+    <h3>
+      Wellness & Detox Kit
+    </h3>
+
+    <p>
+      Incluye Green Juice, Passion Juice,
+      Yellow Juice, Pink Juice y dos
+      wellness shots a elección.
+    </p>
+
+    <a href="/collections/all" class="drawer-cta">
+      Order Now
+    </a>
+
+  </div>
+
+  <div class="drawer-socials">
+    <a href="#" aria-label="Instagram">IG</a>
+    <a href="#" aria-label="TikTok">TT</a>
+    <a href="#" aria-label="Facebook">FB</a>
+  </div>
+
+</aside>
+
+<script>
+  document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+      const burger =
+        document.querySelector('.burger');
+
+      const drawer =
+        document.querySelector('.side-drawer');
+
+      const overlay =
+        document.querySelector('.drawer-overlay');
+
+      const close =
+        document.querySelector('.drawer-close');
+
+      function openDrawer() {
+
+        burger.classList.add('active');
+
+        drawer.classList.add('open');
+
+        overlay.classList.add('open');
+      }
+
+      function closeDrawer() {
+
+        burger.classList.remove('active');
+
+        drawer.classList.remove('open');
+
+        overlay.classList.remove('open');
+      }
+
+      burger?.addEventListener(
+        'click',
+        function () {
+
+          if (
+            drawer.classList.contains('open')
+          ) {
+
+            closeDrawer();
+
+          } else {
+
+            openDrawer();
+          }
+
+        }
+      );
+
+      close?.addEventListener(
+        'click',
+        closeDrawer
+      );
+
+      overlay?.addEventListener(
+        'click',
+        closeDrawer
+      );
+
+    }
+  );
+</script>
+
+{% schema %}
+{
+  "name": "Tropi Oasis Navbar",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Tropi Oasis Navbar"
+    }
+  ]
+}
+{% endschema %}
