@@ -1,81 +1,167 @@
 {% if collection.handle != 'juice-bar' %}
 
 <section class="tropi-collection">
+
   <div class="collection-hero">
-    <span>Cold Press • Fresh • Tropical Wellness</span>
-    <h1>{{ collection.title }}</h1>
+
+    <span>
+      Cold Press • Fresh • Tropical Wellness
+    </span>
+
+    <h1>
+      {{ collection.title }}
+    </h1>
 
     {% if collection.description != blank %}
-      <p>{{ collection.description }}</p>
+
+      <p>
+        {{ collection.description }}
+      </p>
+
     {% else %}
-      <p>Jugos tropicales prensados en frío llenos de vitaminas, nutrientes y energía natural para apoyar tu bienestar diario.</p>
+
+      <p>
+        Jugos tropicales prensados en frío llenos de vitaminas,
+        nutrientes y energía natural para apoyar tu bienestar diario.
+      </p>
+
     {% endif %}
+
   </div>
 
   <div class="filter-pills">
+
     <span>Detox</span>
+
     <span>Energy</span>
+
     <span>Wellness</span>
+
     <span>Immunity</span>
+
   </div>
 
   <div class="products-grid">
+
     {% for product in collection.products %}
+
       <article class="product-card">
+
         <a href="{{ product.url }}" class="product-image-wrap">
+
           {% if product.featured_image %}
+
             <img
               src="{{ product.featured_image | image_url: width: 900 }}"
               alt="{{ product.title }}"
               class="product-image"
               loading="lazy"
             >
+
           {% endif %}
 
           <span class="product-badge">
+
             {% if product.title contains '25oz' %}
+
               25oz
+
             {% elsif product.title contains '32oz' %}
+
               32oz
+
             {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
+
               4x8oz
+
             {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
+
               7x2oz
+
             {% elsif product.title contains '200ml' %}
+
               200ml
+
             {% elsif product.type == 'Wellness Shots' or collection.handle == 'wellness-shots' or product.title contains 'Shot' %}
+
               2oz
+
             {% else %}
+
               8oz
+
             {% endif %}
+
           </span>
+
         </a>
 
         <div class="product-info">
+
           <h2>
-            <a href="{{ product.url }}">{{ product.title }}</a>
+
+            <a href="{{ product.url }}">
+              {{ product.title }}
+            </a>
+
           </h2>
 
-          <p>{{ product.description | strip_html | truncate: 105 }}</p>
+          <p>
+            {{ product.description | strip_html | truncate: 105 }}
+          </p>
 
           <div class="product-bottom">
-            <span class="product-price">{{ product.price | money }}</span>
+
+            <span class="product-price">
+              {{ product.price | money }}
+            </span>
 
             {% if product.available %}
+
               <form method="post" action="/cart/add">
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                <button type="submit" class="add-cart">Add to Cart</button>
+
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+
+                <button
+                  type="submit"
+                  class="add-cart"
+                >
+                  Add to Cart
+                </button>
+
               </form>
+
             {% else %}
-              <button class="add-cart sold-out" disabled>Sold Out</button>
+
+              <button
+                class="add-cart sold-out"
+                disabled
+              >
+                Sold Out
+              </button>
+
             {% endif %}
+
           </div>
+
         </div>
+
       </article>
+
     {% else %}
-      <p class="empty-message">No hay productos en esta colección todavía.</p>
+
+      <p class="empty-message">
+        No hay productos en esta colección todavía.
+      </p>
+
     {% endfor %}
+
   </div>
+
 </section>
 
 <style>
@@ -100,7 +186,7 @@
     display: inline-block;
     padding: 10px 22px;
     border-radius: 999px;
-    border: 2px solid #ec0057;
+    border: 2px solid #ff7a00;
     color: #07112f;
     background: rgba(255,255,255,.65);
     text-transform: uppercase;
@@ -147,10 +233,21 @@
     box-shadow: 0 12px 26px rgba(0,0,0,.08);
   }
 
-  .filter-pills span:nth-child(1) { color: #59b52c; }
-  .filter-pills span:nth-child(2) { color: #ff7a00; }
-  .filter-pills span:nth-child(3) { color: #ec0057; }
-  .filter-pills span:nth-child(4) { color: #00a7b7; }
+  .filter-pills span:nth-child(1) {
+    color: #3dc9c9;
+  }
+
+  .filter-pills span:nth-child(2) {
+    color: #ff7a00;
+  }
+
+  .filter-pills span:nth-child(3) {
+    color: #ffb800;
+  }
+
+  .filter-pills span:nth-child(4) {
+    color: #00a7b7;
+  }
 
   .products-grid {
     max-width: 1450px;
@@ -204,18 +301,20 @@
     height: 54px;
     padding: 0 8px;
     border-radius: 999px;
-    background: #ec0057;
+    background: #ff7a00;
     color: #fff;
     display: grid;
     place-items: center;
     font-size: 12px;
     font-weight: 900;
     border: 3px solid #fff;
-    box-shadow: 0 10px 22px rgba(236,0,87,.25);
+    box-shadow: 0 10px 22px rgba(255,122,0,.22);
     z-index: 2;
   }
 
-  .product-info { padding: 24px; }
+  .product-info {
+    padding: 24px;
+  }
 
   .product-info h2 {
     margin: 0 0 10px;
@@ -246,7 +345,7 @@
   }
 
   .product-price {
-    color: #ff6f00;
+    color: #ff7a00;
     font-size: 22px;
     font-weight: 900;
   }
@@ -254,21 +353,36 @@
   .add-cart {
     border: 0;
     min-height: 46px;
-    padding: 0 22px;
+    padding: 0 24px;
     border-radius: 999px;
-    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    background: linear-gradient(
+      90deg,
+      #ff7a00 0%,
+      #ffb800 45%,
+      #3dc9c9 100%
+    );
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
     text-transform: uppercase;
     font-size: 13px;
+    letter-spacing: .3px;
     cursor: pointer;
-    box-shadow: 0 14px 28px rgba(236,0,87,.20);
+    box-shadow: 0 14px 28px rgba(255,122,0,.18);
     transition: .22s ease;
   }
 
-  .add-cart:hover { transform: translateY(-2px); }
-  .sold-out { opacity: .45; cursor: not-allowed; }
+  .add-cart:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 34px rgba(61,201,201,.22);
+  }
+
+  .sold-out {
+    opacity: .45;
+    cursor: not-allowed;
+    background: #c7c7c7 !important;
+    box-shadow: none !important;
+  }
 
   .empty-message {
     grid-column: 1 / -1;
@@ -278,16 +392,40 @@
   }
 
   @media (max-width: 1100px) {
-    .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+    .products-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
   }
 
   @media (max-width: 700px) {
-    .tropi-collection { padding: 50px 20px 70px; }
-    .products-grid { grid-template-columns: 1fr; }
-    .collection-hero h1 { font-size: 48px; }
-    .collection-hero p { font-size: 17px; }
-    .product-bottom { flex-direction: column; align-items: stretch; }
-    .add-cart { width: 100%; }
+
+    .tropi-collection {
+      padding: 50px 20px 70px;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .collection-hero h1 {
+      font-size: 48px;
+    }
+
+    .collection-hero p {
+      font-size: 17px;
+    }
+
+    .product-bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .add-cart {
+      width: 100%;
+    }
+
   }
 </style>
 

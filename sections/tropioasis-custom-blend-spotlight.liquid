@@ -10,7 +10,10 @@
   <div class="blend-shell">
 
     <div class="blend-copy">
-      <span class="blend-kicker">Juice Bar Experience</span>
+
+      <span class="blend-kicker">
+        Juice Bar Experience
+      </span>
 
       <h2>
         Create Your Own
@@ -23,67 +26,111 @@
       </p>
 
       <div class="blend-actions">
-        <a href="/collections/juice-bar" class="blend-main-btn">
-          Start Blending
-        </a>
 
-        <a href="/collections/juice-bar" class="blend-secondary-btn">
+        <a href="/collections/juice-bar" class="blend-main-btn">
           Ver opciones
         </a>
+
       </div>
 
       <div class="blend-points">
+
         <div>🍍 20+ ingredientes</div>
+
         <div>💧 Cold pressed</div>
+
         <div>🌿 Fresh daily</div>
+
         <div>🇵🇷 Hecho en PR</div>
+
       </div>
+
     </div>
 
     <div class="blend-cards">
 
       <a href="{{ custom_25.url }}" class="mini-blend-card green">
+
         {% if custom_25.featured_image %}
-          <img src="{{ custom_25.featured_image | image_url: width: 700 }}" alt="{{ custom_25.title }}">
+          <img
+            src="{{ custom_25.featured_image | image_url: width: 700 }}"
+            alt="{{ custom_25.title }}"
+          >
         {% endif %}
+
         <div>
+
           <span>25oz</span>
+
           <h3>Custom Juice</h3>
+
           <strong>$22</strong>
+
         </div>
+
       </a>
 
       <a href="{{ custom_32.url }}" class="mini-blend-card orange">
+
         {% if custom_32.featured_image %}
-          <img src="{{ custom_32.featured_image | image_url: width: 700 }}" alt="{{ custom_32.title }}">
+          <img
+            src="{{ custom_32.featured_image | image_url: width: 700 }}"
+            alt="{{ custom_32.title }}"
+          >
         {% endif %}
+
         <div>
+
           <span>32oz</span>
+
           <h3>Big Custom Juice</h3>
+
           <strong>$28</strong>
+
         </div>
+
       </a>
 
       <a href="{{ custom_pack.url }}" class="mini-blend-card blue">
+
         {% if custom_pack.featured_image %}
-          <img src="{{ custom_pack.featured_image | image_url: width: 700 }}" alt="{{ custom_pack.title }}">
+          <img
+            src="{{ custom_pack.featured_image | image_url: width: 700 }}"
+            alt="{{ custom_pack.title }}"
+          >
         {% endif %}
+
         <div>
+
           <span>4 x 8oz</span>
+
           <h3>Juice Pack</h3>
+
           <strong>$24</strong>
+
         </div>
+
       </a>
 
       <a href="{{ custom_shots.url }}" class="mini-blend-card pink">
+
         {% if custom_shots.featured_image %}
-          <img src="{{ custom_shots.featured_image | image_url: width: 700 }}" alt="{{ custom_shots.title }}">
+          <img
+            src="{{ custom_shots.featured_image | image_url: width: 700 }}"
+            alt="{{ custom_shots.title }}"
+          >
         {% endif %}
+
         <div>
+
           <span>7 x 2oz</span>
+
           <h3>Wellness Shots</h3>
+
           <strong>$20</strong>
+
         </div>
+
       </a>
 
     </div>
@@ -101,7 +148,7 @@
     overflow: hidden;
     background:
       radial-gradient(circle at 10% 15%, rgba(255, 208, 0, .28) 0 230px, transparent 240px),
-      radial-gradient(circle at 95% 80%, rgba(236, 0, 87, .15) 0 240px, transparent 255px),
+      radial-gradient(circle at 95% 80%, rgba(61, 201, 201, .13) 0 240px, transparent 255px),
       linear-gradient(135deg, #fffaf0 0%, #fff3df 52%, #eafff3 100%);
     font-family: 'Nunito', sans-serif;
   }
@@ -117,7 +164,7 @@
   .orb-one {
     width: 180px;
     height: 180px;
-    background: #00a7b7;
+    background: #3dc9c9;
     right: -60px;
     top: 80px;
   }
@@ -145,7 +192,7 @@
     display: inline-block;
     padding: 11px 24px;
     border-radius: 999px;
-    border: 2px solid #ec0057;
+    border: 2px solid #ff7a00;
     background: #fff;
     color: #07112f;
     font-size: 13px;
@@ -166,7 +213,7 @@
 
   .blend-copy h2 strong {
     display: block;
-    color: #ec0057;
+    color: #ff7a00;
   }
 
   .blend-copy p {
@@ -185,8 +232,7 @@
     gap: 14px;
   }
 
-  .blend-main-btn,
-  .blend-secondary-btn {
+  .blend-main-btn {
     min-height: 58px;
     padding: 0 30px;
     border-radius: 999px;
@@ -198,22 +244,17 @@
     font-weight: 900;
     text-transform: uppercase;
     transition: .22s ease;
-  }
-
-  .blend-main-btn {
-    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
+    background: linear-gradient(
+      90deg,
+      #ff7a00 0%,
+      #ffb800 45%,
+      #3dc9c9 100%
+    );
     color: #fff;
-    box-shadow: 0 18px 35px rgba(236,0,87,.22);
+    box-shadow: 0 18px 35px rgba(255,122,0,.22);
   }
 
-  .blend-secondary-btn {
-    background: #fff;
-    color: #07112f;
-    border: 2px solid rgba(0,167,183,.35);
-  }
-
-  .blend-main-btn:hover,
-  .blend-secondary-btn:hover {
+  .blend-main-btn:hover {
     transform: translateY(-3px);
   }
 
@@ -302,12 +343,16 @@
     font-weight: 900;
   }
 
-  .green span { background: #59b52c; }
+  .green span { background: #3dc9c9; }
+
   .orange span { background: #ff7a00; }
+
   .blue span { background: #00a7b7; }
-  .pink span { background: #ec0057; }
+
+  .pink span { background: #ffb800; }
 
   @media (max-width: 1150px) {
+
     .blend-shell {
       grid-template-columns: 1fr;
     }
@@ -325,9 +370,11 @@
     .blend-actions {
       justify-content: center;
     }
+
   }
 
   @media (max-width: 700px) {
+
     .blend-spotlight {
       padding: 80px 20px;
     }
@@ -348,6 +395,7 @@
     .blend-copy p {
       font-size: 18px;
     }
+
   }
 </style>
 

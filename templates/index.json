@@ -23,6 +23,21 @@
     "about": {
       "type": "tropioasis-about-section",
       "settings": {}
+    },
+
+    "faq": {
+      "type": "tropioasis-faq",
+      "settings": {}
+    },
+
+    "contact": {
+      "type": "tropioasis-contact",
+      "settings": {}
+    },
+
+    "footer": {
+      "type": "tropioasis-footer",
+      "settings": {}
     }
   },
 
@@ -31,6 +46,9 @@
     "hero",
     "best_sellers",
     "custom_blend",
-    "about"
+    "about",
+    "faq",
+    "contact",
+    "footer"
   ]
 }

@@ -7,10 +7,15 @@
     "main": {
       "type": "tropioasis-cart-page",
       "settings": {}
+    },
+    "footer": {
+      "type": "tropioasis-footer",
+      "settings": {}
     }
   },
   "order": [
     "navbar",
-    "main"
+    "main",
+    "footer"
   ]
 }

@@ -11,11 +11,16 @@
     "juice_bar_builder": {
       "type": "tropioasis-juice-bar-builder",
       "settings": {}
-    }
+    },
+      "footer": {
+        "type": "tropioasis-footer",
+        "settings": {}
+      }
   },
   "order": [
     "navbar",
     "collection_grid",
-    "juice_bar_builder"
+    "juice_bar_builder",
+    "footer"
   ]
 }
