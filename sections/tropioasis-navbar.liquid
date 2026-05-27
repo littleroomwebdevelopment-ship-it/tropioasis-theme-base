@@ -12,17 +12,17 @@
 
   .site-header {
     width: 100vw;
-    height: 105px;
+    height: 130px;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    background:
-      linear-gradient(
-        90deg,
-        #ff7a00 0%,
-        #ffb800 38%,
-        #f7d84a 58%,
-        #18b7bd 100%
-      );
+    /* ✅ Colores oscurecidos Opción B */
+    background: linear-gradient(
+      90deg,
+      #cc6200 0%,
+      #cc9400 38%,
+      #a87d00 58%,
+      #127f82 100%
+    );
     box-shadow: 0 10px 28px rgba(0,0,0,.14);
     position: relative;
     z-index: 999;
@@ -30,7 +30,7 @@
 
   .navbar {
     width: 100%;
-    height: 105px;
+    height: 130px;
     padding: 0 42px;
     display: grid;
     grid-template-columns: auto auto 1fr auto;
@@ -39,25 +39,25 @@
   }
 
   .logo-wrap {
-    width: 118px;
-    height: 105px;
+    width: 130px;
+    height: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: visible;
   }
 
+  /* ✅ Fix 2: Logo libre */
   .logo {
-    width: 105px;
-    height: auto;
+    width: auto;
+    max-width: 140px;
+    max-height: 110px;
     display: block;
     filter: drop-shadow(0 8px 12px rgba(0,0,0,.20));
     transition: .25s ease;
   }
 
-  .logo:hover {
-    transform: scale(1.03);
-  }
+  .logo:hover { transform: scale(1.03); }
 
   .burger {
     width: 50px;
@@ -93,17 +93,9 @@
     transition: .25s ease;
   }
 
-  .burger-lines span:nth-child(1) {
-    top: 0;
-  }
-
-  .burger-lines span:nth-child(2) {
-    top: 7.5px;
-  }
-
-  .burger-lines span:nth-child(3) {
-    bottom: 0;
-  }
+  .burger-lines span:nth-child(1) { top: 0; }
+  .burger-lines span:nth-child(2) { top: 7.5px; }
+  .burger-lines span:nth-child(3) { bottom: 0; }
 
   .burger.active .burger-lines span:nth-child(1) {
     top: 7.5px;
@@ -157,6 +149,7 @@
     transform: translateY(-2px);
   }
 
+  /* ✅ Active state en links del menú */
   .nav-links a.active {
     background: rgba(255,255,255,.18);
     box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 10px 30px rgba(255,255,255,.10);
@@ -189,51 +182,51 @@
     gap: 14px;
   }
 
+  /* ✅ nav-icon actualizado para ícono + texto */
   .nav-icon {
-    width: 46px;
-    height: 46px;
-    border: 1px solid rgba(255,255,255,.35);
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 18px;
+    border-radius: 999px;
     background: rgba(255,255,255,.16);
-    display: grid;
-    place-items: center;
-    position: relative;
+    border: 1px solid rgba(255,255,255,.30);
+    color: #fff;
     text-decoration: none;
+    font-weight: 900;
+    font-size: 13px;
+    text-transform: uppercase;
     transition: .22s ease;
     backdrop-filter: blur(10px);
   }
 
+  .nav-icon:hover {
+    background: rgba(255,255,255,.26);
+    transform: translateY(-2px);
+  }
+
   .nav-icon svg {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     stroke: #fff;
-    stroke-width: 2.4;
+    stroke-width: 2;
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+    flex-shrink: 0;
   }
 
-  .nav-icon:hover {
-    transform: translateY(-2px);
-    background: rgba(255,255,255,.24);
-  }
-
+  /* ✅ Opción B: contador integrado como pastilla */
   .cart-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
     background: #ec0057;
     color: #fff;
-    border: 2px solid #fff;
-    display: grid;
-    place-items: center;
+    border-radius: 999px;
     font-size: 11px;
+    padding: 2px 7px;
     font-weight: 900;
   }
 
+  /* ✅ Drawer overlay */
   .drawer-overlay {
     position: fixed;
     inset: 0;
@@ -250,6 +243,7 @@
     pointer-events: auto;
   }
 
+  /* ✅ Side drawer completo */
   .side-drawer {
     position: fixed;
     top: 0;
@@ -310,6 +304,7 @@
     padding: 0 16px;
     margin-bottom: 28px;
     box-shadow: 0 10px 24px rgba(0,0,0,.06);
+    box-sizing: border-box;
   }
 
   .drawer-search svg {
@@ -357,7 +352,6 @@
   .side-drawer.open .drawer-links li:nth-child(6) { animation-delay: .24s; }
   .side-drawer.open .drawer-links li:nth-child(7) { animation-delay: .28s; }
   .side-drawer.open .drawer-links li:nth-child(8) { animation-delay: .32s; }
-  .side-drawer.open .drawer-links li:nth-child(9) { animation-delay: .36s; }
 
   @keyframes drawerLinkIn {
     to {
@@ -392,38 +386,27 @@
   }
 
   .drawer-links li:nth-child(1) a,
-  .drawer-links li:nth-child(1) svg,
-  .drawer-links li:nth-child(6) a,
-  .drawer-links li:nth-child(6) svg {
-    color: #ec0057;
-    stroke: #ec0057;
-  }
+  .drawer-links li:nth-child(1) svg { color: #ec0057; stroke: #ec0057; }
 
   .drawer-links li:nth-child(2) a,
-  .drawer-links li:nth-child(2) svg,
-  .drawer-links li:nth-child(7) a,
-  .drawer-links li:nth-child(7) svg {
-    color: #ff7a00;
-    stroke: #ff7a00;
-  }
+  .drawer-links li:nth-child(2) svg { color: #ff7a00; stroke: #ff7a00; }
 
   .drawer-links li:nth-child(3) a,
-  .drawer-links li:nth-child(3) svg,
-  .drawer-links li:nth-child(8) a,
-  .drawer-links li:nth-child(8) svg {
-    color: #59b52c;
-    stroke: #59b52c;
-  }
+  .drawer-links li:nth-child(3) svg { color: #59b52c; stroke: #59b52c; }
 
   .drawer-links li:nth-child(4) a,
   .drawer-links li:nth-child(4) svg,
   .drawer-links li:nth-child(5) a,
-  .drawer-links li:nth-child(5) svg,
-  .drawer-links li:nth-child(9) a,
-  .drawer-links li:nth-child(9) svg {
-    color: #00a7b7;
-    stroke: #00a7b7;
-  }
+  .drawer-links li:nth-child(5) svg { color: #00a7b7; stroke: #00a7b7; }
+
+  .drawer-links li:nth-child(6) a,
+  .drawer-links li:nth-child(6) svg { color: #ec0057; stroke: #ec0057; }
+
+  .drawer-links li:nth-child(7) a,
+  .drawer-links li:nth-child(7) svg { color: #ff7a00; stroke: #ff7a00; }
+
+  .drawer-links li:nth-child(8) a,
+  .drawer-links li:nth-child(8) svg { color: #59b52c; stroke: #59b52c; }
 
   .drawer-feature {
     margin-top: 32px;
@@ -503,15 +486,14 @@
   }
 
   .drawer-socials a:nth-child(1) {
-    background:
-      radial-gradient(
-        circle at 30% 110%,
-        #fdf497 0%,
-        #fdf497 8%,
-        #fd5949 45%,
-        #d6249f 60%,
-        #285AEB 90%
-      );
+    background: radial-gradient(
+      circle at 30% 110%,
+      #fdf497 0%,
+      #fdf497 8%,
+      #fd5949 45%,
+      #d6249f 60%,
+      #285AEB 90%
+    );
     color: white;
   }
 
@@ -529,6 +511,7 @@
     transform: translateY(-4px) scale(1.05);
   }
 
+  /*  Media queries responsive */
   @media (max-width: 1280px) {
     .nav-links a {
       font-size: 10.5px;
@@ -565,18 +548,22 @@
     }
 
     .logo {
-      width: 80px;
+      max-width: 80px;
     }
 
-    .burger,
-    .nav-icon {
+    .burger {
       width: 42px;
       height: 42px;
     }
 
+    .nav-icon {
+      padding: 8px 14px;
+      font-size: 12px;
+    }
+
     .nav-icon svg {
-      width: 23px;
-      height: 23px;
+      width: 18px;
+      height: 18px;
     }
   }
 </style>
@@ -584,14 +571,7 @@
 <header class="site-header">
   <nav class="navbar">
 
-    <a href="{{ routes.root_url }}" class="logo-wrap">
-      <img
-        src="{{ 'logo.png' | asset_url }}"
-        alt="Tropi Oasis"
-        class="logo"
-      >
-    </a>
-
+    <!--  Burger primero -->
     <button class="burger" type="button" aria-label="Abrir menú">
       <span class="burger-lines">
         <span></span>
@@ -600,62 +580,36 @@
       </span>
     </button>
 
+    
+    <a href="{{ routes.root_url }}" class="logo-wrap">
+      <img src="{{ 'logo.png' | asset_url }}" alt="Tropi Oasis" class="logo">
+    </a>
+
     <div class="nav-links">
-
-      <a href="/" class="{% if request.page_type == 'index' %}active{% endif %}">
-        Inicio
-      </a>
-
-      <a href="/collections/functional-juices" class="{% if collection.handle == 'functional-juices' %}active{% endif %}">
-        Functional Juices
-      </a>
-
-      <a href="/collections/wellness-shots" class="{% if collection.handle == 'wellness-shots' %}active{% endif %}">
-        Wellness Shots
-      </a>
-
-      <a href="/collections/juice-bar" class="{% if collection.handle == 'juice-bar' %}active{% endif %}">
-        Juice Bar
-      </a>
-
-      <a href="/collections/all" class="{% if collection.handle == 'all' %}active{% endif %}">
-        All Items
-      </a>
-
-      <a href="#about">
-        Sobre Nosotros
-      </a>
-
-      <a href="#faq">
-        FAQ
-      </a>
-
-      <a href="#contact">
-        Contacto
-      </a>
-
+      <a href="/" class="{% if request.page_type == 'index' %}active{% endif %}">Inicio</a>
+      <a href="/collections/functional-juices" class="{% if collection.handle == 'functional-juices' %}active{% endif %}">Functional Juices</a>
+      <a href="/collections/wellness-shots" class="{% if collection.handle == 'wellness-shots' %}active{% endif %}">Wellness Shots</a>
+      <a href="/collections/juice-bar" class="{% if collection.handle == 'juice-bar' %}active{% endif %}">Juice Bar</a>
+      <a href="/collections/all" class="{% if collection.handle == 'all' %}active{% endif %}">All Items</a>
+      <a href="/#about">Sobre Nosotros</a>
+      <a href="/blogs/news">Blog</a>
+      <a href="/#faq">FAQ</a>
+      <!-- ✅ Contacto eliminado -->
     </div>
 
     <div class="nav-actions">
+       <a href="{{ routes.account_url }}" class="nav-icon">👤</a>
 
-      <a href="{{ routes.account_url }}" class="nav-icon" aria-label="Cuenta">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 21C4 17 7.3 14 12 14C16.7 14 20 17 20 21"></path>
-        </svg>
-      </a>
-
+      <!-- Mejora del carrito -->
       <a href="{{ routes.cart_url }}" class="nav-icon" aria-label="Carrito">
         <svg viewBox="0 0 24 24">
-          <path d="M6 8H18L17 21H7L6 8Z"></path>
-          <path d="M9 8C9 4.7 10.3 3 12 3C13.7 3 15 4.7 15 8"></path>
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
         </svg>
-
-        <span class="cart-count">
-          {{ cart.item_count }}
-        </span>
+        Cart
+        <span class="cart-count">{{ cart.item_count }}</span>
       </a>
-
     </div>
 
   </nav>
@@ -666,17 +620,8 @@
 <aside class="side-drawer">
 
   <div class="drawer-top">
-
-    <img
-      src="{{ 'logo.png' | asset_url }}"
-      alt="Tropi Oasis"
-      class="drawer-logo"
-    >
-
-    <button class="drawer-close" type="button" aria-label="Cerrar menú">
-      ×
-    </button>
-
+    <img src="{{ 'logo.png' | asset_url }}" alt="Tropi Oasis" class="drawer-logo">
+    <button class="drawer-close" type="button" aria-label="Cerrar menú">×</button>
   </div>
 
   <form action="{{ routes.search_url }}" method="get" class="drawer-search">
@@ -684,7 +629,6 @@
       <circle cx="11" cy="11" r="7"></circle>
       <path d="M20 20L16.5 16.5"></path>
     </svg>
-
     <input type="search" name="q" placeholder="Search juices...">
   </form>
 
@@ -742,7 +686,7 @@
     </li>
 
     <li>
-      <a href="#about">
+      <a href="/#about">
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="8" r="4"></circle>
           <path d="M4 21C4 17 7.3 14 12 14C16.7 14 20 17 20 21"></path>
@@ -752,7 +696,19 @@
     </li>
 
     <li>
-      <a href="#faq">
+      <a href="/blogs/news">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 4H20V20H4Z"></path>
+          <path d="M8 8H16"></path>
+          <path d="M8 12H16"></path>
+          <path d="M8 16H12"></path>
+        </svg>
+        Blog
+      </a>
+    </li>
+
+    <li>
+      <a href="/#faq">
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.5 9A2.5 2.5 0 0 1 14 10.5C14 12 12 12.5 12 14"></path>
@@ -762,46 +718,22 @@
       </a>
     </li>
 
-    <li>
-      <a href="#contact">
-        <svg viewBox="0 0 24 24">
-          <path d="M4 4H20V20H4Z"></path>
-          <path d="M4 6L12 13L20 6"></path>
-        </svg>
-        Contacto
-      </a>
-    </li>
-
   </ul>
 
   <div class="drawer-feature">
-
     <span>Wellness Kit</span>
-
-    <h3>
-      Wellness & Detox Kit
-    </h3>
-
+    <h3>Wellness & Detox Kit</h3>
     <p>
       Incluye Green Juice, Passion Juice,
       Yellow Juice, Pink Juice y dos
       wellness shots a elección.
     </p>
-
-    <a href="/collections/all" class="drawer-cta">
-      Order Now
-    </a>
-
+    <a href="/collections/all" class="drawer-cta">Order Now</a>
   </div>
 
   <div class="drawer-socials">
 
-    <a
-      href="https://www.instagram.com/tropioasispr?igsh=MTFveHFsNWtnc3Nodg=="
-      target="_blank"
-      rel="noopener"
-      aria-label="Instagram"
-    >
+    <a href="https://www.instagram.com/tropioasispr?igsh=MTFveHFsNWtnc3Nodg==" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none">
         <rect x="3" y="3" width="18" height="18" rx="5" stroke="white" stroke-width="2"></rect>
         <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"></circle>
@@ -809,23 +741,13 @@
       </svg>
     </a>
 
-    <a
-      href="https://www.tiktok.com/@tropioasispr?_r=1&_t=ZP-96hGiEJIlEU"
-      target="_blank"
-      rel="noopener"
-      aria-label="TikTok"
-    >
+    <a href="https://www.tiktok.com/@tropioasispr?_r=1&_t=ZP-96hGiEJIlEU" target="_blank" rel="noopener" aria-label="TikTok">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M19 8.2A6.5 6.5 0 0 1 15 6V15.2A5.2 5.2 0 1 1 9.8 10a5 5 0 0 1 1 .1v3a2.2 2.2 0 1 0 1.2 2V2h3a3.8 3.8 0 0 0 4 3.8Z"></path>
       </svg>
     </a>
 
-    <a
-      href="https://wa.me/17873201830?text=Hola%20TropiOasis!%20%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots."
-      target="_blank"
-      rel="noopener"
-      aria-label="WhatsApp"
-    >
+    <a href="https://wa.me/17873201830?text=Hola%20TropiOasis!%20%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots." target="_blank" rel="noopener" aria-label="WhatsApp">
       <svg viewBox="0 0 24 24" fill="currentColor">
         <path d="M20 3.9A10 10 0 0 0 4.4 16.2L3 21l4.9-1.3A10 10 0 1 0 20 3.9Zm-8 16.3a8.3 8.3 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3a8.3 8.3 0 1 1 6.8 3.7Zm4.6-6.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.9 1-.3.2-.5.1a6.8 6.8 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5a1.8 1.8 0 0 0 .3-.5.5.5 0 0 0 0-.5c-.1-.1-.6-1.5-.8-2s-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.3 5.3 0 0 0 1.1 2.8 12 12 0 0 0 4.7 4.1 11 11 0 0 0 1.6.6 3.8 3.8 0 0 0 1.7.1 2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"></path>
       </svg>
@@ -836,70 +758,33 @@
 </aside>
 
 <script>
-  document.addEventListener(
-    'DOMContentLoaded',
-    function () {
+  document.addEventListener('DOMContentLoaded', function () {
 
-      const burger =
-        document.querySelector('.burger');
+    const burger  = document.querySelector('.burger');
+    const drawer  = document.querySelector('.side-drawer');
+    const overlay = document.querySelector('.drawer-overlay');
+    const close   = document.querySelector('.drawer-close');
 
-      const drawer =
-        document.querySelector('.side-drawer');
-
-      const overlay =
-        document.querySelector('.drawer-overlay');
-
-      const close =
-        document.querySelector('.drawer-close');
-
-      function openDrawer() {
-
-        burger.classList.add('active');
-
-        drawer.classList.add('open');
-
-        overlay.classList.add('open');
-      }
-
-      function closeDrawer() {
-
-        burger.classList.remove('active');
-
-        drawer.classList.remove('open');
-
-        overlay.classList.remove('open');
-      }
-
-      burger?.addEventListener(
-        'click',
-        function () {
-
-          if (
-            drawer.classList.contains('open')
-          ) {
-
-            closeDrawer();
-
-          } else {
-
-            openDrawer();
-          }
-
-        }
-      );
-
-      close?.addEventListener(
-        'click',
-        closeDrawer
-      );
-
-      overlay?.addEventListener(
-        'click',
-        closeDrawer
-      );
-
+    function openDrawer() {
+      burger.classList.add('active');
+      drawer.classList.add('open');
+      overlay.classList.add('open');
     }
-  );
+
+    function closeDrawer() {
+      burger.classList.remove('active');
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+
+    burger?.addEventListener('click', function () {
+      drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+    });
+
+    close?.addEventListener('click', closeDrawer);
+    overlay?.addEventListener('click', closeDrawer);
+
+  });
 </script>
 
 {% schema %}
