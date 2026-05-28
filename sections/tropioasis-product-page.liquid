@@ -21,6 +21,7 @@
     <div class="product-gallery">
       {% if product.featured_image %}
         <div class="main-image-card">
+        {% unless product.title == 'Wellness & Detox Kit' %}
           <span class="product-size-badge">
             {% if product.title contains '25oz' %}
               25oz
@@ -38,6 +39,7 @@
               8oz
             {% endif %}
           </span>
+        {% endunless %}
 
           <img
             src="{{ product.featured_image | image_url: width: 1400 }}"
@@ -46,6 +48,7 @@
           >
         </div>
       {% endif %}
+      
 
       {% if product.images.size > 1 %}
         <div class="thumb-grid">
@@ -65,9 +68,9 @@
 
       <div class="product-kicker">
         {% if is_juice_bar %}
-          Custom Blend • Fresh • TropiOasis
+          Mezcla personalizada • Fresco • TropiOasis
         {% else %}
-          Cold Press • Fresh • TropiOasis
+          Cold Press • Fresco • TropiOasis
         {% endif %}
       </div>
 
@@ -88,7 +91,7 @@
       {% if is_juice_bar %}
         <div class="custom-builder-box">
           <div class="custom-builder-header">
-            <span>Step 1</span>
+            <span>Paso 1</span>
             <h2>Escoge tus ingredientes</h2>
 
             {% if product.title contains 'Shot' or product.title contains 'Shots' %}
@@ -146,7 +149,7 @@
         <div class="benefit-pills">
           <span>🌿 Natural</span>
           <span>💧 Cold Press</span>
-          <span>⚡ Energy</span>
+          <span>⚡ Energía</span>
           <span>💚 Wellness</span>
         </div>
       {% endif %}
@@ -155,8 +158,36 @@
         <input
           type="hidden"
           name="id"
+          id="selected-variant-id"
           value="{{ product.selected_or_first_available_variant.id }}"
         >
+
+        {% unless product.has_only_default_variant %}
+          <div class="variant-picker-box">
+            {% for option in product.options_with_values %}
+              <div class="variant-option-group">
+                <label for="Option-{{ forloop.index }}">
+                  {{ option.name }}
+                </label>
+
+                <select
+                  id="Option-{{ forloop.index }}"
+                  class="variant-option-select"
+                  data-option-position="{{ option.position }}"
+                >
+                  {% for value in option.values %}
+                    <option
+                      value="{{ value | escape }}"
+                      {% if option.selected_value == value %}selected{% endif %}
+                    >
+                      {{ value }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+            {% endfor %}
+          </div>
+        {% endunless %}
 
         {% if is_juice_bar %}
           <input
@@ -174,7 +205,7 @@
         {% endif %}
 
         <div class="quantity-box">
-          <label for="Quantity">Quantity</label>
+          <label for="Quantity">Cantidad</label>
 
           <div class="quantity-controls">
             <button type="button" class="qty-btn minus">−</button>
@@ -198,12 +229,12 @@
         >
           {% if product.available %}
             {% if is_juice_bar %}
-              Add Custom Blend to Cart
+              Añadir mezcla al carrito
             {% else %}
-              Add to Cart
+              Añadir al carrito
             {% endif %}
           {% else %}
-            Sold Out
+            Agotado
           {% endif %}
         </button>
       {% endform %}
@@ -381,6 +412,36 @@
     font-size: 13px;
     font-weight: 900;
     text-transform: uppercase;
+  }
+
+  .variant-picker-box {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .variant-option-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #07112f;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .variant-option-select {
+    width: 100%;
+    height: 54px;
+    padding: 0 18px;
+    border-radius: 999px;
+    border: 2px solid rgba(0, 167, 183, .18);
+    background: #fff;
+    color: #07112f;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    outline: none;
+    box-shadow: 0 10px 22px rgba(0,0,0,.05);
   }
 
   .custom-builder-box {
@@ -624,6 +685,32 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const productVariants = {{ product.variants | json }};
+    const variantIdInput = document.querySelector('#selected-variant-id');
+    const variantSelects = document.querySelectorAll('.variant-option-select');
+
+    function updateSelectedVariant() {
+      if (!variantSelects.length || !variantIdInput) return;
+
+      const selectedOptions = Array.from(variantSelects).map(function (select) {
+        return select.value;
+      });
+
+      const matchedVariant = productVariants.find(function (variant) {
+        return JSON.stringify(variant.options) === JSON.stringify(selectedOptions);
+      });
+
+      if (matchedVariant) {
+        variantIdInput.value = matchedVariant.id;
+      }
+    }
+
+    variantSelects.forEach(function (select) {
+      select.addEventListener('change', updateSelectedVariant);
+    });
+
+    updateSelectedVariant();
+
     const mainImage = document.querySelector('.main-product-image');
     const thumbs = document.querySelectorAll('.thumb-btn img');
 
