@@ -1,0 +1,21 @@
+{
+    "sections": {
+      "navbar": {
+        "type": "tropioasis-navbar",
+        "settings": {}
+      },
+      "main": {
+        "type": "tropioasis-faq-page",
+        "settings": {}
+      },
+      "footer": {
+        "type": "tropioasis-footer",
+        "settings": {}
+      }
+    },
+    "order": [
+      "navbar",
+      "main",
+      "footer"
+    ]
+  }
