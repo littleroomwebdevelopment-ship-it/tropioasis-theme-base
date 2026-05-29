@@ -21,25 +21,25 @@
     <div class="product-gallery">
       {% if product.featured_image %}
         <div class="main-image-card">
-        {% unless product.title == 'Wellness & Detox Kit' %}
-          <span class="product-size-badge">
-            {% if product.title contains '25oz' %}
-              25oz
-            {% elsif product.title contains '32oz' %}
-              32oz
-            {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
-              4x8oz
-            {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
-              7x2oz
-            {% elsif product.title contains '200ml' %}
-              200ml
-            {% elsif product.type == 'Wellness Shots' or product.collections contains collections['wellness-shots'] %}
-              2oz
-            {% else %}
-              8oz
-            {% endif %}
-          </span>
-        {% endunless %}
+          {% unless product.title == 'Wellness & Detox Kit' or product.title == 'Kit Wellness & Detox' %}
+            <span class="product-size-badge">
+              {% if product.title contains '25oz' %}
+                25oz
+              {% elsif product.title contains '32oz' %}
+                32oz
+              {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
+                4x8oz
+              {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
+                7x2oz
+              {% elsif product.title contains '200ml' %}
+                200ml
+              {% elsif product.type == 'Wellness Shots' or product.collections contains collections['wellness-shots'] %}
+                2oz
+              {% else %}
+                8oz
+              {% endif %}
+            </span>
+          {% endunless %}
 
           <img
             src="{{ product.featured_image | image_url: width: 1400 }}"
@@ -48,7 +48,6 @@
           >
         </div>
       {% endif %}
-      
 
       {% if product.images.size > 1 %}
         <div class="thumb-grid">
@@ -159,7 +158,7 @@
           type="hidden"
           name="id"
           id="selected-variant-id"
-          value="{{ product.selected_or_first_available_variant.id }}"
+          value="{% if product.has_only_default_variant %}{{ product.selected_or_first_available_variant.id }}{% endif %}"
         >
 
         {% unless product.has_only_default_variant %}
@@ -175,11 +174,12 @@
                   class="variant-option-select"
                   data-option-position="{{ option.position }}"
                 >
+                  <option value="" selected disabled>
+                    Escoge {{ option.name }}
+                  </option>
+
                   {% for value in option.values %}
-                    <option
-                      value="{{ value | escape }}"
-                      {% if option.selected_value == value %}selected{% endif %}
-                    >
+                    <option value="{{ value | escape }}">
                       {{ value }}
                     </option>
                   {% endfor %}
@@ -696,6 +696,15 @@
         return select.value;
       });
 
+      const hasEmptyOption = selectedOptions.some(function (value) {
+        return value === '';
+      });
+
+      if (hasEmptyOption) {
+        variantIdInput.value = '';
+        return;
+      }
+
       const matchedVariant = productVariants.find(function (variant) {
         return JSON.stringify(variant.options) === JSON.stringify(selectedOptions);
       });
@@ -742,6 +751,19 @@
     const hiddenInput = document.querySelector('#selected-ingredients-input');
     const countText = document.querySelector('#ingredient-count');
     const message = document.querySelector('#ingredient-message');
+
+    form?.addEventListener('submit', function (event) {
+      if (variantSelects.length && !variantIdInput.value) {
+        event.preventDefault();
+
+        alert('Por favor escoge tus shots antes de añadir al carrito.');
+
+        variantSelects[0].scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }
+    });
 
     if (ingredientGrid && chips.length && hiddenInput) {
       const min = parseInt(ingredientGrid.dataset.min || '0', 10);

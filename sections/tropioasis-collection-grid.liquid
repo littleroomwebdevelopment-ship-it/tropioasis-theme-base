@@ -3,107 +3,75 @@
 <section class="tropi-collection">
 
   <div class="collection-hero">
+    <span>Cold Press • Fresh • Tropical Wellness</span>
 
-    <span>
-      Cold Press • Fresh • Tropical Wellness
-    </span>
-
-    <h1>
-      {{ collection.title }}
-    </h1>
+    <h1>{{ collection.title }}</h1>
 
     {% if collection.description != blank %}
-
-      <p>
-        {{ collection.description }}
-      </p>
-
+      <p>{{ collection.description }}</p>
     {% else %}
-
       <p>
         Jugos tropicales prensados en frío llenos de vitaminas,
         nutrientes y energía natural para apoyar tu bienestar diario.
       </p>
-
     {% endif %}
-
   </div>
 
   <div class="filter-pills">
-
     <span>Detox</span>
-
     <span>Energy</span>
-
     <span>Wellness</span>
-
     <span>Immunity</span>
-
   </div>
 
   <div class="products-grid">
 
     {% for product in collection.products %}
 
+      {% assign is_wellness_kit = false %}
+      {% if product.title == 'Wellness & Detox Kit' or product.title == 'Kit Wellness & Detox' %}
+        {% assign is_wellness_kit = true %}
+      {% endif %}
+
       <article class="product-card">
 
         <a href="{{ product.url }}" class="product-image-wrap">
-
           {% if product.featured_image %}
-
             <img
               src="{{ product.featured_image | image_url: width: 900 }}"
               alt="{{ product.title }}"
               class="product-image"
               loading="lazy"
             >
-
           {% endif %}
 
-          <span class="product-badge">
-
-            {% if product.title contains '25oz' %}
-
-              25oz
-
-            {% elsif product.title contains '32oz' %}
-
-              32oz
-
-            {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
-
-              4x8oz
-
-            {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
-
-              7x2oz
-
-            {% elsif product.title contains '200ml' %}
-
-              200ml
-
-            {% elsif product.type == 'Wellness Shots' or collection.handle == 'wellness-shots' or product.title contains 'Shot' %}
-
-              2oz
-
-            {% else %}
-
-              8oz
-
-            {% endif %}
-
-          </span>
-
+          {% unless is_wellness_kit %}
+            <span class="product-badge">
+              {% if product.title contains '25oz' %}
+                25oz
+              {% elsif product.title contains '32oz' %}
+                32oz
+              {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
+                4x8oz
+              {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
+                7x2oz
+              {% elsif product.title contains '200ml' %}
+                200ml
+              {% elsif product.type == 'Wellness Shots' or collection.handle == 'wellness-shots' or product.title contains 'Shot' %}
+                2oz
+              {% else %}
+                8oz
+              {% endif %}
+            </span>
+          {% endunless %}
         </a>
 
         <div class="product-info">
 
           <h2>
-
             <a href="{{ product.url }}">
               {{ product.title }}
             </a>
-
           </h2>
 
           <p>
@@ -118,29 +86,31 @@
 
             {% if product.available %}
 
-              <form method="post" action="/cart/add">
+              {% if is_wellness_kit %}
 
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ product.selected_or_first_available_variant.id }}"
-                >
+                <a href="{{ product.url }}" class="add-cart">
+                  Escoger opciones
+                </a>
 
-                <button
-                  type="submit"
-                  class="add-cart"
-                >
-                  Add to Cart
-                </button>
+              {% else %}
 
-              </form>
+                <form method="post" action="/cart/add">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                  >
+
+                  <button type="submit" class="add-cart">
+                    Add to Cart
+                  </button>
+                </form>
+
+              {% endif %}
 
             {% else %}
 
-              <button
-                class="add-cart sold-out"
-                disabled
-              >
+              <button class="add-cart sold-out" disabled>
                 Sold Out
               </button>
 
@@ -233,21 +203,10 @@
     box-shadow: 0 12px 26px rgba(0,0,0,.08);
   }
 
-  .filter-pills span:nth-child(1) {
-    color: #3dc9c9;
-  }
-
-  .filter-pills span:nth-child(2) {
-    color: #ff7a00;
-  }
-
-  .filter-pills span:nth-child(3) {
-    color: #ffb800;
-  }
-
-  .filter-pills span:nth-child(4) {
-    color: #00a7b7;
-  }
+  .filter-pills span:nth-child(1) { color: #3dc9c9; }
+  .filter-pills span:nth-child(2) { color: #ff7a00; }
+  .filter-pills span:nth-child(3) { color: #ffb800; }
+  .filter-pills span:nth-child(4) { color: #00a7b7; }
 
   .products-grid {
     max-width: 1450px;
@@ -355,12 +314,7 @@
     min-height: 46px;
     padding: 0 24px;
     border-radius: 999px;
-    background: linear-gradient(
-      90deg,
-      #ff7a00 0%,
-      #ffb800 45%,
-      #3dc9c9 100%
-    );
+    background: linear-gradient(90deg, #ff7a00 0%, #ffb800 45%, #3dc9c9 100%);
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
@@ -370,6 +324,11 @@
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(255,122,0,.18);
     transition: .22s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
   }
 
   .add-cart:hover {
@@ -392,15 +351,12 @@
   }
 
   @media (max-width: 1100px) {
-
     .products-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
   }
 
   @media (max-width: 700px) {
-
     .tropi-collection {
       padding: 50px 20px 70px;
     }
@@ -425,7 +381,6 @@
     .add-cart {
       width: 100%;
     }
-
   }
 </style>
 
