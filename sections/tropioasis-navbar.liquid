@@ -593,7 +593,7 @@
       <a href="/collections/all" class="{% if collection.handle == 'all' %}active{% endif %}">All Items</a>
       <a href="/#about">Sobre Nosotros</a>
       <a href="/blogs/news">Blog</a>
-      <a href="/#faq">FAQ</a>
+      <a href="pages/preguntas-frecuentes" class="{% if page.handle == 'preguntas-frecuentes' %}active{% endif %}">FAQ</a>
       <!-- ✅ Contacto eliminado -->
     </div>
 
@@ -708,7 +708,7 @@
     </li>
 
     <li>
-      <a href="/#faq">
+      <a href="pages/preguntas-frecuentes" class="{% if page.handle == 'preguntas-frecuentes' %}active{% endif %}">
         <svg viewBox="0 0 24 24">
           <circle cx="12" cy="12" r="10"></circle>
           <path d="M9.5 9A2.5 2.5 0 0 1 14 10.5C14 12 12 12.5 12 14"></path>
