@@ -75,6 +75,17 @@
 
       <h1>{{ product.title }}</h1>
 
+      <!-- Start of Judge.me Star Rating -->
+      <div
+        class="tropi-judge-badge jdgm-widget jdgm-preview-badge"
+        data-id="{{ product.id }}"
+        data-auto-install="false"
+      >
+        {{ product.metafields.judgeme.badge }}
+        {{ product.metafields.judgeme.preview_badge }}
+      </div>
+      <!-- End of Judge.me Star Rating -->
+
       <div class="product-price">
         {{ product.price | money }}
 
@@ -260,6 +271,21 @@
   </div>
 </section>
 
+<section class="tropi-product-reviews">
+  <div class="tropi-product-reviews-shell">
+    <div
+      id="judgeme_product_reviews"
+      class="jdgm-widget jdgm-review-widget"
+      data-product-title="{{ product.title | escape }}"
+      data-id="{{ product.id }}"
+      data-product-id="{{ product.id }}"
+      data-product-handle="{{ product.handle }}"
+      data-widget="review">
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  </div>
+</section>
+
 <style>
   .tropi-product-page {
     width: 100vw;
@@ -280,6 +306,35 @@
     grid-template-columns: 1.05fr .95fr;
     gap: 58px;
     align-items: center;
+  }
+
+  .tropi-judge-badge {
+    display: block;
+    min-height: 24px;
+    margin: -8px 0 18px;
+  }
+
+  .tropi-judge-badge .jdgm-prev-badge {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+  }
+
+  .tropi-product-reviews {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 0 6vw 90px;
+    background: linear-gradient(135deg, #fffaf0 0%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .tropi-product-reviews-shell {
+    max-width: 1450px;
+    margin: 0 auto;
+    background: rgba(255,255,255,.88);
+    border-radius: 34px;
+    padding: 36px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.08);
   }
 
   .main-image-card {

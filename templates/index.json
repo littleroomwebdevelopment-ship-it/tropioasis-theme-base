@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "navbar": {
@@ -29,6 +38,10 @@
       "type": "tropioasis-faq",
       "settings": {}
     },
+    "reviews": {
+      "type": "tropioasis-reviews",
+      "settings": {}
+    },
 
     "contact": {
       "type": "tropioasis-contact",
@@ -48,6 +61,7 @@
     "custom_blend",
     "about",
     "faq",
+    "reviews",
     "contact",
     "footer"
   ]

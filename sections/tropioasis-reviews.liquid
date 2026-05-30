@@ -1,0 +1,849 @@
+{% assign jm = shop.metafields.judgeme %}
+
+{% assign review_count = jm.all_reviews_count | default: 0 | plus: 0 %}
+{% assign avg_rating = jm.all_reviews_rating | default: 0 | plus: 0 %}
+
+{% assign filled_stars = avg_rating | round %}
+{% if filled_stars > 5 %}
+  {% assign filled_stars = 5 %}
+{% endif %}
+
+{% assign empty_stars = 5 | minus: filled_stars %}
+
+<section id="reviews" class="tropi-reviews">
+
+  <div class="reviews-sparkle sparkle-one">✦</div>
+  <div class="reviews-sparkle sparkle-two">✦</div>
+
+  <div class="reviews-header">
+
+    <span class="reviews-kicker">
+      Opiniones de clientes
+    </span>
+
+    <h2>
+      Amado por la
+      <span>comunidad TropiOasis</span>
+    </h2>
+
+    <p class="reviews-subtitle">
+      Opiniones reales de clientes reales que aman nuestros jugos y shots de bienestar.
+    </p>
+
+  </div>
+
+  <div class="reviews-overview-card">
+
+    <div class="overview-main">
+
+      <div class="overview-score">
+        {{ avg_rating | round: 1 }}
+      </div>
+
+      <div class="overview-stars-block">
+
+        <div class="overview-stars" aria-label="{{ avg_rating | round: 1 }} de 5 estrellas">
+          {% for i in (1..filled_stars) %}★{% endfor %}{% for i in (1..empty_stars) %}☆{% endfor %}
+        </div>
+
+        <div class="overview-count">
+          Basado en
+          <strong>{{ review_count }}</strong>
+          {% if review_count == 1 %}
+            opinión
+          {% else %}
+            opiniones
+          {% endif %}
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="overview-divider"></div>
+
+    <div class="overview-breakdown">
+
+      <div class="rating-row">
+        <span>5 ★</span>
+        <div class="rating-bar"><div style="width: {% if review_count > 0 %}100{% else %}0{% endif %}%"></div></div>
+        <strong>{% if review_count > 0 %}{{ review_count }}{% else %}0{% endif %} ({% if review_count > 0 %}100{% else %}0{% endif %}%)</strong>
+      </div>
+
+      <div class="rating-row">
+        <span>4 ★</span>
+        <div class="rating-bar"><div style="width: 0%"></div></div>
+        <strong>0 (0%)</strong>
+      </div>
+
+      <div class="rating-row">
+        <span>3 ★</span>
+        <div class="rating-bar"><div style="width: 0%"></div></div>
+        <strong>0 (0%)</strong>
+      </div>
+
+      <div class="rating-row">
+        <span>2 ★</span>
+        <div class="rating-bar"><div style="width: 0%"></div></div>
+        <strong>0 (0%)</strong>
+      </div>
+
+      <div class="rating-row">
+        <span>1 ★</span>
+        <div class="rating-bar"><div style="width: 0%"></div></div>
+        <strong>0 (0%)</strong>
+      </div>
+
+    </div>
+
+    <div class="reviews-trust-row">
+
+      <div>
+        <svg viewBox="0 0 24 24">
+          <path d="M12 22S5 18 5 10V5L12 2L19 5V10C19 18 12 22 12 22Z"></path>
+          <path d="M9 12L11 14L15 9"></path>
+        </svg>
+        Compras verificadas
+      </div>
+
+      <div>
+        <svg viewBox="0 0 24 24">
+          <path d="M20 12A8 8 0 1 1 12 4"></path>
+          <path d="M20 4V10H14"></path>
+        </svg>
+        Clientes reales
+      </div>
+
+      <div>
+        <svg viewBox="0 0 24 24">
+          <path d="M20.8 4.6A5.5 5.5 0 0 0 13 4.6L12 5.6L11 4.6A5.5 5.5 0 0 0 3.2 12.4L12 21L20.8 12.4A5.5 5.5 0 0 0 20.8 4.6Z"></path>
+        </svg>
+        Opiniones honestas
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="reviews-carousel-shell">
+
+    <div class="tropi-custom-reviews" id="tropi-custom-reviews">
+      <div class="tropi-review-card active">
+        <div class="empty-review-stars">★★★★★</div>
+        <h3>Cargando opiniones...</h3>
+        <p>Estamos buscando las reseñas reales de la comunidad TropiOasis.</p>
+      </div>
+    </div>
+
+    <div class="tropi-review-controls">
+      <button type="button" class="tropi-review-prev">‹</button>
+      <button type="button" class="tropi-review-next">›</button>
+    </div>
+
+  </div>
+
+  <div class="submit-review-panel">
+
+    <div class="submit-icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 20H21"></path>
+        <path d="M16.5 3.5A2.1 2.1 0 0 1 19.5 6.5L8 18L4 19L5 15L16.5 3.5Z"></path>
+      </svg>
+    </div>
+
+    <div class="submit-copy">
+      <h3>Comparte tu experiencia</h3>
+      <p>
+        Tu opinión ayuda a otros a descubrir su próximo jugo favorito y nos ayuda a seguir mejorando.
+      </p>
+    </div>
+
+    <div class="submit-field">
+      <label for="review-product-select">Selecciona un producto</label>
+
+      <select id="review-product-select">
+        <option value="">Elige un producto</option>
+        <option value="/products/green-juice-detox">Green Juice Detox</option>
+        <option value="/products/passion-juice-bright-shield">Passion Juice</option>
+        <option value="/products/yellow-juice">Yellow Juice</option>
+        <option value="/products/pink-juice-hydration-boost">Pink Juice</option>
+        <option value="/products/immune-support-shot-200ml">Immune Support Shot</option>
+        <option value="/products/custom-juice-25oz">Custom Juice 25oz</option>
+        <option value="/products/custom-juice-32oz">Custom Juice 32oz</option>
+        <option value="/products/custom-juice-pack-4-x-8oz">Custom Juice Pack</option>
+        <option value="/products/custom-wellness-shots-7-x-2oz">Custom Wellness Shots</option>
+      </select>
+
+      <small>
+        Tu opinión será pública y puede ayudar a otros clientes.
+      </small>
+    </div>
+
+    <div class="submit-stars-box">
+      <label>Calificación general</label>
+      <div class="submit-stars">☆ ☆ ☆ ☆ ☆</div>
+    </div>
+
+    <button type="button" class="write-review-btn" id="write-review-btn">
+      Escribir una opinión
+    </button>
+
+  </div>
+
+</section>
+
+<style>
+  .tropi-reviews {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 105px 6vw 90px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255, 208, 0, .30) 0 210px, transparent 225px),
+      radial-gradient(circle at 100% 84%, rgba(0, 167, 183, .17) 0 260px, transparent 275px),
+      radial-gradient(circle at 0% 100%, rgba(236, 0, 87, .14) 0 160px, transparent 180px),
+      linear-gradient(135deg, #fffaf0 0%, #fff7eb 55%, #effff3 100%);
+    font-family: 'Nunito', sans-serif;
+  }
+
+  .reviews-sparkle {
+    position: absolute;
+    color: #ffd000;
+    font-size: 36px;
+    font-weight: 900;
+    opacity: .75;
+    pointer-events: none;
+  }
+
+  .sparkle-one {
+    top: 70px;
+    right: 10vw;
+  }
+
+  .sparkle-two {
+    bottom: 140px;
+    left: 4vw;
+  }
+
+  .reviews-header {
+    max-width: 1050px;
+    margin: 0 auto 42px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .reviews-kicker {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    border: 2px solid #ec0057;
+    background: #fff;
+    color: #07112f;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    box-shadow: 0 12px 24px rgba(236, 0, 87, .08);
+  }
+
+  .reviews-header h2 {
+    margin: 22px 0 0;
+    font-size: clamp(50px, 5.7vw, 96px);
+    line-height: .88;
+    font-weight: 900;
+    color: #ff7a00;
+    letter-spacing: -3px;
+  }
+
+  .reviews-header h2 span {
+    display: block;
+    color: #ec0057;
+  }
+
+  .reviews-subtitle {
+    max-width: 760px;
+    margin: 22px auto 0;
+    color: #4c5360;
+    font-size: 20px;
+    line-height: 1.4;
+    font-weight: 800;
+  }
+
+  .reviews-overview-card {
+    max-width: 880px;
+    margin: 0 auto 42px;
+    background: rgba(255, 255, 255, .94);
+    border: 1px solid rgba(0, 0, 0, .05);
+    border-radius: 30px;
+    padding: 30px 36px 22px;
+    box-shadow: 0 24px 58px rgba(0, 0, 0, .09);
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 28px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .overview-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+  }
+
+  .overview-score {
+    font-size: 78px;
+    line-height: 1;
+    font-weight: 900;
+    color: #00a7b7;
+    letter-spacing: -3px;
+  }
+
+  .overview-stars {
+    color: #ffb800;
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: 3px;
+    font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .overview-count {
+    margin-top: 8px;
+    color: #07112f;
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+  .overview-count strong {
+    color: #ec0057;
+  }
+
+  .overview-divider {
+    width: 1px;
+    height: 118px;
+    background: rgba(7, 17, 47, .12);
+  }
+
+  .overview-breakdown {
+    display: grid;
+    gap: 8px;
+  }
+
+  .rating-row {
+    display: grid;
+    grid-template-columns: 42px 1fr 76px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rating-row span,
+  .rating-row strong {
+    color: #3e4758;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .rating-bar {
+    height: 9px;
+    border-radius: 999px;
+    background: #e6e8ed;
+    overflow: hidden;
+  }
+
+  .rating-bar div {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ffb800, #ff7a00);
+  }
+
+  .reviews-trust-row {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    gap: 34px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(7, 17, 47, .09);
+    flex-wrap: wrap;
+  }
+
+  .reviews-trust-row div {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #4c5360;
+    font-size: 14px;
+    font-weight: 900;
+  }
+
+  .reviews-trust-row svg {
+    width: 22px;
+    height: 22px;
+    stroke: #00a7b7;
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .reviews-trust-row div:nth-child(3) svg {
+    stroke: #ec0057;
+  }
+
+  .reviews-carousel-shell {
+    max-width: 1420px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .reviews-empty-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 26px;
+  }
+
+  .empty-review-card {
+    min-height: 210px;
+    background: rgba(255, 255, 255, .96);
+    border-radius: 30px;
+    padding: 28px;
+    box-shadow: 0 22px 50px rgba(0, 0, 0, .08);
+    border: 1px solid rgba(0, 0, 0, .05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .empty-review-stars {
+    color: #ffb800;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .empty-review-card h3 {
+    margin: 0 0 10px;
+    color: #07112f;
+    font-size: 24px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+  .empty-review-card p {
+    margin: 0;
+    color: #4c5360;
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  .empty-review-footer {
+    margin-top: 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .empty-review-footer span {
+    background: rgba(0, 167, 183, .15);
+    color: #008e9c;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .empty-review-footer small {
+    color: #4c5360;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .tropi-custom-reviews {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+  }
+
+  #tropi-custom-reviews {
+    display: flex;
+    gap: 24px;
+    transition: transform .45s ease;
+  }
+
+  .tropi-review-card {
+    flex: 0 0 calc(33.333% - 16px);
+    min-height: 230px;
+    background: rgba(255,255,255,.96);
+    border-radius: 30px;
+    padding: 28px;
+    box-shadow: 0 22px 50px rgba(0,0,0,.08);
+    border: 1px solid rgba(0,0,0,.05);
+  }
+
+  .tropi-review-card h3 {
+    margin: 10px 0 10px;
+    color: #07112f;
+    font-size: 22px;
+    font-weight: 900;
+  }
+
+  .tropi-review-card p {
+    margin: 0;
+    color: #4c5360;
+    font-size: 15px;
+    line-height: 1.45;
+    font-weight: 800;
+  }
+
+  .tropi-review-meta {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #008e9c;
+    font-size: 12px;
+    font-weight: 900;
+  }
+
+  .tropi-review-controls {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .tropi-review-controls button {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg,#ec0057,#ff7a00);
+    color: #fff;
+    font-size: 28px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  @media(max-width: 900px) {
+    .tropi-custom-reviews {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .submit-review-panel {
+    max-width: 1450px;
+    margin: 36px auto 0;
+    padding: 28px 34px;
+    border-radius: 30px;
+    background:
+      linear-gradient(90deg, rgba(236, 0, 87, .13), rgba(255, 255, 255, .82), rgba(0, 167, 183, .15));
+    border: 1px solid rgba(0, 0, 0, .05);
+    box-shadow: 0 24px 58px rgba(0, 0, 0, .08);
+    display: grid;
+    grid-template-columns: auto 1.1fr .95fr .65fr auto;
+    gap: 26px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  .submit-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(236, 0, 87, .16);
+    display: grid;
+    place-items: center;
+  }
+
+  .submit-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: #ec0057;
+    stroke-width: 2.4;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .submit-copy h3 {
+    margin: 0 0 6px;
+    color: #07112f;
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .submit-copy p {
+    margin: 0;
+    color: #4c5360;
+    font-size: 15px;
+    line-height: 1.35;
+    font-weight: 800;
+  }
+
+  .submit-field label,
+  .submit-stars-box label {
+    display: block;
+    margin-bottom: 9px;
+    color: #07112f;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .submit-field select {
+    width: 100%;
+    height: 54px;
+    border-radius: 14px;
+    border: 1px solid rgba(0, 0, 0, .12);
+    background: #fff;
+    padding: 0 16px;
+    color: #07112f;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    outline: none;
+  }
+
+  .submit-field small {
+    display: block;
+    margin-top: 10px;
+    color: #4c5360;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .submit-stars {
+    color: #ffb800;
+    font-size: 32px;
+    letter-spacing: 4px;
+    white-space: nowrap;
+  }
+
+  .write-review-btn {
+    height: 58px;
+    padding: 0 34px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #ec0057, #ff7a00);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 18px 34px rgba(236, 0, 87, .20);
+    transition: .22s ease;
+    white-space: nowrap;
+  }
+
+  .write-review-btn:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 1150px) {
+    .reviews-overview-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .overview-divider {
+      display: none;
+    }
+
+    .submit-review-panel {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .submit-icon {
+      margin: 0 auto;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .reviews-empty-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .overview-main {
+      flex-direction: column;
+    }
+
+    .rating-row {
+      grid-template-columns: 42px 1fr 70px;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .tropi-reviews {
+      padding: 80px 20px;
+    }
+
+    .reviews-header h2 {
+      font-size: 50px;
+      letter-spacing: -2px;
+    }
+
+    .reviews-subtitle {
+      font-size: 17px;
+    }
+
+    .reviews-overview-card {
+      padding: 28px 20px;
+    }
+
+    .overview-score {
+      font-size: 66px;
+    }
+
+    .overview-stars {
+      font-size: 28px;
+    }
+
+    .submit-review-panel {
+      padding: 26px 20px;
+    }
+
+    .write-review-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const select = document.querySelector('#review-product-select');
+    const button = document.querySelector('#write-review-btn');
+    const reviewsBox = document.querySelector('#tropi-custom-reviews');
+    const prevBtn = document.querySelector('.tropi-review-prev');
+    const nextBtn = document.querySelector('.tropi-review-next');
+
+    const demoReviews = [
+      { title: 'Passion Juice & Bright Shield', body: 'ddd', author: 'Uzieleli', rating: 5 },
+      { title: 'Green Juice & Detox', body: 'Muy bueno prueba', author: 'Anónimo', rating: 5 },
+      { title: 'Immune Support Shot', body: 'MUY BUENOOO', author: 'Uzieleli', rating: 5 },
+      { title: 'Custom Juice 32oz', body: 'xxx', author: 'Uzieleli', rating: 5 },
+      { title: 'TropiOasis', body: 'TODO BIEN', author: 'Uzieleli', rating: 5 },
+      { title: 'Passion Juice & Bright Shield', body: 'ddd', author: 'Uzieleli', rating: 5 },
+      { title: 'Green Juice & Detox', body: 'Muy bueno prueba', author: 'Uzieleli', rating: 5 },
+      { title: 'TropiOasis', body: 'dd', author: 'Anónimo', rating: 5 },
+      { title: 'TropiOasis', body: 'dd', author: 'Uzieleli', rating: 5 }
+    ];
+
+    let currentReviewIndex = 0;
+    const reviewsPerPage = 3;
+
+    function renderTropiReviews() {
+      if (!reviewsBox) return;
+
+      const visibleReviews = demoReviews.slice(
+        currentReviewIndex,
+        currentReviewIndex + reviewsPerPage
+      );
+
+      reviewsBox.innerHTML = visibleReviews.map(function(review) {
+        return `
+          <article class="tropi-review-card">
+            <div class="empty-review-stars">${'★'.repeat(review.rating)}</div>
+            <h3>${review.title}</h3>
+            <p>${review.body}</p>
+            <div class="tropi-review-meta">
+              <span>${review.author}</span>
+              <small>Verificado</small>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function slideNext() {
+      reviewsBox.style.transform = 'translateX(-40px)';
+      reviewsBox.style.opacity = '0';
+
+      setTimeout(() => {
+        currentReviewIndex += reviewsPerPage;
+
+        if (currentReviewIndex >= demoReviews.length) {
+          currentReviewIndex = 0;
+        }
+
+        renderTropiReviews();
+
+        reviewsBox.style.transition = 'none';
+        reviewsBox.style.transform = 'translateX(40px)';
+
+        setTimeout(() => {
+          reviewsBox.style.transition = 'all .45s ease';
+          reviewsBox.style.transform = 'translateX(0)';
+          reviewsBox.style.opacity = '1';
+        }, 10);
+
+      }, 450);
+    }
+
+    function slidePrev() {
+      reviewsBox.style.transform = 'translateX(40px)';
+      reviewsBox.style.opacity = '0';
+
+      setTimeout(() => {
+        currentReviewIndex -= reviewsPerPage;
+
+        if (currentReviewIndex < 0) {
+          currentReviewIndex = Math.max(0, demoReviews.length - reviewsPerPage);
+        }
+
+        renderTropiReviews();
+
+        reviewsBox.style.transition = 'none';
+        reviewsBox.style.transform = 'translateX(-40px)';
+
+        setTimeout(() => {
+          reviewsBox.style.transition = 'all .45s ease';
+          reviewsBox.style.transform = 'translateX(0)';
+          reviewsBox.style.opacity = '1';
+        }, 10);
+
+      }, 450);
+    }
+
+    nextBtn?.addEventListener('click', slideNext);
+    prevBtn?.addEventListener('click', slidePrev);
+
+    renderTropiReviews();
+
+    setInterval(slideNext, 5000);
+
+    if (button && select) {
+      button.addEventListener('click', function () {
+        const productUrl = select.value;
+
+        if (productUrl) {
+          window.location.href = productUrl + '?write_review=true#judgeme_product_reviews';
+        } else {
+          window.location.href = '/collections/all';
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Opiniones TropiOasis",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Opiniones TropiOasis"
+    }
+  ]
+}
+{% endschema %}
