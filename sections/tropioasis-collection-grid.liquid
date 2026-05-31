@@ -39,7 +39,7 @@
           {% if product.featured_image %}
             <img
               src="{{ product.featured_image | image_url: width: 900 }}"
-              alt="{{ product.title }}"
+              alt="{{ product.title | escape }}"
               class="product-image"
               loading="lazy"
             >
@@ -144,6 +144,8 @@
       radial-gradient(circle at 0% 0%, rgba(255, 211, 26, .26) 0 220px, transparent 230px),
       linear-gradient(135deg, #fffaf0 0%, #fffaf0 65%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .collection-hero {
@@ -189,7 +191,8 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin: 34px 0 44px;
+    margin: 34px auto 44px;
+    max-width: 900px;
   }
 
   .filter-pills span {
@@ -224,6 +227,8 @@
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .product-card:hover {
@@ -269,10 +274,15 @@
     border: 3px solid #fff;
     box-shadow: 0 10px 22px rgba(255,122,0,.22);
     z-index: 2;
+    box-sizing: border-box;
   }
 
   .product-info {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
   }
 
   .product-info h2 {
@@ -297,6 +307,7 @@
   }
 
   .product-bottom {
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -307,6 +318,11 @@
     color: #ff7a00;
     font-size: 22px;
     font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .product-bottom form {
+    margin: 0;
   }
 
   .add-cart {
@@ -329,6 +345,7 @@
     align-items: center;
     justify-content: center;
     white-space: nowrap;
+    box-sizing: border-box;
   }
 
   .add-cart:hover {
@@ -350,6 +367,30 @@
     font-weight: 900;
   }
 
+  @media (max-width: 1200px) {
+    .tropi-collection {
+      padding: 64px 40px 84px;
+    }
+
+    .products-grid {
+      gap: 26px;
+    }
+
+    .product-info h2 {
+      font-size: 22px;
+    }
+
+    .product-bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .product-bottom form,
+    .add-cart {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 1100px) {
     .products-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -361,16 +402,49 @@
       padding: 50px 20px 70px;
     }
 
-    .products-grid {
-      grid-template-columns: 1fr;
+    .collection-hero span {
+      font-size: 12px;
+      padding: 9px 18px;
     }
 
     .collection-hero h1 {
-      font-size: 48px;
+      font-size: clamp(42px, 12vw, 52px);
+      letter-spacing: -1.5px;
     }
 
     .collection-hero p {
       font-size: 17px;
+    }
+
+    .filter-pills {
+      margin: 28px auto 36px;
+      gap: 10px;
+    }
+
+    .filter-pills span {
+      font-size: 12px;
+      padding: 9px 16px;
+    }
+
+    .products-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .product-card {
+      border-radius: 28px;
+    }
+
+    .product-info {
+      padding: 22px;
+    }
+
+    .product-info h2 {
+      font-size: 22px;
+    }
+
+    .product-info p {
+      min-height: auto;
     }
 
     .product-bottom {
@@ -380,6 +454,57 @@
 
     .add-cart {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tropi-collection {
+      padding: 44px 14px 64px;
+    }
+
+    .collection-hero span {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 11px;
+    }
+
+    .collection-hero h1 {
+      font-size: 38px;
+    }
+
+    .collection-hero p {
+      font-size: 16px;
+    }
+
+    .product-badge {
+      top: 14px;
+      left: 14px;
+      min-width: 48px;
+      height: 48px;
+      font-size: 11px;
+      border-width: 2px;
+    }
+
+    .product-info {
+      padding: 20px;
+    }
+
+    .product-info h2 {
+      font-size: 21px;
+    }
+
+    .product-info p {
+      font-size: 14px;
+    }
+
+    .product-price {
+      font-size: 21px;
+    }
+
+    .add-cart {
+      min-height: 44px;
+      font-size: 12px;
+      padding: 0 18px;
     }
   }
 </style>

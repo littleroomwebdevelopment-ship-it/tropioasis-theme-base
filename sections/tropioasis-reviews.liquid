@@ -16,10 +16,7 @@
   <div class="reviews-sparkle sparkle-two">✦</div>
 
   <div class="reviews-header">
-
-    <span class="reviews-kicker">
-      Opiniones de clientes
-    </span>
+    <span class="reviews-kicker">Opiniones de clientes</span>
 
     <h2>
       Amado por la
@@ -29,19 +26,16 @@
     <p class="reviews-subtitle">
       Opiniones reales de clientes reales que aman nuestros jugos y shots de bienestar.
     </p>
-
   </div>
 
   <div class="reviews-overview-card">
 
     <div class="overview-main">
-
       <div class="overview-score">
         {{ avg_rating | round: 1 }}
       </div>
 
       <div class="overview-stars-block">
-
         <div class="overview-stars" aria-label="{{ avg_rating | round: 1 }} de 5 estrellas">
           {% for i in (1..filled_stars) %}★{% endfor %}{% for i in (1..empty_stars) %}☆{% endfor %}
         </div>
@@ -55,9 +49,7 @@
             opiniones
           {% endif %}
         </div>
-
       </div>
-
     </div>
 
     <div class="overview-divider"></div>
@@ -66,7 +58,9 @@
 
       <div class="rating-row">
         <span>5 ★</span>
-        <div class="rating-bar"><div style="width: {% if review_count > 0 %}100{% else %}0{% endif %}%"></div></div>
+        <div class="rating-bar">
+          <div style="width: {% if review_count > 0 %}100{% else %}0{% endif %}%"></div>
+        </div>
         <strong>{% if review_count > 0 %}{{ review_count }}{% else %}0{% endif %} ({% if review_count > 0 %}100{% else %}0{% endif %}%)</strong>
       </div>
 
@@ -97,7 +91,6 @@
     </div>
 
     <div class="reviews-trust-row">
-
       <div>
         <svg viewBox="0 0 24 24">
           <path d="M12 22S5 18 5 10V5L12 2L19 5V10C19 18 12 22 12 22Z"></path>
@@ -120,26 +113,12 @@
         </svg>
         Opiniones honestas
       </div>
-
     </div>
 
   </div>
 
-  <div class="reviews-carousel-shell">
-
-    <div class="tropi-custom-reviews" id="tropi-custom-reviews">
-      <div class="tropi-review-card active">
-        <div class="empty-review-stars">★★★★★</div>
-        <h3>Cargando opiniones...</h3>
-        <p>Estamos buscando las reseñas reales de la comunidad TropiOasis.</p>
-      </div>
-    </div>
-
-    <div class="tropi-review-controls">
-      <button type="button" class="tropi-review-prev">‹</button>
-      <button type="button" class="tropi-review-next">›</button>
-    </div>
-
+  <div class="judgeme-all-reviews">
+    {{ shop.metafields.judgeme.featured_carousel }}
   </div>
 
   <div class="submit-review-panel">
@@ -179,11 +158,6 @@
       </small>
     </div>
 
-    <div class="submit-stars-box">
-      <label>Calificación general</label>
-      <div class="submit-stars">☆ ☆ ☆ ☆ ☆</div>
-    </div>
-
     <button type="button" class="write-review-btn" id="write-review-btn">
       Escribir una opinión
     </button>
@@ -206,6 +180,7 @@
       radial-gradient(circle at 0% 100%, rgba(236, 0, 87, .14) 0 160px, transparent 180px),
       linear-gradient(135deg, #fffaf0 0%, #fff7eb 55%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
   }
 
   .reviews-sparkle {
@@ -285,6 +260,7 @@
     align-items: center;
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
   }
 
   .overview-main {
@@ -292,6 +268,7 @@
     align-items: center;
     justify-content: center;
     gap: 22px;
+    min-width: 0;
   }
 
   .overview-score {
@@ -331,6 +308,7 @@
   .overview-breakdown {
     display: grid;
     gap: 8px;
+    min-width: 0;
   }
 
   .rating-row {
@@ -345,6 +323,11 @@
     color: #3e4758;
     font-size: 14px;
     font-weight: 900;
+  }
+
+  .rating-row strong {
+    text-align: right;
+    white-space: nowrap;
   }
 
   .rating-bar {
@@ -387,154 +370,173 @@
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+    flex-shrink: 0;
   }
 
   .reviews-trust-row div:nth-child(3) svg {
     stroke: #ec0057;
   }
 
-  .reviews-carousel-shell {
-    max-width: 1420px;
-    margin: 0 auto;
+  .judgeme-all-reviews {
+    max-width: 980px;
+    margin: 0 auto 42px;
     position: relative;
     z-index: 2;
   }
 
-  .reviews-empty-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 26px;
+  /* Caja general del carousel */
+  .judgeme-all-reviews .jdgm-carousel-wrapper {
+    background:
+      radial-gradient(circle at 8% 0%, rgba(255, 208, 0, .38) 0 92px, transparent 118px),
+      radial-gradient(circle at 100% 24%, rgba(0, 167, 183, .18) 0 150px, transparent 185px),
+      linear-gradient(135deg, #fff 0%, #fff6df 44%, #effff7 100%) !important;
+    border-radius: 34px !important;
+    padding: 32px 42px 34px !important;
+    box-shadow:
+      0 24px 58px rgba(0,0,0,.09),
+      0 18px 46px rgba(236,0,87,.10) !important;
+    border: 2px solid rgba(255,255,255,.92) !important;
+    overflow: visible !important;
   }
 
-  .empty-review-card {
-    min-height: 210px;
-    background: rgba(255, 255, 255, .96);
-    border-radius: 30px;
-    padding: 28px;
-    box-shadow: 0 22px 50px rgba(0, 0, 0, .08);
-    border: 1px solid rgba(0, 0, 0, .05);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  /* NO escondas las flechas ni el carrusel completo */
+  .judgeme-all-reviews .jdgm-carousel-title,
+  .judgeme-all-reviews .jdgm-carousel-number-of-reviews {
+    display: none !important;
   }
 
-  .empty-review-stars {
-    color: #ffb800;
-    font-size: 24px;
-    letter-spacing: 2px;
-    margin-bottom: 14px;
+  /* Contenedor interno */
+  .judgeme-all-reviews .jdgm-carousel {
+    background: rgba(255,255,255,.82) !important;
+    border-radius: 26px !important;
+    padding: 16px 18px 8px !important;
+    box-shadow:
+      inset 0 0 0 1px rgba(7,17,47,.05),
+      0 12px 30px rgba(0,167,183,.08) !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
   }
 
-  .empty-review-card h3 {
-    margin: 0 0 10px;
-    color: #07112f;
-    font-size: 24px;
-    line-height: 1.05;
-    font-weight: 900;
+  .judgeme-all-reviews .jdgm-carousel__item-wrapper {
+    min-height: 235px !important;
+    overflow: visible !important;
   }
 
-  .empty-review-card p {
-    margin: 0;
-    color: #4c5360;
-    font-size: 15px;
-    line-height: 1.45;
-    font-weight: 800;
+  /* Review individual */
+  .judgeme-all-reviews .jdgm-carousel-item {
+    text-align: center !important;
+    padding: 18px 14px !important;
+    height: auto !important;
+    min-height: 215px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    overflow: visible !important;
   }
 
-  .empty-review-footer {
-    margin-top: 22px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  /* Estrellas */
+  .judgeme-all-reviews .jdgm-star {
+    color: #ffb800 !important;
+    font-size: 25px !important;
+    text-shadow: 0 5px 14px rgba(255,184,0,.24) !important;
   }
 
-  .empty-review-footer span {
-    background: rgba(0, 167, 183, .15);
-    color: #008e9c;
-    padding: 7px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 900;
+  /* Texto */
+  .judgeme-all-reviews .jdgm-carousel-item__review-body,
+  .judgeme-all-reviews .jdgm-carousel-item__review-body p,
+  .judgeme-all-reviews .jdgm-carousel-item__review-body span {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    color: #07112f !important;
+    font-size: 19px !important;
+    line-height: 1.35 !important;
+    font-weight: 900 !important;
+    margin: 12px auto 8px !important;
+    max-width: 300px !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    transform: none !important;
+    -webkit-line-clamp: unset !important;
+    -webkit-box-orient: unset !important;
+    clip-path: none !important;
   }
 
-  .empty-review-footer small {
-    color: #4c5360;
-    font-size: 12px;
-    font-weight: 900;
+  .judgeme-all-reviews .jdgm-carousel-item__review-body p,
+  .judgeme-all-reviews .jdgm-carousel-item__review-body span {
+    margin: 0 auto !important;
   }
 
-  .tropi-custom-reviews {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 26px;
+  /* Nombre */
+  .judgeme-all-reviews .jdgm-carousel-item__reviewer-name {
+    color: #ec0057 !important;
+    font-size: 14px !important;
+    font-weight: 900 !important;
   }
 
-  #tropi-custom-reviews {
-    display: flex;
-    gap: 24px;
-    transition: transform .45s ease;
+  /* Producto */
+  .judgeme-all-reviews .jdgm-carousel-item__product,
+  .judgeme-all-reviews .jdgm-carousel-item__product-title {
+    display: block !important;
+    margin-top: 10px !important;
+    color: #00a7b7 !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    text-decoration: none !important;
   }
 
-  .tropi-review-card {
-    flex: 0 0 calc(33.333% - 16px);
-    min-height: 230px;
-    background: rgba(255,255,255,.96);
-    border-radius: 30px;
-    padding: 28px;
-    box-shadow: 0 22px 50px rgba(0,0,0,.08);
-    border: 1px solid rgba(0,0,0,.05);
+  .judgeme-all-reviews .jdgm-carousel__left-arrow,
+  .judgeme-all-reviews .jdgm-carousel__right-arrow {
+    color: #ec0057 !important;
+    filter: drop-shadow(0 8px 18px rgba(236,0,87,.20)) !important;
+    margin-top: -10px !important;
+    top: 38% !important;
   }
 
-  .tropi-review-card h3 {
-    margin: 10px 0 10px;
-    color: #07112f;
-    font-size: 22px;
-    font-weight: 900;
+  .judgeme-all-reviews .jdgm-carousel__arrows {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 34px !important;
+    margin-top: -34px !important;
+    transform: translateY(-8px) !important;
   }
 
-  .tropi-review-card p {
-    margin: 0;
-    color: #4c5360;
-    font-size: 15px;
-    line-height: 1.45;
-    font-weight: 800;
+  /* Solo escondemos imágenes */
+  .judgeme-all-reviews .jdgm-carousel-item__product-image,
+  .judgeme-all-reviews img {
+    display: none !important;
   }
 
-  .tropi-review-meta {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    color: #008e9c;
-    font-size: 12px;
-    font-weight: 900;
-  }
-
-  .tropi-review-controls {
-    margin-top: 22px;
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-  }
-
-  .tropi-review-controls button {
-    width: 44px;
-    height: 44px;
-    border: 0;
-    border-radius: 999px;
-    background: linear-gradient(90deg,#ec0057,#ff7a00);
-    color: #fff;
-    font-size: 28px;
-    font-weight: 900;
-    cursor: pointer;
-  }
-
-  @media(max-width: 900px) {
-    .tropi-custom-reviews {
-      grid-template-columns: 1fr;
+  @media (max-width: 650px) {
+    .judgeme-all-reviews {
+      max-width: 100%;
     }
+
+    .judgeme-all-reviews .jdgm-carousel-wrapper {
+      padding: 24px 18px 30px !important;
+      border-radius: 26px !important;
+    }
+
+    .judgeme-all-reviews .jdgm-carousel-item__review-body {
+      font-size: 17px !important;
+    }
+  }
+
+  /* Ocultar scrollbar del carousel */
+  .judgeme-all-reviews .jdgm-carousel::-webkit-scrollbar,
+  .judgeme-all-reviews .jdgm-carousel__item-wrapper::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .judgeme-all-reviews .jdgm-carousel,
+  .judgeme-all-reviews .jdgm-carousel__item-wrapper {
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
   }
 
   .submit-review-panel {
@@ -547,11 +549,12 @@
     border: 1px solid rgba(0, 0, 0, .05);
     box-shadow: 0 24px 58px rgba(0, 0, 0, .08);
     display: grid;
-    grid-template-columns: auto 1.1fr .95fr .65fr auto;
+    grid-template-columns: auto 1.3fr 1fr auto;
     gap: 26px;
     align-items: center;
     position: relative;
     z-index: 2;
+    box-sizing: border-box;
   }
 
   .submit-icon {
@@ -561,6 +564,7 @@
     background: rgba(236, 0, 87, .16);
     display: grid;
     place-items: center;
+    flex-shrink: 0;
   }
 
   .submit-icon svg {
@@ -589,8 +593,7 @@
     font-weight: 800;
   }
 
-  .submit-field label,
-  .submit-stars-box label {
+  .submit-field label {
     display: block;
     margin-bottom: 9px;
     color: #07112f;
@@ -611,6 +614,7 @@
     font-size: 14px;
     font-weight: 900;
     outline: none;
+    box-sizing: border-box;
   }
 
   .submit-field small {
@@ -621,19 +625,12 @@
     font-weight: 800;
   }
 
-  .submit-stars {
-    color: #ffb800;
-    font-size: 32px;
-    letter-spacing: 4px;
-    white-space: nowrap;
-  }
-
   .write-review-btn {
     height: 58px;
     padding: 0 34px;
     border: 0;
     border-radius: 999px;
-    background: linear-gradient(90deg, #ec0057, #ff7a00);
+    background: #07112f;
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-size: 15px;
@@ -646,6 +643,7 @@
   }
 
   .write-review-btn:hover {
+    background: #00a7b7;
     transform: translateY(-3px);
   }
 
@@ -670,8 +668,8 @@
   }
 
   @media (max-width: 900px) {
-    .reviews-empty-grid {
-      grid-template-columns: 1fr;
+    .tropi-reviews {
+      padding: 90px 28px;
     }
 
     .overview-main {
@@ -689,7 +687,7 @@
     }
 
     .reviews-header h2 {
-      font-size: 50px;
+      font-size: clamp(42px, 13vw, 50px);
       letter-spacing: -2px;
     }
 
@@ -699,6 +697,7 @@
 
     .reviews-overview-card {
       padding: 28px 20px;
+      border-radius: 24px;
     }
 
     .overview-score {
@@ -707,15 +706,103 @@
 
     .overview-stars {
       font-size: 28px;
+      letter-spacing: 2px;
+    }
+
+    .reviews-trust-row {
+      gap: 16px;
+      justify-content: flex-start;
+    }
+
+    .reviews-trust-row div {
+      width: 100%;
+      justify-content: flex-start;
     }
 
     .submit-review-panel {
       padding: 26px 20px;
+      border-radius: 24px;
+    }
+
+    .submit-copy h3 {
+      font-size: 24px;
     }
 
     .write-review-btn {
       width: 100%;
     }
+
+  }
+
+  @media (max-width: 480px) {
+    .tropi-reviews {
+      padding: 64px 14px;
+    }
+
+    .reviews-kicker {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 11px;
+      padding: 10px 16px;
+    }
+
+    .reviews-header h2 {
+      font-size: 38px;
+      letter-spacing: -1.5px;
+    }
+
+    .reviews-subtitle {
+      font-size: 16px;
+    }
+
+    .overview-score {
+      font-size: 58px;
+    }
+
+    .overview-stars {
+      font-size: 24px;
+      letter-spacing: 1px;
+    }
+
+    .overview-count {
+      font-size: 15px;
+    }
+
+    .rating-row {
+      grid-template-columns: 36px 1fr 62px;
+      gap: 9px;
+    }
+
+    .rating-row span,
+    .rating-row strong {
+      font-size: 12px;
+    }
+
+    .submit-icon {
+      width: 62px;
+      height: 62px;
+    }
+
+    .submit-copy h3 {
+      font-size: 22px;
+    }
+
+    .submit-copy p,
+    .submit-field small {
+      font-size: 14px;
+    }
+
+    .submit-field select {
+      height: 52px;
+      font-size: 13px;
+    }
+
+    .write-review-btn {
+      height: 52px;
+      font-size: 13px;
+      padding: 0 20px;
+    }
+
   }
 </style>
 
@@ -723,104 +810,6 @@
   document.addEventListener('DOMContentLoaded', function () {
     const select = document.querySelector('#review-product-select');
     const button = document.querySelector('#write-review-btn');
-    const reviewsBox = document.querySelector('#tropi-custom-reviews');
-    const prevBtn = document.querySelector('.tropi-review-prev');
-    const nextBtn = document.querySelector('.tropi-review-next');
-
-    const demoReviews = [
-      { title: 'Passion Juice & Bright Shield', body: 'ddd', author: 'Uzieleli', rating: 5 },
-      { title: 'Green Juice & Detox', body: 'Muy bueno prueba', author: 'Anónimo', rating: 5 },
-      { title: 'Immune Support Shot', body: 'MUY BUENOOO', author: 'Uzieleli', rating: 5 },
-      { title: 'Custom Juice 32oz', body: 'xxx', author: 'Uzieleli', rating: 5 },
-      { title: 'TropiOasis', body: 'TODO BIEN', author: 'Uzieleli', rating: 5 },
-      { title: 'Passion Juice & Bright Shield', body: 'ddd', author: 'Uzieleli', rating: 5 },
-      { title: 'Green Juice & Detox', body: 'Muy bueno prueba', author: 'Uzieleli', rating: 5 },
-      { title: 'TropiOasis', body: 'dd', author: 'Anónimo', rating: 5 },
-      { title: 'TropiOasis', body: 'dd', author: 'Uzieleli', rating: 5 }
-    ];
-
-    let currentReviewIndex = 0;
-    const reviewsPerPage = 3;
-
-    function renderTropiReviews() {
-      if (!reviewsBox) return;
-
-      const visibleReviews = demoReviews.slice(
-        currentReviewIndex,
-        currentReviewIndex + reviewsPerPage
-      );
-
-      reviewsBox.innerHTML = visibleReviews.map(function(review) {
-        return `
-          <article class="tropi-review-card">
-            <div class="empty-review-stars">${'★'.repeat(review.rating)}</div>
-            <h3>${review.title}</h3>
-            <p>${review.body}</p>
-            <div class="tropi-review-meta">
-              <span>${review.author}</span>
-              <small>Verificado</small>
-            </div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function slideNext() {
-      reviewsBox.style.transform = 'translateX(-40px)';
-      reviewsBox.style.opacity = '0';
-
-      setTimeout(() => {
-        currentReviewIndex += reviewsPerPage;
-
-        if (currentReviewIndex >= demoReviews.length) {
-          currentReviewIndex = 0;
-        }
-
-        renderTropiReviews();
-
-        reviewsBox.style.transition = 'none';
-        reviewsBox.style.transform = 'translateX(40px)';
-
-        setTimeout(() => {
-          reviewsBox.style.transition = 'all .45s ease';
-          reviewsBox.style.transform = 'translateX(0)';
-          reviewsBox.style.opacity = '1';
-        }, 10);
-
-      }, 450);
-    }
-
-    function slidePrev() {
-      reviewsBox.style.transform = 'translateX(40px)';
-      reviewsBox.style.opacity = '0';
-
-      setTimeout(() => {
-        currentReviewIndex -= reviewsPerPage;
-
-        if (currentReviewIndex < 0) {
-          currentReviewIndex = Math.max(0, demoReviews.length - reviewsPerPage);
-        }
-
-        renderTropiReviews();
-
-        reviewsBox.style.transition = 'none';
-        reviewsBox.style.transform = 'translateX(-40px)';
-
-        setTimeout(() => {
-          reviewsBox.style.transition = 'all .45s ease';
-          reviewsBox.style.transform = 'translateX(0)';
-          reviewsBox.style.opacity = '1';
-        }, 10);
-
-      }, 450);
-    }
-
-    nextBtn?.addEventListener('click', slideNext);
-    prevBtn?.addEventListener('click', slidePrev);
-
-    renderTropiReviews();
-
-    setInterval(slideNext, 5000);
 
     if (button && select) {
       button.addEventListener('click', function () {
@@ -833,6 +822,16 @@
         }
       });
     }
+
+    setInterval(function () {
+      const nextArrow = document.querySelector(
+        '.judgeme-all-reviews .jdgm-carousel__right-arrow'
+      );
+
+      if (nextArrow) {
+        nextArrow.click();
+      }
+    }, 2500);
   });
 </script>
 

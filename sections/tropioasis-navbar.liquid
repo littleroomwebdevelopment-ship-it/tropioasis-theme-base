@@ -15,7 +15,6 @@
     height: 130px;
     margin-left: calc(50% - 50vw);
     margin-right: calc(50% - 50vw);
-    /* ✅ Colores oscurecidos Opción B */
     background: linear-gradient(
       90deg,
       #cc6200 0%,
@@ -36,6 +35,7 @@
     grid-template-columns: auto auto 1fr auto;
     align-items: center;
     gap: 20px;
+    box-sizing: border-box;
   }
 
   .logo-wrap {
@@ -47,7 +47,6 @@
     overflow: visible;
   }
 
-  /* ✅ Fix 2: Logo libre */
   .logo {
     width: auto;
     max-width: 140px;
@@ -57,7 +56,9 @@
     transition: .25s ease;
   }
 
-  .logo:hover { transform: scale(1.03); }
+  .logo:hover {
+    transform: scale(1.03);
+  }
 
   .burger {
     width: 50px;
@@ -70,6 +71,7 @@
     cursor: pointer;
     transition: .22s ease;
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
   }
 
   .burger:hover {
@@ -149,7 +151,6 @@
     transform: translateY(-2px);
   }
 
-  /* ✅ Active state en links del menú */
   .nav-links a.active {
     background: rgba(255,255,255,.18);
     box-shadow: 0 0 0 1px rgba(255,255,255,.15), 0 10px 30px rgba(255,255,255,.10);
@@ -180,9 +181,9 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    min-width: 0;
   }
 
-  /* ✅ nav-icon actualizado para ícono + texto */
   .nav-icon {
     display: flex;
     align-items: center;
@@ -198,6 +199,7 @@
     text-transform: uppercase;
     transition: .22s ease;
     backdrop-filter: blur(10px);
+    white-space: nowrap;
   }
 
   .nav-icon:hover {
@@ -216,7 +218,6 @@
     flex-shrink: 0;
   }
 
-  /* ✅ Opción B: contador integrado como pastilla */
   .cart-count {
     background: #ec0057;
     color: #fff;
@@ -224,9 +225,9 @@
     font-size: 11px;
     padding: 2px 7px;
     font-weight: 900;
+    line-height: 1.2;
   }
 
-  /* ✅ Drawer overlay */
   .drawer-overlay {
     position: fixed;
     inset: 0;
@@ -243,7 +244,6 @@
     pointer-events: auto;
   }
 
-  /* ✅ Side drawer completo */
   .side-drawer {
     position: fixed;
     top: 0;
@@ -258,6 +258,7 @@
     padding: 28px;
     box-shadow: 18px 0 46px rgba(0,0,0,.18);
     overflow-y: auto;
+    box-sizing: border-box;
   }
 
   .side-drawer.open {
@@ -273,6 +274,7 @@
 
   .drawer-logo {
     width: 120px;
+    max-width: 70%;
     filter: drop-shadow(0 8px 12px rgba(0,0,0,.12));
   }
 
@@ -286,6 +288,7 @@
     font-size: 28px;
     cursor: pointer;
     transition: .22s ease;
+    flex-shrink: 0;
   }
 
   .drawer-close:hover {
@@ -313,6 +316,7 @@
     stroke: #00a7b7;
     stroke-width: 2.4;
     fill: none;
+    flex-shrink: 0;
   }
 
   .drawer-search input {
@@ -324,6 +328,7 @@
     font-size: 15px;
     font-weight: 800;
     color: #222;
+    min-width: 0;
   }
 
   .drawer-links {
@@ -383,6 +388,7 @@
     fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
+    flex-shrink: 0;
   }
 
   .drawer-links li:nth-child(1) a,
@@ -466,6 +472,7 @@
     margin-top: 28px;
     display: flex;
     gap: 14px;
+    flex-wrap: wrap;
   }
 
   .drawer-socials a {
@@ -478,6 +485,7 @@
     text-decoration: none;
     transition: .25s ease;
     box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    flex-shrink: 0;
   }
 
   .drawer-socials a svg {
@@ -511,16 +519,15 @@
     transform: translateY(-4px) scale(1.05);
   }
 
-  /*  Media queries responsive */
   @media (max-width: 1280px) {
-    .nav-links a {
-      font-size: 10.5px;
-      padding: 11px 8px;
-    }
-
     .navbar {
       padding: 0 28px;
       gap: 14px;
+    }
+
+    .nav-links a {
+      font-size: 10.5px;
+      padding: 11px 8px;
     }
   }
 
@@ -548,12 +555,17 @@
     }
 
     .logo {
-      max-width: 80px;
+      max-width: 90px;
+      max-height: 80px;
     }
 
     .burger {
       width: 42px;
       height: 42px;
+    }
+
+    .nav-actions {
+      gap: 10px;
     }
 
     .nav-icon {
@@ -566,12 +578,193 @@
       height: 18px;
     }
   }
+
+  @media (max-width: 600px) {
+    .site-header {
+      height: 82px;
+    }
+
+    .navbar {
+      height: 82px;
+      padding: 0 12px;
+      gap: 10px;
+      grid-template-columns: auto auto 1fr auto;
+    }
+
+    .logo-wrap {
+      width: 86px;
+      height: 82px;
+    }
+
+    .logo {
+      max-width: 88px;
+      max-height: 72px;
+    }
+
+    .burger {
+      width: 40px;
+      height: 40px;
+    }
+
+    .burger-lines {
+      width: 22px;
+      height: 17px;
+    }
+
+    .burger-lines span {
+      width: 22px;
+      height: 3px;
+    }
+
+    .nav-actions {
+      gap: 8px;
+    }
+
+    .nav-actions .nav-icon:first-child {
+      display: none;
+    }
+
+    .nav-icon {
+      padding: 8px 10px;
+      font-size: 0;
+      gap: 5px;
+    }
+
+    .nav-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .cart-count {
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+
+    .side-drawer {
+      width: min(360px, 90vw);
+      padding: 22px;
+    }
+
+    .drawer-logo {
+      width: 105px;
+    }
+
+    .drawer-close {
+      width: 40px;
+      height: 40px;
+      font-size: 26px;
+    }
+
+    .drawer-links {
+      gap: 16px;
+    }
+
+    .drawer-links a {
+      font-size: 17px;
+      gap: 12px;
+    }
+
+    .drawer-links svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .drawer-feature {
+      padding: 16px;
+    }
+
+    .drawer-feature h3 {
+      font-size: 18px;
+    }
+
+    .drawer-socials a {
+      width: 48px;
+      height: 48px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .navbar {
+      padding: 0 10px;
+      gap: 8px;
+    }
+
+    .logo-wrap {
+      width: 78px;
+    }
+
+    .logo {
+      max-width: 80px;
+      max-height: 66px;
+    }
+
+    .burger {
+      width: 38px;
+      height: 38px;
+    }
+
+    .nav-icon {
+      padding: 7px 9px;
+    }
+
+    .cart-count {
+      font-size: 9px;
+      padding: 2px 5px;
+    }
+
+    .side-drawer {
+      width: 92vw;
+      padding: 20px;
+    }
+
+    .drawer-search {
+      height: 46px;
+    }
+
+    .drawer-links a {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-height: 500px) and (orientation: landscape) {
+    .site-header {
+      height: 74px;
+    }
+
+    .navbar {
+      height: 74px;
+    }
+
+    .logo-wrap {
+      height: 74px;
+    }
+
+    .logo {
+      max-height: 62px;
+    }
+
+    .side-drawer {
+      padding-top: 18px;
+      padding-bottom: 18px;
+    }
+
+    .drawer-top {
+      margin-bottom: 18px;
+    }
+
+    .drawer-search {
+      margin-bottom: 18px;
+    }
+
+    .drawer-feature {
+      margin-top: 22px;
+    }
+  }
 </style>
 
 <header class="site-header">
   <nav class="navbar">
 
-    <!--  Burger primero -->
     <button class="burger" type="button" aria-label="Abrir menú">
       <span class="burger-lines">
         <span></span>
@@ -580,8 +773,7 @@
       </span>
     </button>
 
-    
-    <a href="{{ routes.root_url }}" class="logo-wrap">
+    <a href="{{ routes.root_url }}" class="logo-wrap" aria-label="Tropi Oasis Inicio">
       <img src="{{ 'logo.png' | asset_url }}" alt="Tropi Oasis" class="logo">
     </a>
 
@@ -594,20 +786,18 @@
       <a href="/#about">Sobre Nosotros</a>
       <a href="/blogs/news">Blog</a>
       <a href="/pages/preguntas-frecuentes" class="{% if page.handle == 'preguntas-frecuentes' %}active{% endif %}">FAQ</a>
-      <!-- ✅ Contacto eliminado -->
     </div>
 
     <div class="nav-actions">
-       <a href="{{ routes.account_url }}" class="nav-icon">👤</a>
+      <a href="{{ routes.account_url }}" class="nav-icon" aria-label="Cuenta">👤</a>
 
-      <!-- Mejora del carrito -->
       <a href="{{ routes.cart_url }}" class="nav-icon" aria-label="Carrito">
         <svg viewBox="0 0 24 24">
           <circle cx="9" cy="21" r="1"></circle>
           <circle cx="20" cy="21" r="1"></circle>
           <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
         </svg>
-        Cart
+        <span class="cart-text">Cart</span>
         <span class="cart-count">{{ cart.item_count }}</span>
       </a>
     </div>
@@ -759,31 +949,43 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-
     const burger  = document.querySelector('.burger');
     const drawer  = document.querySelector('.side-drawer');
     const overlay = document.querySelector('.drawer-overlay');
     const close   = document.querySelector('.drawer-close');
 
     function openDrawer() {
-      burger.classList.add('active');
-      drawer.classList.add('open');
-      overlay.classList.add('open');
+      burger?.classList.add('active');
+      drawer?.classList.add('open');
+      overlay?.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeDrawer() {
-      burger.classList.remove('active');
-      drawer.classList.remove('open');
-      overlay.classList.remove('open');
+      burger?.classList.remove('active');
+      drawer?.classList.remove('open');
+      overlay?.classList.remove('open');
+      document.body.style.overflow = '';
     }
 
     burger?.addEventListener('click', function () {
-      drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+      drawer?.classList.contains('open') ? closeDrawer() : openDrawer();
     });
 
     close?.addEventListener('click', closeDrawer);
     overlay?.addEventListener('click', closeDrawer);
 
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        closeDrawer();
+      }
+    });
+
+    const drawerLinks = document.querySelectorAll('.side-drawer a');
+
+    drawerLinks.forEach(function (link) {
+      link.addEventListener('click', closeDrawer);
+    });
   });
 </script>
 

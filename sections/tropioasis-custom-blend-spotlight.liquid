@@ -10,7 +10,6 @@
   <div class="blend-shell">
 
     <div class="blend-copy">
-
       <span class="blend-kicker">
         Juice Bar Experience
       </span>
@@ -26,112 +25,92 @@
       </p>
 
       <div class="blend-actions">
-
         <a href="/collections/juice-bar" class="blend-main-btn">
           Ver opciones
         </a>
-
       </div>
 
       <div class="blend-points">
-
         <div>🍍 20+ ingredientes</div>
-
         <div>💧 Cold pressed</div>
-
         <div>🌿 Fresh daily</div>
-
         <div>🇵🇷 Hecho en PR</div>
-
       </div>
-
     </div>
 
     <div class="blend-cards">
 
-      <a href="{{ custom_25.url }}" class="mini-blend-card green">
+      {% if custom_25 != blank %}
+        <a href="{{ custom_25.url }}" class="mini-blend-card green">
+          {% if custom_25.featured_image %}
+            <img
+              src="{{ custom_25.featured_image | image_url: width: 700 }}"
+              alt="{{ custom_25.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
 
-        {% if custom_25.featured_image %}
-          <img
-            src="{{ custom_25.featured_image | image_url: width: 700 }}"
-            alt="{{ custom_25.title }}"
-          >
-        {% endif %}
+          <div>
+            <span>25oz</span>
+            <h3>Custom Juice</h3>
+            <strong>$22</strong>
+          </div>
+        </a>
+      {% endif %}
 
-        <div>
+      {% if custom_32 != blank %}
+        <a href="{{ custom_32.url }}" class="mini-blend-card orange">
+          {% if custom_32.featured_image %}
+            <img
+              src="{{ custom_32.featured_image | image_url: width: 700 }}"
+              alt="{{ custom_32.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
 
-          <span>25oz</span>
+          <div>
+            <span>32oz</span>
+            <h3>Big Custom Juice</h3>
+            <strong>$28</strong>
+          </div>
+        </a>
+      {% endif %}
 
-          <h3>Custom Juice</h3>
+      {% if custom_pack != blank %}
+        <a href="{{ custom_pack.url }}" class="mini-blend-card blue">
+          {% if custom_pack.featured_image %}
+            <img
+              src="{{ custom_pack.featured_image | image_url: width: 700 }}"
+              alt="{{ custom_pack.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
 
-          <strong>$22</strong>
+          <div>
+            <span>4 x 8oz</span>
+            <h3>Juice Pack</h3>
+            <strong>$24</strong>
+          </div>
+        </a>
+      {% endif %}
 
-        </div>
+      {% if custom_shots != blank %}
+        <a href="{{ custom_shots.url }}" class="mini-blend-card pink">
+          {% if custom_shots.featured_image %}
+            <img
+              src="{{ custom_shots.featured_image | image_url: width: 700 }}"
+              alt="{{ custom_shots.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
 
-      </a>
-
-      <a href="{{ custom_32.url }}" class="mini-blend-card orange">
-
-        {% if custom_32.featured_image %}
-          <img
-            src="{{ custom_32.featured_image | image_url: width: 700 }}"
-            alt="{{ custom_32.title }}"
-          >
-        {% endif %}
-
-        <div>
-
-          <span>32oz</span>
-
-          <h3>Big Custom Juice</h3>
-
-          <strong>$28</strong>
-
-        </div>
-
-      </a>
-
-      <a href="{{ custom_pack.url }}" class="mini-blend-card blue">
-
-        {% if custom_pack.featured_image %}
-          <img
-            src="{{ custom_pack.featured_image | image_url: width: 700 }}"
-            alt="{{ custom_pack.title }}"
-          >
-        {% endif %}
-
-        <div>
-
-          <span>4 x 8oz</span>
-
-          <h3>Juice Pack</h3>
-
-          <strong>$24</strong>
-
-        </div>
-
-      </a>
-
-      <a href="{{ custom_shots.url }}" class="mini-blend-card pink">
-
-        {% if custom_shots.featured_image %}
-          <img
-            src="{{ custom_shots.featured_image | image_url: width: 700 }}"
-            alt="{{ custom_shots.title }}"
-          >
-        {% endif %}
-
-        <div>
-
-          <span>7 x 2oz</span>
-
-          <h3>Wellness Shots</h3>
-
-          <strong>$20</strong>
-
-        </div>
-
-      </a>
+          <div>
+            <span>7 x 2oz</span>
+            <h3>Wellness Shots</h3>
+            <strong>$20</strong>
+          </div>
+        </a>
+      {% endif %}
 
     </div>
 
@@ -151,6 +130,7 @@
       radial-gradient(circle at 95% 80%, rgba(61, 201, 201, .13) 0 240px, transparent 255px),
       linear-gradient(135deg, #fffaf0 0%, #fff3df 52%, #eafff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
   }
 
   .blend-orb {
@@ -252,6 +232,7 @@
     );
     color: #fff;
     box-shadow: 0 18px 35px rgba(255,122,0,.22);
+    box-sizing: border-box;
   }
 
   .blend-main-btn:hover {
@@ -292,6 +273,9 @@
     background: #fff;
     box-shadow: 0 24px 58px rgba(0,0,0,.12);
     transition: .28s ease;
+    display: flex;
+    flex-direction: column;
+    color: #07112f;
   }
 
   .mini-blend-card:hover {
@@ -313,10 +297,15 @@
 
   .mini-blend-card div {
     padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
   }
 
   .mini-blend-card span {
     display: inline-flex;
+    width: max-content;
     min-width: 70px;
     height: 34px;
     padding: 0 13px;
@@ -338,23 +327,25 @@
   }
 
   .mini-blend-card strong {
+    margin-top: auto;
     color: #ff6f00;
     font-size: 28px;
     font-weight: 900;
   }
 
   .green span { background: #3dc9c9; }
-
   .orange span { background: #ff7a00; }
-
   .blue span { background: #00a7b7; }
-
   .pink span { background: #ffb800; }
 
   @media (max-width: 1150px) {
+    .blend-spotlight {
+      padding: 90px 40px;
+    }
 
     .blend-shell {
       grid-template-columns: 1fr;
+      gap: 46px;
     }
 
     .blend-copy {
@@ -370,25 +361,29 @@
     .blend-actions {
       justify-content: center;
     }
-
   }
 
   @media (max-width: 700px) {
-
     .blend-spotlight {
       padding: 80px 20px;
     }
 
     .blend-cards {
       grid-template-columns: 1fr;
+      gap: 24px;
     }
 
     .blend-points {
       grid-template-columns: 1fr;
     }
 
+    .blend-kicker {
+      font-size: 12px;
+      padding: 9px 18px;
+    }
+
     .blend-copy h2 {
-      font-size: 58px;
+      font-size: clamp(46px, 13vw, 58px);
       letter-spacing: -2px;
     }
 
@@ -396,6 +391,57 @@
       font-size: 18px;
     }
 
+    .blend-main-btn {
+      width: 100%;
+      max-width: 360px;
+    }
+
+    .mini-blend-card {
+      min-height: auto;
+      border-radius: 28px;
+    }
+
+    .mini-blend-card img {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .blend-spotlight {
+      padding: 64px 14px;
+    }
+
+    .blend-kicker {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      font-size: 11px;
+    }
+
+    .blend-copy h2 {
+      font-size: 40px;
+    }
+
+    .blend-copy p {
+      font-size: 16px;
+    }
+
+    .blend-points div {
+      font-size: 13px;
+      padding: 13px 14px;
+    }
+
+    .mini-blend-card img {
+      height: 260px;
+    }
+
+    .mini-blend-card h3 {
+      font-size: 22px;
+    }
+
+    .mini-blend-card strong {
+      font-size: 26px;
+    }
   }
 </style>
 

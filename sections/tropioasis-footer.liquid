@@ -6,12 +6,12 @@
   <div class="footer-shell">
 
     <div class="footer-brand">
-
-      <a href="{{ routes.root_url }}" class="footer-logo-wrap">
+      <a href="{{ routes.root_url }}" class="footer-logo-wrap" aria-label="TropiOasis Inicio">
         <img
           src="{{ 'logo.png' | asset_url }}"
           alt="Tropi Oasis"
           class="footer-logo"
+          loading="lazy"
         >
       </a>
 
@@ -21,9 +21,8 @@
       </p>
 
       <div class="footer-socials">
-
         <a
-          href="https://instagram.com/tropioasis"
+          href="https://www.instagram.com/tropioasispr?igsh=MTFveHFsNWtnc3Nodg=="
           target="_blank"
           rel="noopener"
           aria-label="Instagram"
@@ -36,7 +35,7 @@
         </a>
 
         <a
-          href="https://tiktok.com/@tropioasis"
+          href="https://www.tiktok.com/@tropioasispr?_r=1&_t=ZP-96hGiEJIlEU"
           target="_blank"
           rel="noopener"
           aria-label="TikTok"
@@ -47,7 +46,7 @@
         </a>
 
         <a
-          href="https://wa.me/17875555555?text=Hola%20TropiOasis!%20🍍%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots."
+          href="https://wa.me/17873201830?text=Hola%20TropiOasis!%20%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots."
           target="_blank"
           rel="noopener"
           aria-label="WhatsApp"
@@ -56,14 +55,11 @@
             <path d="M20 3.9A10 10 0 0 0 4.4 16.2L3 21l4.9-1.3A10 10 0 1 0 20 3.9Zm-8 16.3a8.3 8.3 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3a8.3 8.3 0 1 1 6.8 3.7Zm4.6-6.2c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.6.1-.7.8-.9 1-.3.2-.5.1a6.8 6.8 0 0 1-2-1.2 7.5 7.5 0 0 1-1.4-1.8c-.1-.2 0-.4.1-.5l.4-.5a1.8 1.8 0 0 0 .3-.5.5.5 0 0 0 0-.5c-.1-.1-.6-1.5-.8-2s-.4-.5-.6-.5h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.3 5.3 0 0 0 1.1 2.8 12 12 0 0 0 4.7 4.1 11 11 0 0 0 1.6.6 3.8 3.8 0 0 0 1.7.1 2.8 2.8 0 0 0 1.8-1.3 2.3 2.3 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3Z"></path>
           </svg>
         </a>
-
       </div>
-
     </div>
 
     <div class="footer-column">
       <h3>Shop</h3>
-
       <a href="/collections/functional-juices">Functional Juices</a>
       <a href="/collections/wellness-shots">Wellness Shots</a>
       <a href="/collections/juice-bar">Juice Bar</a>
@@ -72,10 +68,9 @@
 
     <div class="footer-column">
       <h3>Explore</h3>
-
-      <a href="#about">Sobre Nosotros</a>
-      <a href="#faq">FAQ</a>
-      <a href="#contact">Contacto</a>
+      <a href="/#about">Sobre Nosotros</a>
+      <a href="/pages/preguntas-frecuentes">FAQ</a>
+      <a href="/#contact">Contacto</a>
       <a href="{{ routes.search_url }}">Search</a>
     </div>
 
@@ -86,7 +81,11 @@
         tropioasispr@gmail.com
       </a>
 
-      <a href="https://wa.me/17873201830?text=Hola%20TropiOasis!%20%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots." target="_blank" rel="noopener">
+      <a
+        href="https://wa.me/17873201830?text=Hola%20TropiOasis!%20%20Quiero%20información%20sobre%20sus%20jugos%20y%20wellness%20shots."
+        target="_blank"
+        rel="noopener"
+      >
         WhatsApp
       </a>
 
@@ -99,7 +98,6 @@
   </div>
 
   <div class="footer-bottom">
-
     <p>
       © {{ 'now' | date: '%Y' }} TropiOasis. All rights reserved.
     </p>
@@ -107,230 +105,298 @@
     <span>
       Fresh • Tropical • Wellness
     </span>
-
   </div>
 
 </footer>
 
 <style>
-.tropi-footer{
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  margin-right:calc(50% - 50vw);
-  padding:90px 6vw 34px;
-  position:relative;
-  overflow:hidden;
-  background:
-    radial-gradient(circle at 0% 0%, rgba(255,208,0,.24) 0 240px, transparent 250px),
-    radial-gradient(circle at 100% 100%, rgba(0,167,183,.12) 0 260px, transparent 270px),
-    linear-gradient(
-      135deg,
-      #fffaf0 0%,
-      #fff6e7 52%,
-      #effff3 100%
-    );
-  font-family:'Nunito',sans-serif;
-}
-
-.footer-orb{
-  position:absolute;
-  border-radius:50%;
-  pointer-events:none;
-  filter:blur(2px);
-}
-
-.footer-orb-one{
-  width:220px;
-  height:220px;
-  background:#ffd000;
-  top:-90px;
-  left:-80px;
-  opacity:.22;
-}
-
-.footer-orb-two{
-  width:180px;
-  height:180px;
-  background:#00a7b7;
-  right:-60px;
-  bottom:40px;
-  opacity:.12;
-}
-
-.footer-shell{
-  max-width:1450px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:1.4fr .7fr .7fr .9fr;
-  gap:46px;
-  position:relative;
-  z-index:2;
-}
-
-.footer-logo-wrap{
-  display:inline-flex;
-  width:120px;
-  margin-bottom:18px;
-}
-
-.footer-logo{
-  width:120px;
-  height:auto;
-  display:block;
-  filter:drop-shadow(0 12px 18px rgba(0,0,0,.10));
-}
-
-.footer-brand p{
-  max-width:430px;
-  margin:0;
-  color:#4c5360;
-  font-size:17px;
-  line-height:1.5;
-  font-weight:800;
-}
-
-.footer-socials{
-  margin-top:26px;
-  display:flex;
-  gap:14px;
-}
-
-.footer-socials a{
-  width:54px;
-  height:54px;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-decoration:none;
-  transition:.25s ease;
-  box-shadow:0 14px 30px rgba(0,0,0,.10);
-}
-
-.footer-socials a svg{
-  width:25px;
-  height:25px;
-}
-
-.footer-socials a:nth-child(1){
-  background:
-    radial-gradient(
-      circle at 30% 110%,
-      #fdf497 0%,
-      #fdf497 8%,
-      #fd5949 45%,
-      #d6249f 60%,
-      #285AEB 90%
-    );
-  color:#fff;
-}
-
-.footer-socials a:nth-child(2){
-  background:#000;
-  color:#fff;
-}
-
-.footer-socials a:nth-child(3){
-  background:#25D366;
-  color:#fff;
-}
-
-.footer-socials a:hover{
-  transform:translateY(-4px) scale(1.05);
-}
-
-.footer-column,
-.footer-contact{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.footer-column h3,
-.footer-contact h3{
-  margin:0 0 10px;
-  color:#ec0057;
-  font-size:18px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.4px;
-}
-
-.footer-column a,
-.footer-contact a{
-  color:#07112f;
-  text-decoration:none;
-  font-size:15px;
-  font-weight:850;
-  transition:.2s ease;
-}
-
-.footer-column a:hover,
-.footer-contact a:hover{
-  color:#00a7b7;
-  transform:translateX(4px);
-}
-
-.footer-contact p{
-  margin:8px 0 0;
-  color:#4c5360;
-  font-size:14px;
-  line-height:1.5;
-  font-weight:800;
-}
-
-.footer-bottom{
-  max-width:1450px;
-  margin:56px auto 0;
-  padding-top:24px;
-  border-top:1px solid rgba(0,0,0,.08);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  position:relative;
-  z-index:2;
-}
-
-.footer-bottom p,
-.footer-bottom span{
-  margin:0;
-  color:#4c5360;
-  font-size:13px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.4px;
-}
-
-.footer-bottom span{
-  color:#ff7a00;
-}
-
-@media(max-width:1000px){
-
-  .footer-shell{
-    grid-template-columns:1fr 1fr;
+  .tropi-footer {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 90px 6vw 34px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 0% 0%, rgba(255,208,0,.24) 0 240px, transparent 250px),
+      radial-gradient(circle at 100% 100%, rgba(0,167,183,.12) 0 260px, transparent 270px),
+      linear-gradient(
+        135deg,
+        #fffaf0 0%,
+        #fff6e7 52%,
+        #effff3 100%
+      );
+    font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
   }
 
-}
-
-@media(max-width:650px){
-
-  .tropi-footer{
-    padding:70px 22px 26px;
+  .footer-orb {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(2px);
   }
 
-  .footer-shell{
-    grid-template-columns:1fr;
-    gap:34px;
+  .footer-orb-one {
+    width: 220px;
+    height: 220px;
+    background: #ffd000;
+    top: -90px;
+    left: -80px;
+    opacity: .22;
   }
 
-  .footer-bottom{
-    flex-direction:column;
-    align-items:flex-start;
+  .footer-orb-two {
+    width: 180px;
+    height: 180px;
+    background: #00a7b7;
+    right: -60px;
+    bottom: 40px;
+    opacity: .12;
   }
 
-}
+  .footer-shell {
+    max-width: 1450px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr .7fr .7fr .9fr;
+    gap: 46px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-logo-wrap {
+    display: inline-flex;
+    width: 120px;
+    margin-bottom: 18px;
+  }
+
+  .footer-logo {
+    width: 120px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 12px 18px rgba(0,0,0,.10));
+  }
+
+  .footer-brand p {
+    max-width: 430px;
+    margin: 0;
+    color: #4c5360;
+    font-size: 17px;
+    line-height: 1.5;
+    font-weight: 800;
+  }
+
+  .footer-socials {
+    margin-top: 26px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .footer-socials a {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: .25s ease;
+    box-shadow: 0 14px 30px rgba(0,0,0,.10);
+  }
+
+  .footer-socials a svg {
+    width: 25px;
+    height: 25px;
+  }
+
+  .footer-socials a:nth-child(1) {
+    background:
+      radial-gradient(
+        circle at 30% 110%,
+        #fdf497 0%,
+        #fdf497 8%,
+        #fd5949 45%,
+        #d6249f 60%,
+        #285AEB 90%
+      );
+    color: #fff;
+  }
+
+  .footer-socials a:nth-child(2) {
+    background: #000;
+    color: #fff;
+  }
+
+  .footer-socials a:nth-child(3) {
+    background: #25D366;
+    color: #fff;
+  }
+
+  .footer-socials a:hover {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  .footer-column,
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .footer-column h3,
+  .footer-contact h3 {
+    margin: 0 0 10px;
+    color: #ec0057;
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+
+  .footer-column a,
+  .footer-contact a {
+    color: #07112f;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 850;
+    transition: .2s ease;
+    overflow-wrap: anywhere;
+  }
+
+  .footer-column a:hover,
+  .footer-contact a:hover {
+    color: #00a7b7;
+    transform: translateX(4px);
+  }
+
+  .footer-contact p {
+    margin: 8px 0 0;
+    color: #4c5360;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 800;
+  }
+
+  .footer-bottom {
+    max-width: 1450px;
+    margin: 56px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0,0,0,.08);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .footer-bottom p,
+  .footer-bottom span {
+    margin: 0;
+    color: #4c5360;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+  }
+
+  .footer-bottom span {
+    color: #ff7a00;
+  }
+
+  @media (max-width: 1100px) {
+    .footer-shell {
+      grid-template-columns: 1.2fr 1fr 1fr;
+    }
+
+    .footer-contact {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .footer-shell {
+      grid-template-columns: 1fr 1fr;
+      gap: 38px 28px;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+    }
+
+    .footer-contact {
+      grid-column: auto;
+    }
+  }
+
+  @media (max-width: 650px) {
+    .tropi-footer {
+      padding: 70px 22px 26px;
+    }
+
+    .footer-shell {
+      grid-template-columns: 1fr;
+      gap: 34px;
+      text-align: center;
+    }
+
+    .footer-logo-wrap {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-brand p {
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 16px;
+    }
+
+    .footer-socials {
+      justify-content: center;
+    }
+
+    .footer-column,
+    .footer-contact {
+      align-items: center;
+    }
+
+    .footer-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 42px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .tropi-footer {
+      padding: 60px 14px 24px;
+    }
+
+    .footer-logo,
+    .footer-logo-wrap {
+      width: 105px;
+    }
+
+    .footer-socials a {
+      width: 48px;
+      height: 48px;
+    }
+
+    .footer-socials a svg {
+      width: 23px;
+      height: 23px;
+    }
+
+    .footer-bottom p,
+    .footer-bottom span {
+      font-size: 11px;
+      line-height: 1.4;
+    }
+  }
 </style>
 
 {% schema %}

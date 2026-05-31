@@ -12,95 +12,76 @@
   </div>
 
   <div class="best-grid">
-
     {% assign featured_handles = "green-juice-detox,passion-juice-bright-shield,immune-support-shot-200ml" | split: "," %}
 
     {% for handle in featured_handles %}
       {% assign product = all_products[handle] %}
 
-      <article class="best-card">
-
-        <a href="{{ product.url }}" class="best-image-wrap">
-
-          {% if product.featured_image %}
-            <img
-              src="{{ product.featured_image | image_url: width: 900 }}"
-              alt="{{ product.title }}"
-              class="best-image"
-              loading="lazy"
-            >
-          {% endif %}
-
-          <span class="best-badge">
-            Best Seller
-          </span>
-
-          <span class="best-size">
-            {% if product.title contains '200ml' %}
-              200ml
-            {% elsif product.type == 'Wellness Shots' or product.title contains 'Shot' %}
-              2oz
-            {% else %}
-              8oz
+      {% if product != blank %}
+        <article class="best-card">
+          <a href="{{ product.url }}" class="best-image-wrap">
+            {% if product.featured_image %}
+              <img
+                src="{{ product.featured_image | image_url: width: 900 }}"
+                alt="{{ product.title | escape }}"
+                class="best-image"
+                loading="lazy"
+              >
             {% endif %}
-          </span>
 
-        </a>
+            <span class="best-badge">Best Seller</span>
 
-        <div class="best-content">
+            <span class="best-size">
+              {% if product.title contains '200ml' %}
+                200ml
+              {% elsif product.type == 'Wellness Shots' or product.title contains 'Shot' %}
+                2oz
+              {% else %}
+                8oz
+              {% endif %}
+            </span>
+          </a>
 
-          <div>
+          <div class="best-content">
+            <div>
+              <h3>
+                <a href="{{ product.url }}">
+                  {{ product.title }}
+                </a>
+              </h3>
 
-            <h3>
-              <a href="{{ product.url }}">
-                {{ product.title }}
-              </a>
-            </h3>
+              <p>
+                {{ product.description | strip_html | truncate: 92 }}
+              </p>
+            </div>
 
-            <p>
-              {{ product.description | strip_html | truncate: 92 }}
-            </p>
+            <div class="best-bottom">
+              <strong>
+                {{ product.price | money }}
+              </strong>
 
-          </div>
+              {% if product.available %}
+                <form method="post" action="/cart/add">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                  >
 
-          <div class="best-bottom">
-
-            <strong>
-              {{ product.price | money }}
-            </strong>
-
-            {% if product.available %}
-
-              <form method="post" action="/cart/add">
-
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ product.selected_or_first_available_variant.id }}"
-                >
-
-                <button type="submit">
-                  Add to Cart
+                  <button type="submit">
+                    Add to Cart
+                  </button>
+                </form>
+              {% else %}
+                <button disabled class="sold-out">
+                  Sold Out
                 </button>
-
-              </form>
-
-            {% else %}
-
-              <button disabled class="sold-out">
-                Sold Out
-              </button>
-
-            {% endif %}
-
+              {% endif %}
+            </div>
           </div>
-
-        </div>
-
-      </article>
-
+        </article>
+      {% endif %}
     {% endfor %}
-
   </div>
 </section>
 
@@ -117,6 +98,7 @@
       radial-gradient(circle at 96% 18%, rgba(0, 167, 183, .13) 0 260px, transparent 270px),
       linear-gradient(135deg, #fffaf0 0%, #fff7e8 55%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
   }
 
   .best-bg-orb {
@@ -201,6 +183,8 @@
     box-shadow: 0 24px 54px rgba(0,0,0,.11);
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
+    display: flex;
+    flex-direction: column;
   }
 
   .best-card:hover {
@@ -270,6 +254,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 1;
+    box-sizing: border-box;
   }
 
   .best-content h3 {
@@ -304,28 +290,34 @@
     color: #ff6f00;
     font-size: 24px;
     font-weight: 900;
+    white-space: nowrap;
   }
 
-.best-bottom button {
-  border: 0;
-  min-height: 46px;
-  padding: 0 22px;
-  border-radius: 999px;
-  background: linear-gradient(
-    90deg,
-    #ff7a00 0%,
-    #ffb800 45%,
-    #3dc9c9 100%
-  );
-  color: #fff;
-  font-family: 'Nunito', sans-serif;
-  font-size: 13px;
-  font-weight: 900;
-  text-transform: uppercase;
-  cursor: pointer;
-  box-shadow: 0 14px 28px rgba(255,122,0,.20);
-  transition: .22s ease;
-}
+  .best-bottom form {
+    margin: 0;
+  }
+
+  .best-bottom button {
+    border: 0;
+    min-height: 46px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: linear-gradient(
+      90deg,
+      #ff7a00 0%,
+      #ffb800 45%,
+      #3dc9c9 100%
+    );
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 13px;
+    font-weight: 900;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 14px 28px rgba(255,122,0,.20);
+    transition: .22s ease;
+    white-space: nowrap;
+  }
 
   .best-bottom button:hover {
     transform: translateY(-2px);
@@ -336,6 +328,30 @@
     cursor: not-allowed;
   }
 
+  @media (max-width: 1200px) {
+    .tropi-best-sellers {
+      padding: 95px 40px;
+    }
+
+    .best-grid {
+      gap: 26px;
+    }
+
+    .best-content h3 {
+      font-size: 22px;
+    }
+
+    .best-bottom {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .best-bottom form,
+    .best-bottom button {
+      width: 100%;
+    }
+  }
+
   @media (max-width: 1100px) {
     .best-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -343,21 +359,44 @@
   }
 
   @media (max-width: 700px) {
-
     .tropi-best-sellers {
       padding: 76px 20px;
     }
 
-    .best-grid {
-      grid-template-columns: 1fr;
+    .best-header {
+      margin-bottom: 38px;
+    }
+
+    .best-header span {
+      font-size: 12px;
+      padding: 9px 18px;
     }
 
     .best-header h2 {
-      font-size: 52px;
+      font-size: clamp(46px, 13vw, 58px);
+      letter-spacing: -2px;
     }
 
     .best-header p {
       font-size: 17px;
+    }
+
+    .best-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .best-card {
+      border-radius: 28px;
+    }
+
+    .best-content {
+      min-height: auto;
+      padding: 22px;
+    }
+
+    .best-content h3 {
+      font-size: 23px;
     }
 
     .best-bottom {
@@ -368,7 +407,52 @@
     .best-bottom button {
       width: 100%;
     }
+  }
 
+  @media (max-width: 480px) {
+    .tropi-best-sellers {
+      padding: 64px 14px;
+    }
+
+    .best-header h2 {
+      font-size: 44px;
+    }
+
+    .best-header p {
+      font-size: 16px;
+    }
+
+    .best-badge {
+      top: 14px;
+      left: 14px;
+      font-size: 10px;
+      padding: 8px 12px;
+    }
+
+    .best-size {
+      top: 14px;
+      right: 14px;
+      width: 48px;
+      height: 48px;
+      font-size: 11px;
+      border-width: 2px;
+    }
+
+    .best-content {
+      padding: 20px;
+    }
+
+    .best-content h3 {
+      font-size: 21px;
+    }
+
+    .best-content p {
+      font-size: 14px;
+    }
+
+    .best-bottom strong {
+      font-size: 22px;
+    }
   }
 </style>
 

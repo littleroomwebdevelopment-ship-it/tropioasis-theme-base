@@ -44,7 +44,6 @@
       <div class="search-grid">
 
         {% for item in search.results %}
-
           {% if item.object_type == 'product' %}
 
             <article class="search-card">
@@ -53,7 +52,7 @@
                 {% if item.featured_image %}
                   <img
                     src="{{ item.featured_image | image_url: width: 800 }}"
-                    alt="{{ item.title }}"
+                    alt="{{ item.title | escape }}"
                     loading="lazy"
                   >
                 {% endif %}
@@ -78,7 +77,6 @@
               </a>
 
               <div class="search-card-info">
-
                 <h3>
                   <a href="{{ item.url }}">
                     {{ item.title }}
@@ -112,13 +110,11 @@
                     </button>
                   {% endif %}
                 </div>
-
               </div>
 
             </article>
 
           {% endif %}
-
         {% endfor %}
 
       </div>
@@ -139,6 +135,8 @@
       radial-gradient(circle at 100% 15%, rgba(0, 167, 183, .14) 0 260px, transparent 275px),
       linear-gradient(135deg, #fffaf0 0%, #fff7e8 58%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .search-hero {
@@ -181,7 +179,7 @@
 
   .search-form {
     max-width: 760px;
-    height: 64px;
+    min-height: 64px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 160px;
@@ -190,6 +188,7 @@
 
   .search-form input {
     width: 100%;
+    min-width: 0;
     border: 1px solid rgba(0,0,0,.08);
     border-radius: 999px;
     padding: 0 24px;
@@ -200,6 +199,7 @@
     font-weight: 900;
     outline: none;
     box-shadow: 0 14px 34px rgba(0,0,0,.07);
+    box-sizing: border-box;
   }
 
   .search-form button,
@@ -214,6 +214,12 @@
     text-transform: uppercase;
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(236,0,87,.20);
+    transition: .22s ease;
+  }
+
+  .search-form button:hover,
+  .search-card-bottom button:hover {
+    transform: translateY(-2px);
   }
 
   .search-results-header {
@@ -251,6 +257,8 @@
     box-shadow: 0 22px 50px rgba(0,0,0,.11);
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
+    display: flex;
+    flex-direction: column;
   }
 
   .search-card:hover {
@@ -294,10 +302,15 @@
     font-weight: 900;
     border: 3px solid #fff;
     box-shadow: 0 12px 24px rgba(236,0,87,.24);
+    box-sizing: border-box;
   }
 
   .search-card-info {
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
   }
 
   .search-card-info h3 {
@@ -322,6 +335,7 @@
   }
 
   .search-card-bottom {
+    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -332,17 +346,43 @@
     color: #ff6f00;
     font-size: 23px;
     font-weight: 900;
+    white-space: nowrap;
+  }
+
+  .search-card-bottom form {
+    margin: 0;
   }
 
   .search-card-bottom button {
     min-height: 46px;
     padding: 0 22px;
     font-size: 13px;
+    white-space: nowrap;
   }
 
   .search-card-bottom .sold-out {
     opacity: .45;
     cursor: not-allowed;
+  }
+
+  @media (max-width: 1200px) {
+    .tropi-search-page {
+      padding: 76px 40px 100px;
+    }
+
+    .search-grid {
+      gap: 26px;
+    }
+
+    .search-card-bottom {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-card-bottom form,
+    .search-card-bottom button {
+      width: 100%;
+    }
   }
 
   @media (max-width: 1100px) {
@@ -354,10 +394,29 @@
   @media (max-width: 700px) {
     .tropi-search-page {
       padding: 60px 20px 80px;
+      min-height: auto;
+    }
+
+    .search-hero {
+      margin-bottom: 44px;
+    }
+
+    .search-hero span {
+      font-size: 12px;
+      padding: 9px 18px;
+    }
+
+    .search-hero h1 {
+      font-size: clamp(44px, 13vw, 56px);
+      letter-spacing: -2px;
+    }
+
+    .search-hero p {
+      font-size: 17px;
     }
 
     .search-form {
-      height: auto;
+      min-height: auto;
       grid-template-columns: 1fr;
     }
 
@@ -368,10 +427,15 @@
 
     .search-grid {
       grid-template-columns: 1fr;
+      gap: 28px;
     }
 
-    .search-hero h1 {
-      font-size: 52px;
+    .search-results-header h2 {
+      font-size: 24px;
+    }
+
+    .search-card {
+      border-radius: 28px;
     }
 
     .search-card-bottom {
@@ -381,6 +445,61 @@
 
     .search-card-bottom button {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .tropi-search-page {
+      padding: 54px 14px 70px;
+    }
+
+    .search-hero span {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 11px;
+    }
+
+    .search-hero h1 {
+      font-size: 42px;
+    }
+
+    .search-hero p {
+      font-size: 16px;
+    }
+
+    .search-form input {
+      padding: 0 18px;
+      font-size: 14px;
+    }
+
+    .search-form button {
+      font-size: 13px;
+    }
+
+    .search-card-info {
+      padding: 20px;
+    }
+
+    .search-card-info h3 {
+      font-size: 21px;
+    }
+
+    .search-card-info p {
+      font-size: 14px;
+      min-height: auto;
+    }
+
+    .search-badge {
+      top: 14px;
+      left: 14px;
+      min-width: 48px;
+      height: 48px;
+      font-size: 11px;
+      border-width: 2px;
+    }
+
+    .search-card-bottom strong {
+      font-size: 21px;
     }
   }
 </style>

@@ -8,170 +8,111 @@
 <section class="tropi-builder">
 
   <div class="builder-hero">
+    <span>Create Your Own Tropical Blend</span>
 
-    <span>
-      Create Your Own Tropical Blend
-    </span>
-
-    <h1>
-      Juice Bar
-    </h1>
+    <h1>Juice Bar</h1>
 
     <p>
       Escoge tu tamaño, crea tu mezcla y personaliza
       tu experiencia TropiOasis.
     </p>
-
   </div>
 
   <div class="builder-grid">
 
-    <a href="{{ custom_25.url }}" class="builder-card green">
+    {% if custom_25 != blank %}
+      <a href="{{ custom_25.url }}" class="builder-card green">
+        <div class="builder-image">
+          {% if custom_25.featured_image %}
+            <img
+              src="{{ custom_25.featured_image | image_url: width: 1400 }}"
+              alt="{{ custom_25.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
 
-      <div class="builder-image">
+        <div class="builder-content">
+          <span>25oz</span>
+          <h2>Custom Juice 25oz</h2>
+          <p>Selecciona de 2 a 6 ingredientes frescos.</p>
+          <strong>$22</strong>
+          <button type="button">Crear Ahora</button>
+        </div>
+      </a>
+    {% endif %}
 
-        <img
-          src="{{ custom_25.featured_image | image_url: width: 1400 }}"
-          alt="{{ custom_25.title }}"
-        >
+    {% if custom_32 != blank %}
+      <a href="{{ custom_32.url }}" class="builder-card orange">
+        <div class="builder-image">
+          {% if custom_32.featured_image %}
+            <img
+              src="{{ custom_32.featured_image | image_url: width: 1400 }}"
+              alt="{{ custom_32.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
 
-      </div>
+        <div class="builder-content">
+          <span>32oz</span>
+          <h2>Custom Juice 32oz</h2>
+          <p>Más grande, más tropical, más energía.</p>
+          <strong>$28</strong>
+          <button type="button">Crear Ahora</button>
+        </div>
+      </a>
+    {% endif %}
 
-      <div class="builder-content">
+    {% if custom_pack != blank %}
+      <a href="{{ custom_pack.url }}" class="builder-card blue">
+        <div class="builder-image">
+          {% if custom_pack.featured_image %}
+            <img
+              src="{{ custom_pack.featured_image | image_url: width: 1400 }}"
+              alt="{{ custom_pack.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
 
-        <span>25oz</span>
+        <div class="builder-content">
+          <span>4 x 8oz</span>
+          <h2>Custom Juice Pack</h2>
+          <p>Perfecto para probar varios sabores.</p>
+          <strong>$24</strong>
+          <button type="button">Crear Ahora</button>
+        </div>
+      </a>
+    {% endif %}
 
-        <h2>
-          Custom Juice 25oz
-        </h2>
+    {% if custom_shots != blank %}
+      <a href="{{ custom_shots.url }}" class="builder-card pink">
+        <div class="builder-image">
+          {% if custom_shots.featured_image %}
+            <img
+              src="{{ custom_shots.featured_image | image_url: width: 1400 }}"
+              alt="{{ custom_shots.title | escape }}"
+              loading="lazy"
+            >
+          {% endif %}
+        </div>
 
-        <p>
-          Selecciona de 2 a 6 ingredientes frescos.
-        </p>
-
-        <strong>
-          $22
-        </strong>
-
-        <button>
-          Crear Ahora
-        </button>
-
-      </div>
-
-    </a>
-
-    <a href="{{ custom_32.url }}" class="builder-card orange">
-
-      <div class="builder-image">
-
-        <img
-          src="{{ custom_32.featured_image | image_url: width: 1400 }}"
-          alt="{{ custom_32.title }}"
-        >
-
-      </div>
-
-      <div class="builder-content">
-
-        <span>32oz</span>
-
-        <h2>
-          Custom Juice 32oz
-        </h2>
-
-        <p>
-          Más grande, más tropical, más energía.
-        </p>
-
-        <strong>
-          $28
-        </strong>
-
-        <button>
-          Crear Ahora
-        </button>
-
-      </div>
-
-    </a>
-
-    <a href="{{ custom_pack.url }}" class="builder-card blue">
-
-      <div class="builder-image">
-
-        <img
-          src="{{ custom_pack.featured_image | image_url: width: 1400 }}"
-          alt="{{ custom_pack.title }}"
-        >
-
-      </div>
-
-      <div class="builder-content">
-
-        <span>4 x 8oz</span>
-
-        <h2>
-          Custom Juice Pack
-        </h2>
-
-        <p>
-          Perfecto para probar varios sabores.
-        </p>
-
-        <strong>
-          $24
-        </strong>
-
-        <button>
-          Crear Ahora
-        </button>
-
-      </div>
-
-    </a>
-
-    <a href="{{ custom_shots.url }}" class="builder-card pink">
-
-      <div class="builder-image">
-
-        <img
-          src="{{ custom_shots.featured_image | image_url: width: 1400 }}"
-          alt="{{ custom_shots.title }}"
-        >
-
-      </div>
-
-      <div class="builder-content">
-
-        <span>7 x 2oz</span>
-
-        <h2>
-          Custom Wellness Shots
-        </h2>
-
-        <p>
-          Hasta 3 ingredientes para tu boost semanal.
-        </p>
-
-        <strong>
-          $20
-        </strong>
-
-        <button>
-          Crear Ahora
-        </button>
-
-      </div>
-
-    </a>
+        <div class="builder-content">
+          <span>7 x 2oz</span>
+          <h2>Custom Wellness Shots</h2>
+          <p>Hasta 3 ingredientes para tu boost semanal.</p>
+          <strong>$20</strong>
+          <button type="button">Crear Ahora</button>
+        </div>
+      </a>
+    {% endif %}
 
   </div>
 
 </section>
 
 <style>
-
   .tropi-builder {
     width: 100vw;
     min-height: 100vh;
@@ -183,12 +124,16 @@
       radial-gradient(circle at 100% 20%, rgba(0, 167, 183, .16) 0 260px, transparent 280px),
       linear-gradient(135deg, #fffaf0 0%, #fff7e8 55%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .builder-hero {
     text-align: center;
     max-width: 900px;
     margin: 0 auto 55px;
+    position: relative;
+    z-index: 2;
   }
 
   .builder-hero span {
@@ -229,6 +174,8 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 26px;
+    position: relative;
+    z-index: 2;
   }
 
   .builder-card {
@@ -240,6 +187,8 @@
     box-shadow: 0 24px 58px rgba(0,0,0,.12);
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
+    display: flex;
+    flex-direction: column;
   }
 
   .builder-card:hover {
@@ -261,16 +210,26 @@
     height: 100%;
     object-fit: contain;
     display: block;
+    transition: .35s ease;
+  }
+
+  .builder-card:hover .builder-image img {
+    transform: scale(1.04);
   }
 
   .builder-content {
     padding: 26px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
   }
 
   .builder-content span {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: max-content;
     min-width: 74px;
     height: 38px;
     padding: 0 15px;
@@ -319,6 +278,7 @@
     font-size: 36px;
     font-weight: 900;
     margin-bottom: 20px;
+    margin-top: auto;
   }
 
   .builder-content button {
@@ -347,38 +307,152 @@
     box-shadow: 0 18px 34px rgba(61,201,201,.22);
   }
 
-  @media (max-width: 1300px) {
-
+  @media (max-width: 1400px) {
     .builder-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      max-width: 1000px;
     }
 
     .builder-image {
-      height: 460px;
+      height: 440px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .tropi-builder {
+      padding: 70px 28px 90px;
     }
 
+    .builder-hero {
+      margin-bottom: 42px;
+    }
+
+    .builder-hero h1 {
+      font-size: clamp(58px, 12vw, 82px);
+    }
+
+    .builder-hero p {
+      font-size: 19px;
+    }
+
+    .builder-image {
+      height: 380px;
+    }
   }
 
   @media (max-width: 700px) {
-
     .tropi-builder {
+      min-height: auto;
       padding: 60px 20px 80px;
     }
 
     .builder-grid {
       grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    .builder-card {
+      border-radius: 28px;
     }
 
     .builder-image {
-      height: 360px;
+      height: 350px;
+    }
+
+    .builder-hero span {
+      font-size: 12px;
+      padding: 9px 18px;
     }
 
     .builder-hero h1 {
       font-size: 58px;
+      letter-spacing: -2px;
     }
 
+    .builder-hero p {
+      font-size: 17px;
+    }
+
+    .builder-content {
+      padding: 22px;
+    }
+
+    .builder-content h2 {
+      font-size: 25px;
+    }
+
+    .builder-content strong {
+      font-size: 32px;
+    }
   }
 
+  @media (max-width: 480px) {
+    .tropi-builder {
+      padding: 54px 14px 70px;
+    }
+
+    .builder-hero {
+      margin-bottom: 34px;
+    }
+
+    .builder-hero span {
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 11px;
+      padding: 9px 12px;
+    }
+
+    .builder-hero h1 {
+      font-size: 48px;
+    }
+
+    .builder-hero p {
+      font-size: 16px;
+    }
+
+    .builder-image {
+      height: 300px;
+    }
+
+    .builder-content {
+      padding: 20px;
+    }
+
+    .builder-content h2 {
+      font-size: 23px;
+    }
+
+    .builder-content p {
+      font-size: 14px;
+      min-height: auto;
+    }
+
+    .builder-content strong {
+      font-size: 30px;
+    }
+
+    .builder-content button {
+      height: 50px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .builder-hero h1 {
+      font-size: 42px;
+    }
+
+    .builder-image {
+      height: 260px;
+    }
+
+    .builder-content h2 {
+      font-size: 21px;
+    }
+
+    .builder-content strong {
+      font-size: 28px;
+    }
+  }
 </style>
 
 {% endif %}
