@@ -77,9 +77,8 @@
 
         </a>
 
-        <!-- product-info usa flex con justify-content space-between para que
-             el boton siempre quede al fondo del card sin importar el largo
-             de la descripcion del producto -->
+        <!-- product-info usa flex con flex-grow para que el boton
+             siempre quede alineado al fondo en todos los cards -->
         <div class="product-info">
 
           <h2>
@@ -99,17 +98,26 @@
             </span>
 
             {% if product.available %}
-              <form method="post" action="/cart/add">
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ product.selected_or_first_available_variant.id }}"
-                >
-                <!-- Texto del boton cambiado a espanol -->
-                <button type="submit" class="add-cart">
-                  Añadir al Carrito
-                </button>
-              </form>
+              <!-- Si el producto tiene mas de una variante se muestra un enlace
+                   a la pagina del producto para que el cliente escoja la opcion.
+                   Si solo tiene una variante se muestra el boton de añadir al carrito. -->
+              {% if product.variants.size > 1 %}
+                <a href="{{ product.url }}" class="add-cart">
+                  Escoger Opciones
+                </a>
+              {% else %}
+                <form method="post" action="/cart/add">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="{{ product.selected_or_first_available_variant.id }}"
+                  >
+                  <!-- Texto del boton en espanol -->
+                  <button type="submit" class="add-cart">
+                    Añadir al Carrito
+                  </button>
+                </form>
+              {% endif %}
             {% else %}
               <button class="add-cart sold-out" disabled>
                 Sold Out
@@ -234,6 +242,8 @@
     gap: 34px;
   }
 
+  /* display flex en el card permite que product-info crezca
+     y empuje el boton hacia el fondo en todos los cards por igual */
   .product-card {
     background: rgba(255,255,255,.92);
     border-radius: 34px;
@@ -242,8 +252,6 @@
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
     position: relative;
-    /* flex en el card para que product-info pueda crecer y empujar
-       el boton hacia abajo en todos los cards por igual */
     display: flex;
     flex-direction: column;
   }
@@ -299,9 +307,8 @@
     z-index: 2;
   }
 
-  /* flex y flex-grow en product-info hace que el contenido ocupe
-     todo el espacio disponible del card y empuje el boton al fondo,
-     alineando los botones en todos los cards de la fila */
+  /* flex-grow en product-info hace que el contenido ocupe todo el espacio
+     disponible del card y empuje el boton al fondo alineando todos los cards */
   .product-info {
     padding: 24px;
     display: flex;
@@ -331,12 +338,13 @@
     flex-grow: 1;
   }
 
+  /* margin-top auto en product-bottom empuja el boton
+     siempre hacia el fondo del card sin importar la altura del contenido */
   .product-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    /* margin-top auto empuja el boton siempre hacia el fondo del card */
     margin-top: auto;
   }
 
@@ -346,6 +354,8 @@
     font-weight: 900;
   }
 
+  /* La clase add-cart se aplica tanto al boton de añadir al carrito
+     como al enlace de escoger opciones para que ambos se vean igual */
   .add-cart {
     border: 0;
     min-height: 46px;
@@ -366,6 +376,9 @@
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(255,122,0,.18);
     transition: .22s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
   }
 
   .add-cart:hover {
