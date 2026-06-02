@@ -27,11 +27,11 @@
     <div class="search-results-header">
       {% if search.results_count > 0 %}
         <h2>
-          {{ search.results_count }} resultado{% if search.results_count != 1 %}s{% endif %} para “{{ search.terms }}”
+          {{ search.results_count }} resultado{% if search.results_count != 1 %}s{% endif %} para "{{ search.terms }}"
         </h2>
       {% else %}
         <h2>
-          No encontramos resultados para “{{ search.terms }}”
+          No encontramos resultados para "{{ search.terms }}"
         </h2>
 
         <p>
@@ -94,15 +94,9 @@
 
                   {% if item.available %}
                     <form method="post" action="/cart/add">
-                      <input
-                        type="hidden"
-                        name="id"
-                        value="{{ item.selected_or_first_available_variant.id }}"
-                      >
-
-                      <button type="submit">
-                        Add to Cart
-                      </button>
+                      <a href="{{ item.url }}" class="search-option-btn">
+                      Escoger opciones
+                      </a>
                     </form>
                   {% else %}
                     <button disabled class="sold-out">
@@ -202,20 +196,40 @@
     box-sizing: border-box;
   }
 
+  /* ✅ Gradiente actualizado */
   .search-form button,
-  .search-card-bottom button {
-    border: 0;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #ec0057, #ff7a00, #00a7b7);
-    color: #fff;
-    font-family: 'Nunito', sans-serif;
-    font-size: 14px;
-    font-weight: 900;
-    text-transform: uppercase;
-    cursor: pointer;
-    box-shadow: 0 14px 28px rgba(236,0,87,.20);
-    transition: .22s ease;
-  }
+  .search-card-bottom button,
+.search-option-btn {
+  min-height: 46px;
+  padding: 0 22px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.search-option-btn{
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    #ff7a00 0%,
+    #ffb800 45%,
+    #3dc9c9 100%
+  );
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  text-transform:uppercase;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 14px 28px rgba(255,122,0,.20);
+  transition:.22s ease;
+}
+
+.search-option-btn:hover{
+  transform:translateY(-2px);
+}
 
   .search-form button:hover,
   .search-card-bottom button:hover {
