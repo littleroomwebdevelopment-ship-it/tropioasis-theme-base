@@ -3,69 +3,83 @@
 <section class="tropi-collection">
 
   <div class="collection-hero">
-    <span>Cold Press • Fresh • Tropical Wellness</span>
 
-    <h1>{{ collection.title }}</h1>
+    <span>
+      Cold Press • Fresh • Tropical Wellness
+    </span>
+
+    <h1>
+      {{ collection.title }}
+    </h1>
 
     {% if collection.description != blank %}
-      <p>{{ collection.description }}</p>
+      <p>
+        {{ collection.description }}
+      </p>
     {% else %}
       <p>
         Jugos tropicales prensados en frío llenos de vitaminas,
         nutrientes y energía natural para apoyar tu bienestar diario.
       </p>
     {% endif %}
+
   </div>
 
-  <div class="filter-pills">
-    <span>Detox</span>
-    <span>Energy</span>
-    <span>Wellness</span>
-    <span>Immunity</span>
-  </div>
+  <!-- Los filter pills solo se muestran en la coleccion All Items.
+       En Functional Juices, Wellness Shots y otras colecciones no aparecen. -->
+  {% if collection.handle == 'all' %}
+    <div class="filter-pills">
+      <span class="filter-pill active" data-filter="all">All</span>
+      <!-- Los data-filter estan en minuscula para coincidir con los tags de Shopify -->
+      <span class="filter-pill" data-filter="detox">Detox</span>
+      <span class="filter-pill" data-filter="energy">Energy</span>
+      <span class="filter-pill" data-filter="wellness">Wellness</span>
+      <span class="filter-pill" data-filter="immunity">Immunity</span>
+    </div>
+  {% endif %}
 
   <div class="products-grid">
 
     {% for product in collection.products %}
 
-      {% assign is_wellness_kit = false %}
-      {% if product.title == 'Wellness & Detox Kit' or product.title == 'Kit Wellness & Detox' %}
-        {% assign is_wellness_kit = true %}
-      {% endif %}
-
-      <article class="product-card">
+      <!-- El atributo data-tags guarda los tags del producto desde Shopify.
+           El JavaScript los usa para filtrar los productos al hacer clic en un pill. -->
+      <article class="product-card" data-tags="{{ product.tags | join: ',' }}">
 
         <a href="{{ product.url }}" class="product-image-wrap">
+
           {% if product.featured_image %}
             <img
               src="{{ product.featured_image | image_url: width: 900 }}"
-              alt="{{ product.title | escape }}"
+              alt="{{ product.title }}"
               class="product-image"
               loading="lazy"
             >
           {% endif %}
 
-          {% unless is_wellness_kit %}
-            <span class="product-badge">
-              {% if product.title contains '25oz' %}
-                25oz
-              {% elsif product.title contains '32oz' %}
-                32oz
-              {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
-                4x8oz
-              {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
-                7x2oz
-              {% elsif product.title contains '200ml' %}
-                200ml
-              {% elsif product.type == 'Wellness Shots' or collection.handle == 'wellness-shots' or product.title contains 'Shot' %}
-                2oz
-              {% else %}
-                8oz
-              {% endif %}
-            </span>
-          {% endunless %}
+          <span class="product-badge">
+            {% if product.title contains '25oz' %}
+              25oz
+            {% elsif product.title contains '32oz' %}
+              32oz
+            {% elsif product.title contains '4 x 8oz' or product.title contains '4x8oz' %}
+              4x8oz
+            {% elsif product.title contains '7 x 2oz' or product.title contains '7x2oz' %}
+              7x2oz
+            {% elsif product.title contains '200ml' %}
+              200ml
+            {% elsif product.type == 'Wellness Shots' or collection.handle == 'wellness-shots' or product.title contains 'Shot' %}
+              2oz
+            {% else %}
+              8oz
+            {% endif %}
+          </span>
+
         </a>
 
+        <!-- product-info usa flex con justify-content space-between para que
+             el boton siempre quede al fondo del card sin importar el largo
+             de la descripcion del producto -->
         <div class="product-info">
 
           <h2>
@@ -85,35 +99,21 @@
             </span>
 
             {% if product.available %}
-
-              {% if is_wellness_kit %}
-
-                <a href="{{ product.url }}" class="add-cart">
-                  Escoger opciones
-                </a>
-
-              {% else %}
-
-                <form method="post" action="/cart/add">
-                  <input
-                    type="hidden"
-                    name="id"
-                    value="{{ product.selected_or_first_available_variant.id }}"
-                  >
-
-                  <button type="submit" class="add-cart">
-                    Añadir al Carrito
-                  </button>
-                </form>
-
-              {% endif %}
-
+              <form method="post" action="/cart/add">
+                <input
+                  type="hidden"
+                  name="id"
+                  value="{{ product.selected_or_first_available_variant.id }}"
+                >
+                <!-- Texto del boton cambiado a espanol -->
+                <button type="submit" class="add-cart">
+                  Añadir al Carrito
+                </button>
+              </form>
             {% else %}
-
               <button class="add-cart sold-out" disabled>
                 Sold Out
               </button>
-
             {% endif %}
 
           </div>
@@ -144,8 +144,6 @@
       radial-gradient(circle at 0% 0%, rgba(255, 211, 26, .26) 0 220px, transparent 230px),
       linear-gradient(135deg, #fffaf0 0%, #fffaf0 65%, #effff3 100%);
     font-family: 'Nunito', sans-serif;
-    box-sizing: border-box;
-    overflow: hidden;
   }
 
   .collection-hero {
@@ -186,16 +184,17 @@
     font-weight: 800;
   }
 
+  /* Estilos de los filter pills. Solo se muestran en All Items
+     gracias al condicional en el HTML de arriba. */
   .filter-pills {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 12px;
-    margin: 34px auto 44px;
-    max-width: 900px;
+    margin: 34px 0 44px;
   }
 
-  .filter-pills span {
+  .filter-pill {
     padding: 11px 22px;
     border-radius: 999px;
     background: #fff;
@@ -204,12 +203,28 @@
     font-weight: 900;
     text-transform: uppercase;
     box-shadow: 0 12px 26px rgba(0,0,0,.08);
+    cursor: pointer;
+    transition: .22s ease;
+    border: 2px solid transparent;
   }
 
-  .filter-pills span:nth-child(1) { color: #3dc9c9; }
-  .filter-pills span:nth-child(2) { color: #ff7a00; }
-  .filter-pills span:nth-child(3) { color: #ffb800; }
-  .filter-pills span:nth-child(4) { color: #00a7b7; }
+  .filter-pill:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Cada pill tiene su color representativo de categoria */
+  .filter-pill[data-filter="all"]      { color: #07112f; }
+  .filter-pill[data-filter="detox"]    { color: #3dc9c9; }
+  .filter-pill[data-filter="energy"]   { color: #ff7a00; }
+  .filter-pill[data-filter="wellness"] { color: #ffb800; }
+  .filter-pill[data-filter="immunity"] { color: #00a7b7; }
+
+  /* Cuando un pill esta activo se rellena con su color de categoria */
+  .filter-pill.active                            { background: #07112f; color: #fff !important; box-shadow: 0 14px 28px rgba(0,0,0,.18); }
+  .filter-pill[data-filter="detox"].active       { background: #3dc9c9; }
+  .filter-pill[data-filter="energy"].active      { background: #ff7a00; }
+  .filter-pill[data-filter="wellness"].active    { background: #ffb800; }
+  .filter-pill[data-filter="immunity"].active    { background: #00a7b7; }
 
   .products-grid {
     max-width: 1450px;
@@ -227,6 +242,8 @@
     border: 1px solid rgba(0,0,0,.05);
     transition: .28s ease;
     position: relative;
+    /* flex en el card para que product-info pueda crecer y empujar
+       el boton hacia abajo en todos los cards por igual */
     display: flex;
     flex-direction: column;
   }
@@ -234,6 +251,12 @@
   .product-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 28px 60px rgba(0,0,0,.14);
+  }
+
+  /* La clase hidden oculta los productos que no coinciden con el filtro activo.
+     El JavaScript la agrega y remueve segun el pill seleccionado. */
+  .product-card.hidden {
+    display: none;
   }
 
   .product-image-wrap {
@@ -274,15 +297,16 @@
     border: 3px solid #fff;
     box-shadow: 0 10px 22px rgba(255,122,0,.22);
     z-index: 2;
-    box-sizing: border-box;
   }
 
+  /* flex y flex-grow en product-info hace que el contenido ocupe
+     todo el espacio disponible del card y empuje el boton al fondo,
+     alineando los botones en todos los cards de la fila */
   .product-info {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    flex: 1;
-    box-sizing: border-box;
+    flex-grow: 1;
   }
 
   .product-info h2 {
@@ -304,25 +328,22 @@
     line-height: 1.45;
     font-weight: 800;
     min-height: 64px;
+    flex-grow: 1;
   }
 
   .product-bottom {
-    margin-top: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
+    /* margin-top auto empuja el boton siempre hacia el fondo del card */
+    margin-top: auto;
   }
 
   .product-price {
     color: #ff7a00;
     font-size: 22px;
     font-weight: 900;
-    white-space: nowrap;
-  }
-
-  .product-bottom form {
-    margin: 0;
   }
 
   .add-cart {
@@ -330,7 +351,12 @@
     min-height: 46px;
     padding: 0 24px;
     border-radius: 999px;
-    background: linear-gradient(90deg, #ff7a00 0%, #ffb800 45%, #3dc9c9 100%);
+    background: linear-gradient(
+      90deg,
+      #ff7a00 0%,
+      #ffb800 45%,
+      #3dc9c9 100%
+    );
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
@@ -340,12 +366,6 @@
     cursor: pointer;
     box-shadow: 0 14px 28px rgba(255,122,0,.18);
     transition: .22s ease;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    box-sizing: border-box;
   }
 
   .add-cart:hover {
@@ -367,30 +387,6 @@
     font-weight: 900;
   }
 
-  @media (max-width: 1200px) {
-    .tropi-collection {
-      padding: 64px 40px 84px;
-    }
-
-    .products-grid {
-      gap: 26px;
-    }
-
-    .product-info h2 {
-      font-size: 22px;
-    }
-
-    .product-bottom {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .product-bottom form,
-    .add-cart {
-      width: 100%;
-    }
-  }
-
   @media (max-width: 1100px) {
     .products-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -402,49 +398,16 @@
       padding: 50px 20px 70px;
     }
 
-    .collection-hero span {
-      font-size: 12px;
-      padding: 9px 18px;
+    .products-grid {
+      grid-template-columns: 1fr;
     }
 
     .collection-hero h1 {
-      font-size: clamp(42px, 12vw, 52px);
-      letter-spacing: -1.5px;
+      font-size: 48px;
     }
 
     .collection-hero p {
       font-size: 17px;
-    }
-
-    .filter-pills {
-      margin: 28px auto 36px;
-      gap: 10px;
-    }
-
-    .filter-pills span {
-      font-size: 12px;
-      padding: 9px 16px;
-    }
-
-    .products-grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
-    }
-
-    .product-card {
-      border-radius: 28px;
-    }
-
-    .product-info {
-      padding: 22px;
-    }
-
-    .product-info h2 {
-      font-size: 22px;
-    }
-
-    .product-info p {
-      min-height: auto;
     }
 
     .product-bottom {
@@ -456,58 +419,50 @@
       width: 100%;
     }
   }
-
-  @media (max-width: 480px) {
-    .tropi-collection {
-      padding: 44px 14px 64px;
-    }
-
-    .collection-hero span {
-      width: 100%;
-      box-sizing: border-box;
-      font-size: 11px;
-    }
-
-    .collection-hero h1 {
-      font-size: 38px;
-    }
-
-    .collection-hero p {
-      font-size: 16px;
-    }
-
-    .product-badge {
-      top: 14px;
-      left: 14px;
-      min-width: 48px;
-      height: 48px;
-      font-size: 11px;
-      border-width: 2px;
-    }
-
-    .product-info {
-      padding: 20px;
-    }
-
-    .product-info h2 {
-      font-size: 21px;
-    }
-
-    .product-info p {
-      font-size: 14px;
-    }
-
-    .product-price {
-      font-size: 21px;
-    }
-
-    .add-cart {
-      min-height: 44px;
-      font-size: 12px;
-      padding: 0 18px;
-    }
-  }
 </style>
+
+<!-- JavaScript que maneja el filtrado de productos.
+     Cuando el usuario hace clic en un pill, se comparan los tags
+     del producto con el filtro seleccionado usando toLowerCase() en ambos
+     lados para que no importe si el tag esta en mayuscula o minuscula.
+     El pill "All" muestra todos los productos sin excepcion. -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    const pills = document.querySelectorAll('.filter-pill');
+    const cards = document.querySelectorAll('.product-card');
+
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+
+        /* Remueve la clase active de todos los pills
+           y se la agrega solo al que fue clickeado */
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const filter = pill.dataset.filter.toLowerCase();
+
+        /* Recorre todos los productos y los muestra u oculta segun si
+           tienen el tag que corresponde al filtro activo. Se usa
+           toLowerCase() en ambos lados para ignorar mayusculas y minusculas */
+        cards.forEach(function (card) {
+          if (filter === 'all') {
+            card.classList.remove('hidden');
+          } else {
+            const tags = card.dataset.tags.split(',').map(t => t.trim().toLowerCase());
+            if (tags.includes(filter)) {
+              card.classList.remove('hidden');
+            } else {
+              card.classList.add('hidden');
+            }
+          }
+        });
+
+      });
+    });
+
+  });
+</script>
 
 {% endif %}
 
